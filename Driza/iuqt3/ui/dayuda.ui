@@ -1,0 +1,30 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>DialogoAyuda</class>
+<widget class="QDialog">
+    <property name="name">
+        <cstring>DialogoAyuda</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>600</width>
+            <height>480</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Driza - Ayuda</string>
+    </property>
+    <hbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QTextBrowser">
+            <property name="name">
+                <cstring>textBrowser1</cstring>
+            </property>
+        </widget>
+    </hbox>
+</widget>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

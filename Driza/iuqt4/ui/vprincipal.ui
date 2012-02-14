@@ -1,0 +1,236 @@
+<ui version="4.0" >
+ <class>VentanaPrincipal</class>
+ <widget class="QMainWindow" name="VentanaPrincipal" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>681</width>
+    <height>643</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Driza</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QHBoxLayout" >
+    <item>
+     <widget class="QStackedWidget" name="stackedWidget" >
+      <widget class="QWidget" name="page" />
+      <widget class="QWidget" name="page_2" />
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>681</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuDriza" >
+    <property name="title" >
+     <string>Driza</string>
+    </property>
+    <addaction name="actionNuevo_proyecto" />
+    <addaction name="actionAbrir_Proyecto" />
+    <addaction name="actionImportar" />
+    <addaction name="actionGuardar" />
+    <addaction name="actionGuardar_como" />
+    <addaction name="separator" />
+    <addaction name="actionConfiguraci_n" />
+    <addaction name="separator" />
+    <addaction name="actionSalir" />
+   </widget>
+   <widget class="QMenu" name="menuEdici_n" >
+    <property name="title" >
+     <string>Edición</string>
+    </property>
+    <addaction name="actionDeshacer" />
+    <addaction name="actionRehacer" />
+    <addaction name="separator" />
+    <addaction name="actionCotar" />
+    <addaction name="actionCopiar" />
+    <addaction name="actionPegar" />
+    <addaction name="separator" />
+    <addaction name="actionBuscar" />
+    <addaction name="actionBorrar" />
+   </widget>
+   <widget class="QMenu" name="menuDatos" >
+    <property name="title" >
+     <string>Datos</string>
+    </property>
+    <addaction name="actionCrear_nuevas_variables" />
+    <addaction name="actionFiltrar" />
+   </widget>
+   <widget class="QMenu" name="menuAnalizar" >
+    <property name="title" >
+     <string>Analizar</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuAyuda" >
+    <property name="title" >
+     <string>Ayuda</string>
+    </property>
+    <addaction name="actionAyuda" />
+    <addaction name="separator" />
+    <addaction name="actionAcerca" />
+   </widget>
+   <addaction name="menuDriza" />
+   <addaction name="menuEdici_n" />
+   <addaction name="menuDatos" />
+   <addaction name="menuAnalizar" />
+   <addaction name="menuAyuda" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <property name="movable" >
+    <bool>false</bool>
+   </property>
+   <property name="iconSize" >
+    <size>
+     <width>32</width>
+     <height>32</height>
+    </size>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionNuevo_proyecto" >
+   <property name="text" >
+    <string>Nuevo proyecto</string>
+   </property>
+  </action>
+  <action name="actionAbrir_Proyecto" >
+   <property name="text" >
+    <string>Abrir Proyecto</string>
+   </property>
+  </action>
+  <action name="actionImportar" >
+   <property name="text" >
+    <string>Importar</string>
+   </property>
+  </action>
+  <action name="actionGuardar" >
+   <property name="text" >
+    <string>Guardar</string>
+   </property>
+  </action>
+  <action name="actionGuardar_como" >
+   <property name="text" >
+    <string>Guardar como...</string>
+   </property>
+  </action>
+  <action name="actionConfiguraci_n" >
+   <property name="text" >
+    <string>Configuración</string>
+   </property>
+  </action>
+  <action name="actionSalir" >
+   <property name="text" >
+    <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionDeshacer" >
+   <property name="text" >
+    <string>Deshacer</string>
+   </property>
+  </action>
+  <action name="actionRehacer" >
+   <property name="text" >
+    <string>Rehacer</string>
+   </property>
+  </action>
+  <action name="actionCotar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Cortar</string>
+   </property>
+  </action>
+  <action name="actionCopiar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Copiar</string>
+   </property>
+  </action>
+  <action name="actionPegar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Pegar</string>
+   </property>
+  </action>
+  <action name="actionBuscar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Buscar</string>
+   </property>
+  </action>
+  <action name="actionBorrar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Borrar</string>
+   </property>
+  </action>
+  <action name="actionCrear_nuevas_variables" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Crear nuevas variables</string>
+   </property>
+  </action>
+  <action name="actionFiltrar" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Filtrar</string>
+   </property>
+  </action>
+  <action name="actionDescriptivos" >
+   <property name="text" >
+    <string>Descriptivos</string>
+   </property>
+  </action>
+  <action name="actionMedia_de_dos_muestras_independientes" >
+   <property name="text" >
+    <string>Media de dos muestras independientes</string>
+   </property>
+  </action>
+  <action name="actionAyuda" >
+   <property name="enabled" >
+    <bool>false</bool>
+   </property>
+   <property name="text" >
+    <string>Ayuda</string>
+   </property>
+  </action>
+  <action name="actionAcerca" >
+   <property name="text" >
+    <string>Acerca...</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

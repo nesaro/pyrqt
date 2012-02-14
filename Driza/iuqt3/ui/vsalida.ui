@@ -1,0 +1,174 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>VentanaSalida</class>
+<widget class="QMainWindow">
+    <property name="name">
+        <cstring>VentanaSalida</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>537</width>
+            <height>450</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Salida</string>
+    </property>
+    <hbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout1</cstring>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <widget class="QListBox">
+                    <property name="name">
+                        <cstring>listBox1</cstring>
+                    </property>
+                    <property name="sizePolicy">
+                        <sizepolicy>
+                            <hsizetype>0</hsizetype>
+                            <vsizetype>7</vsizetype>
+                            <horstretch>0</horstretch>
+                            <verstretch>0</verstretch>
+                        </sizepolicy>
+                    </property>
+                    <property name="maximumSize">
+                        <size>
+                            <width>120</width>
+                            <height>32767</height>
+                        </size>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>pushButton1</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Borrar Elemento</string>
+                    </property>
+                    <property name="accel">
+                        <string>Del</string>
+                    </property>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QTextBrowser">
+            <property name="name">
+                <cstring>textBrowser1</cstring>
+            </property>
+        </widget>
+    </hbox>
+</widget>
+<menubar>
+    <property name="name">
+        <cstring>MenuBarEditor</cstring>
+    </property>
+    <item text="Archivo" name="Archivo">
+        <action name="archivoAbrirAction"/>
+        <action name="archivoGuardarAction"/>
+        <action name="archivoExportarAction"/>
+        <item text="Exportar" name="PopupMenuEditor_3" accel="">
+            <action name="archivoExportarHTMLAction"/>
+        </item>
+        <separator/>
+        <action name="archivoSalirAction"/>
+    </item>
+</menubar>
+<toolbars>
+    <toolbar dock="2">
+        <property name="name">
+            <cstring>Toolbar</cstring>
+        </property>
+        <property name="label">
+            <string>Toolbar</string>
+        </property>
+    </toolbar>
+</toolbars>
+<actions>
+    <action>
+        <property name="name">
+            <cstring>archivoAbrirAction</cstring>
+        </property>
+        <property name="text">
+            <string>Abrir</string>
+        </property>
+        <property name="menuText">
+            <string>Abrir</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>archivoGuardarAction</cstring>
+        </property>
+        <property name="text">
+            <string>Guardar</string>
+        </property>
+        <property name="menuText">
+            <string>Guardar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>archivoGuardar_comoAction</cstring>
+        </property>
+        <property name="text">
+            <string>Guardar como</string>
+        </property>
+        <property name="menuText">
+            <string>Guardar como</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>archivoExportarAction</cstring>
+        </property>
+        <property name="text">
+            <string>Exportar</string>
+        </property>
+        <property name="menuText">
+            <string>Exportar</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>archivoExportarHTMLAction</cstring>
+        </property>
+        <property name="text">
+            <string>HTML</string>
+        </property>
+        <property name="menuText">
+            <string>HTML</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>archivoSalirAction</cstring>
+        </property>
+        <property name="text">
+            <string>Salir</string>
+        </property>
+        <property name="menuText">
+            <string>Salir</string>
+        </property>
+    </action>
+    <action>
+        <property name="name">
+            <cstring>dialogoSalirAction</cstring>
+        </property>
+        <property name="text">
+            <string>Salir</string>
+        </property>
+        <property name="menuText">
+            <string>Salir</string>
+        </property>
+    </action>
+</actions>
+<layoutdefaults spacing="6" margin="11"/>
+</UI>

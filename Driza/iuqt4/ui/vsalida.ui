@@ -1,0 +1,81 @@
+<ui version="4.0" >
+ <class>VentanaSalida</class>
+ <widget class="QMainWindow" name="VentanaSalida" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>586</width>
+    <height>996</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QHBoxLayout" >
+    <item>
+     <widget class="QListWidget" name="listWidget" />
+    </item>
+    <item>
+     <widget class="QTextBrowser" name="textBrowser" />
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>586</width>
+     <height>26</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuArchivo" >
+    <property name="title" >
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionAbrir" />
+    <addaction name="actionExportar" />
+    <addaction name="actionGuardar" />
+    <addaction name="separator" />
+    <addaction name="actionSalir" />
+   </widget>
+   <addaction name="menuArchivo" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" />
+  <widget class="QToolBar" name="toolBar" >
+   <property name="windowTitle" >
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea" >
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak" >
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <action name="actionAbrir" >
+   <property name="text" >
+    <string>Abrir</string>
+   </property>
+  </action>
+  <action name="actionGuardar" >
+   <property name="text" >
+    <string>Guardar</string>
+   </property>
+  </action>
+  <action name="actionSalir" >
+   <property name="text" >
+    <string>Salir</string>
+   </property>
+  </action>
+  <action name="actionExportar" >
+   <property name="text" >
+    <string>Exportar</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
