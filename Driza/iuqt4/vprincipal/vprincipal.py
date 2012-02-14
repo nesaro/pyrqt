@@ -33,7 +33,7 @@ from Driza.iuqt4.vsalida import VSalida
 from grid import Grid
 from Driza import gestores
 from Driza import operaciones
-from Driza import listas
+from Driza.listas import SL
 from Driza.datos import datos
 from Driza.datos import interfaces
 import string
@@ -107,7 +107,7 @@ class VPrincipal(QtGui.QMainWindow):
             return
         if not filename:
             filtro = ""
-            for fmt in listas.extensiones_fichero():
+            for fmt in SL.extensiones_fichero:
                 filtro = filtro + "%s files (*.%s);;" % (fmt, string.lower(fmt))
             from PyQt4.QtGui import QFileDialog
             from PyQt4.QtCore import QString
@@ -336,7 +336,7 @@ class VPrincipal(QtGui.QMainWindow):
     def __guardar_como(self):
         """Abre un diálogo pidiendo el nombre de archivo y guarda en dicho archivo"""
         filtro = ""
-        for fmt in listas.extensiones_fichero():
+        for fmt in SL.extensiones_fichero:
             filtro = filtro+ "%s files (*.%s);;" % (fmt, string.lower(fmt))
         from PyQt4.QtGui import QFileDialog
         fn = QFileDialog.getSaveFileName(self,"Dialogo guardarFichero","",filtro)

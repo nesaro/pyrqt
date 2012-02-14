@@ -225,8 +225,8 @@ class DOperaciones(QtGui.QDialog):
 
     def __render_widget(self, nombre, diccionariowidget):
         """Renderiza un widget a partir de una descripcion en dicccionario"""
-        from Driza.listas import TIPOSWIDGETOPERACIONESQT4
-        if not TIPOSWIDGETOPERACIONESQT4.has_key(diccionariowidget["tipo"]):
+        from Driza.listas import SL
+        if not SL.TIPOSWIDGETOPERACIONESQT4.has_key(diccionariowidget["tipo"]):
             raise NameError
         from Driza.iuqt4.operaciones.woperaciones import WidgetOperacionSelectorOpcion
         widget = WidgetOperacionSelectorOpcion(nombre, \

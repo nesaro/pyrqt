@@ -39,7 +39,7 @@ class GestorOperaciones(dict):
 
     def __init_integrado(self):
         """Esta funcion carga en el diccionario las operaciones"""
-        from Driza.listas import TIPOSOPERACION
+        from Driza.listas import SL
         modules = self.__lista_modulos()
         for operacion in modules:
             try:
@@ -47,8 +47,8 @@ class GestorOperaciones(dict):
                 widget = operacion.widget
                 definicionresultado = self.__cargar_definiciones(\
                         operacion.nombre, operacion.definicionresultado)
-                if TIPOSOPERACION.has_key(tipo):
-                    objetooperacion = TIPOSOPERACION[tipo]["clase"]
+                if SL.TIPOSOPERACION.has_key(tipo):
+                    objetooperacion = SL.TIPOSOPERACION[tipo]["clase"]
                     mioperacion = objetooperacion(operacion.nombre, \
                             self.__idr, operacion.etiquetas, widget, \
                             definicionresultado,operacion.funcionprincipal, \

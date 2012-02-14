@@ -255,9 +255,9 @@ class  Grid(QtGui.QTabWidget):
     def __combotableitem(self):
         """Devuelve un nuevo objeto tipo combotableitem con la lista de tipos"""
         lista = QtCore.QStringList()
-        from Driza import listas
+        from Driza.listas import SL
         from PyQt4.QtCore import SIGNAL
-        for tipo in listas.nombrevariables():
+        for tipo in SL.nombrevariables:
             lista.append(tipo)
         combo = QComboBox()
         combo.addItems(lista)

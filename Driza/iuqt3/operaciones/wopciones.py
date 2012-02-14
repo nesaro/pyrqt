@@ -37,8 +37,8 @@ class ContenedorElementoWidgetOpciones:
     def procesar(self, diccionario):
         """Transforma un diccionario con el nombre y las opciones de un widget en el propio widget"""
         if diccionario:
-            from Driza.listas import TIPOSWIDGETOPCIONESQT3
-            objeto = TIPOSWIDGETOPCIONESQT3[diccionario["tipo"]]["clase"]
+            from Driza.listas import SL
+            objeto = SL.TIPOSWIDGETOPCIONESQT3[diccionario["tipo"]]["clase"]
             if diccionario["tipo"] == "EntradaTexto":
                 if diccionario.has_key("valorpordefecto"):
                     widget = objeto(self, diccionario["nombre"], diccionario["valorpordefecto"])
@@ -55,7 +55,7 @@ class ContenedorElementoWidgetOpciones:
             elif diccionario["tipo"]=="Variables":
                 widget = objeto(self, diccionario["nombre"])
             elif diccionario["tipo"]=="Factores":
-                widget = objeto(self, diccionario["nombre"])
+                widget = objeto(self, diccionario["nombre"], None) #FIXME
         self.lista.append(widget)
         
     def opciones(self):

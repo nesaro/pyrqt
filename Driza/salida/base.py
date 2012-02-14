@@ -40,9 +40,9 @@ class GestorFormatoResultado(dict):
     def cargar_definicion(self, listadiccionariodefinicion):
         """Carga las definiciones del resultado 
         a partir de una lista con dicionarios (Obtenidos de la operacion)"""
-        from Driza.listas import ELEMENTOSSALIDA
+        from Driza.listas import SL
         for dicdefinicion in listadiccionariodefinicion:
-            objeto = ELEMENTOSSALIDA[dicdefinicion["tipo"]]["clase"]
+            objeto = SL.ELEMENTOSSALIDA[dicdefinicion["tipo"]]["clase"]
             if dicdefinicion["tipo"] == "Texto" or \
                     dicdefinicion["tipo"] == "Imagen":
                 elemento = objeto(dicdefinicion) 

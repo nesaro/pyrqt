@@ -312,8 +312,8 @@ class  Grid(QTabWidget):
     def __combotableitem(self):
         """Devuelve un nuevo objeto tipo combotableitem con la lista de tipos"""
         lista = QStringList()
-        from Driza import listas
-        for tipo in listas.nombrevariables():
+        from Driza.listas import SL
+        for tipo in SL.nombrevariables:
             lista.append(tipo)
         return QComboTableItem(self.table2, lista)
     

@@ -216,8 +216,8 @@ class InterfazDatos:
             raise VariableExisteException()
         if protegerfiltro:
             comprobar_nombre_filtro(nombre)
-        from Driza.listas import TIPOSAGRUPADOR
-        if not TIPOSAGRUPADOR.has_key(tipo): 
+        from Driza.listas import SL
+        if not SL.TIPOSAGRUPADOR.has_key(tipo): 
             raise TypeError
         from Driza.datos.agrupadores import Agrupador
         if tipo == "Ordinal" or tipo == "Entero" or tipo == "Real":

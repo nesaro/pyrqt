@@ -134,8 +134,8 @@ class DCrevar(QtGui.QDialog):
     def __init_lista_tipos(self):
         """Rellena en el comboBox1 la lista de tipos de variables"""
         self.ui.comboBox1.clear()
-        from Driza import listas
-        for tipo in listas.nombrevariables():
+        from Driza.listas import SL
+        for tipo in SL.nombrevariables:
             self.ui.comboBox1.addItem(tipo)
 
     def __actualizar_tipo_funciones(self):

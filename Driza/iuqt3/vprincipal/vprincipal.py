@@ -29,7 +29,7 @@ from Driza.iuqt3.dbuscar import DBuscar
 from Driza.iuqt3.dfiltrado import DFiltrado
 from Driza.iuqt3.dayuda import DAyuda
 from Driza.iuqt3.vprincipal.grid import Grid
-from Driza import listas
+from Driza.listas import SL
 import logging
 LOG = logging.getLogger("Driza.iuqt3.vprincipal.vprincipal")
 
@@ -93,7 +93,7 @@ class VPrincipal(vprincipal):
             return
         if not filename:
             filtro = ""
-            for fmt in listas.extensiones_fichero():
+            for fmt in SL.extensiones_fichero:
                 filtro = filtro + "%s files (*.%s);;" % (fmt, fmt.lower())
             filename = QFileDialog.getOpenFileName(QString.null, filtro, self, None, "Dialogo abrir fichero", "")
             filename = str(filename)
@@ -369,7 +369,7 @@ class VPrincipal(vprincipal):
     def __guardar_como(self):
         """Abre un diálogo pidiendo el nombre de archivo y guarda en dicho archivo"""
         filtro = ""
-        for fmt in listas.extensiones_fichero():
+        for fmt in SL.extensiones_fichero:
             filtro = filtro+ "%s files (*.%s);;" % (fmt, fmt.lower())
         filename = QFileDialog.getSaveFileName(QString.null, filtro, self)
         filename = str(filename)

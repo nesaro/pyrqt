@@ -30,12 +30,12 @@ class Agrupador:
     """
     def __init__(self, nombre, ristratipo, descripcion = "", valorpordefecto = None):
         from Driza.datos.variables import Variable
-        from Driza.listas import TIPOSAGRUPADOR
+        from Driza.listas import SL
         if not isinstance(ristratipo, str):
             raise TypeError
-        if not TIPOSAGRUPADOR.has_key(ristratipo):
+        if not SL.TIPOSAGRUPADOR.has_key(ristratipo):
             raise NameError
-        dic = TIPOSAGRUPADOR[ristratipo]
+        dic = SL.TIPOSAGRUPADOR[ristratipo]
         if not issubclass(dic["clasevariable"], Variable):
             raise TypeError
         self.set_name(nombre)

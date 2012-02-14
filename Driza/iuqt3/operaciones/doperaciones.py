@@ -207,12 +207,12 @@ class DOperaciones(DialogoOperaciones):
 
     def __render_widget(self, nombre, diccionariowidget):
         """Renderiza un widget a partir de una descripcion en dicccionario"""
-        from Driza.listas import TIPOSWIDGETOPERACIONESQT3
-        if not TIPOSWIDGETOPERACIONESQT3.has_key(diccionariowidget["tipo"]):
+        from Driza.listas import SL
+        if not SL.TIPOSWIDGETOPERACIONESQT3.has_key(diccionariowidget["tipo"]):
             raise NameError
         from Driza.iuqt3.operaciones.woperaciones import WidgetOperacionSelectorOpcion
         widget = WidgetOperacionSelectorOpcion(nombre, \
-                TIPOSWIDGETOPERACIONESQT3[diccionariowidget["tipo"]]["seleccion"], \
+                SL.TIPOSWIDGETOPERACIONESQT3[diccionariowidget["tipo"]]["seleccion"], \
                 diccionariowidget["opciones"], self.__idu)
         return widget
 
