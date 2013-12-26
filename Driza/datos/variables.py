@@ -22,7 +22,7 @@
 """Definicion de las clases que representan variables"""
 
 import logging
-LOG = logging.getLogger("Driza.datos.variables")
+LOG = logging.getLogger(__name__)
 
 def isnan(x):
     return isinstance(x, float) and x != x

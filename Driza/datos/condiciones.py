@@ -61,9 +61,4 @@ class Seleccion(Condicion):
         Llamando a la funcion establecemos si el registro 
         pasa la condicion de seleccion o no
         """
-        if registro[self.variable] == self.valor:
-            return True
-        return False
-        
-
-
+        return registro[self.variable] == self.valor

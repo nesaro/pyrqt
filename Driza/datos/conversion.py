@@ -21,7 +21,7 @@
 """Clases de conversión de agrupadores y variables"""
 
 import logging
-LOG = logging.getLogger("Driza.datos.conversion")
+LOG = logging.getLogger(__name__)
 
 class AgenteConversion:
     """Esta clase realiza una conversion de un tipo a otro, 
