@@ -22,7 +22,7 @@
 """Gestion de categorias"""
 
 import logging
-LOG = logging.getLogger("Driza.categorias")
+LOG = logging.getLogger(__name__)
 
 def conv_categorias_arbol(nombre, conjuntoscategorias):
     """Genera un arbol a partir de un conjunto de categorias. 

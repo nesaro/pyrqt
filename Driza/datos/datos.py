@@ -26,7 +26,7 @@ y sus correspondientes metodos
 """
 
 import logging
-LOG = logging.getLogger("Driza.datos.datos")
+LOG = logging.getLogger(__name__)
 
 class Registro(dict):
     """Almacena un registro, permitiendo el acceso tanto por el objeto variable

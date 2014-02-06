@@ -36,7 +36,7 @@ from Driza import config
 from Driza import operaciones
 
 import logging
-LOG = logging.getLogger("Driza.core")
+LOG = logging.getLogger(__name__)
 
 class DrizaCore:
     """

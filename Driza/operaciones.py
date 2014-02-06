@@ -22,7 +22,7 @@
 """Clases de operaciones"""
 
 import logging
-LOG = logging.getLogger("Driza.operaciones")
+LOG = logging.getLogger(__name__)
 
 
 class GestorOperaciones(dict):

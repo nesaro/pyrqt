@@ -23,7 +23,7 @@
 """ Interfaces de acceso a los datos """
 
 import logging
-LOG = logging.getLogger("Driza.datos.interfaces")
+LOG = logging.getLogger(__name__)
 
 def comprobar_nombre_filtro(nombre):
     """Comprueba si el nombre no coincide con el nombre de filtro"""
