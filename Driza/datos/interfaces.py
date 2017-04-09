@@ -123,12 +123,11 @@ class InterfazDatos:
         """
         if not tipo:
             return self._portero.actual().variables().lista_nombres()
-        else:
-            lista = []
-            for variable in self._portero.actual().variables():
-                if variable.tipo == tipo:
-                    lista.append(variable.name())
-            return lista
+        lista = []
+        for variable in self._portero.actual().variables():
+            if variable.tipo == tipo:
+                lista.append(variable.name())
+        return lista
                 
     def obtener_casos(self, indice):
         """Devuelve todos los casos existentes de una determinada variable"""

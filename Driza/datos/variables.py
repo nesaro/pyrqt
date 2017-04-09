@@ -37,9 +37,7 @@ class Variable:
 
     def valido(self):
         """Devuelve verdadero si el valor es valido"""
-        if self.valor == None: 
-            return False
-        return True
+        return self.valor != None
 
     def __cmp__(self, otro):
         if self.valor == None:
