@@ -102,19 +102,11 @@ class InterfazDatos:
 
     def lista_tit_discreto(self):
         """Devuelve una lista con los titulos de las variables discretas"""
-        lista = []
-        for variable in self._portero.actual().variables():
-            if "discreto" in variable.tags:
-                lista.append(variable.name())
-        return lista
+        return [x.name() for x in self._portero.actual().variables() if "discreto" in x.tags]
 
     def lista_tit_numerica(self):
         """Devuelve una lista con los titulos de las variables numericas"""
-        lista = []
-        for variable in self._portero.actual().variables():
-            if "numerico" in variable.tags:
-                lista.append(variable.name())
-        return lista
+        return [x.name() for x in self._portero.actual().variables() if "numerico" in x.tags]
 
     def lista_tit(self, tipo = None):
         """
