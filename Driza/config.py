@@ -51,7 +51,10 @@ def cargar_config(fichero):
     El parametro fichero es opcional e indica un fichero alternativo 
     al de configuracion por defecto 
     """
-    from ConfigParser import ConfigParser
+    try:
+        from ConfigParser import ConfigParser
+    except ImportError:
+        from configparser import ConfigParser
     configfile = ConfigParser()
     config = Configuracion()
     archivo = open(fichero,"r")
