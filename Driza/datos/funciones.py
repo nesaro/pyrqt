@@ -47,15 +47,12 @@ class GestorPaquetes(dict):
         Si no encuentra el paquete asociado a la clave, busca en las funciones directamente
         """
         try:
-            resultado = dict.__getitem__(self, clave)
+            return dict.__getitem__(self, clave)
         except KeyError:
             funcion = self.obtener_funcion(clave)
-            if funcion: 
-                return funcion
-            else: 
-                raise KeyError
-        else:
-            return resultado
+            if not funcion:
+                raise
+            return funcion
 
     def lista_funciones(self, prefijo = True):
         """Devuelve una lista con todos los paquetes y todas las funciones
@@ -100,7 +97,7 @@ class Paquete(dict):
         listamiembros = dir(modulo)
         import re
         principal = re.compile('^[A-Z]+')
-        nuevalista = filter(principal.match, listamiembros)
+        nuevalista = [x for x in listamiembros if principal.match(x)]
         del nuevalista[nuevalista.index("Funcion")] #El único elemento que no interesa
         nuevalista2 = []
         for nombremodulo in nuevalista:

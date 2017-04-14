@@ -218,7 +218,7 @@ class ListaUndoRedo(list):
         else:
             if self.__len__() == self.tama:
                 self.__delitem__(-1)
-            self.__delslice__(0, index)
+            del self[:index]
             self.insert(0, (objeto, flagoriginal))
 
     def establecer_nuevo(self, indice, valor):
