@@ -20,21 +20,16 @@
 
 """Módulo de configuracion"""
 
-class ListaFicheros(list):
+
+class LIFOList(list):
     """
     Contenedor de la lista de ficheros. 
     Funciona como cola LIFO, y hereda de list.
-    El parametro pasado es la longitud de lista que se desea
     """
-    def __init__(self, size, lista=None):
-        """
-        El parametro size es la longitud de lista que se desea
-        """
+    def __init__(self, size, *args, **kwargs):
+        """ El parametro size es la longitud de lista que se desea """
         self.__nelementos = size
-        if isinstance(lista, list):
-            list.__init__(self, lista)
-        else:
-            list.__init__(self)
+        list.__init__(self, *args, **kwargs)
 
     def insert(self, elemento):
         """Inserta un elemento"""
@@ -84,8 +79,8 @@ def guardar_config(config, fichero):
     archivo = open(fichero, "w")
     configfile.write(archivo)
     archivo.close()
-    #Volvemos a poner a un tipo ListaFicheros
-    config["lfichero"] = ListaFicheros(5, config["lfichero"].split(","))
+    #Volvemos a poner a un tipo LIFOList
+    config["lfichero"] = LIFOList(5, config["lfichero"].split(","))
 
 class GestorConfig:
     """
@@ -136,7 +131,7 @@ class Configuracion(dict):
     Posee funciones para exportación a texto"""
     def __init__(self):
         dict.__init__(self)
-        listaficheros = ListaFicheros(5)
+        listaficheros = LIFOList(5)
         #Entero que representa la versión del formato de configuración
         self.__setitem__("version", 2) 
         #Directorio de trabajo temporal
@@ -152,9 +147,11 @@ class Configuracion(dict):
 
     def cargar_diccionario(self, diccionario):
         """Rellena los valores a partir de un diccionario"""
-        self.__setitem__("version", diccionario["version"])
-        self.__setitem__("tmpdir", diccionario["tmpdir"])
-        self.__setitem__("lfichero", ListaFicheros(5, diccionario["lfichero"].split(',')))
+        for field in ("tmpdir",):
+            self[field] = diccionario[field]
+        for field in ("version",):
+            self[field] = int(diccionario[field])
+        self.__setitem__("lfichero", LIFOList(5, diccionario["lfichero"].split(',')))
         self.__setitem__("decimales", eval(diccionario["decimales"]))
         self.__setitem__("nundo", eval(diccionario["nundo"]))
         self.__setitem__("vsplash", eval(diccionario['vsplash']))
