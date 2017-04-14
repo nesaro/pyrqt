@@ -58,21 +58,16 @@ class Variable:
 class VariableNumerica(Variable):
     """Las clases que heredan son numericas. Esta clase solo aporta esa informacion de momento"""
     def __add__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return None
         return self.valor + int(float(otro))
 
     def __eq__(self, otro):
-        if self.valor == None:
-            if isinstance(otro, VariableNumerica):
-                if otro.valor == None:
-                    return True
+        if isinstance(otro, VariableNumerica):
+            return self.valor == otro.valor
+        if self.valor is None or otro is None:
             return False
-        elif isinstance(otro,VariableNumerica):
-            return self.valor.__eq__(otro.valor)
-        if otro == None:
-            return False
-        return self.valor.__eq__(float(otro))
+        return self.valor == float(otro)
 
     def __pow__(self, exponente):
         if self.valido():
