@@ -79,13 +79,6 @@ class VersionAnterior(Exception):
         Exception.__init__(self)
         self.configuracion = configuracion
 
-class TipoIncorrectoException(Exception):
-    """excepcion para argumentos de tipo incorrecto en las funciones"""
-    def __init__(self, tipoesperado, tiporecibido):
-        Exception.__init__(self)
-        self.tipoesperado = tipoesperado
-        self.tiporecibido = tiporecibido
-
 class OpcionesIncorrectaException(Exception):
     """Excepcion que ocurre cuando se pasan los parametros incorrectamente"""
     def __init__(self):
