@@ -230,7 +230,7 @@ class DOperaciones(QtGui.QDialog):
             raise NameError
         from Driza.iuqt4.operaciones.woperaciones import WidgetOperacionSelectorOpcion
         widget = WidgetOperacionSelectorOpcion(nombre, \
-                TIPOSWIDGETOPERACIONESQT4[diccionariowidget["tipo"]]["seleccion"], \
+                SL.TIPOSWIDGETOPERACIONESQT4[diccionariowidget["tipo"]]["seleccion"], \
                 diccionariowidget["opciones"], self.__idu)
         return widget
 
