@@ -38,7 +38,7 @@ from Driza.datos import datos
 from Driza.datos import interfaces
 import string
 import logging
-LOG = logging.getLogger("Driza.iuqt4.vprincipal.vprincipal")
+LOG = logging.getLogger(__name__)
 
 class VPrincipal(QtGui.QMainWindow):
     """Ventana principal, hereda de vprincipal, que esta generado por el designer. 
