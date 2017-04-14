@@ -74,7 +74,7 @@ class VariableExisteException(Exception):
     pass
 
 class VersionAnterior(Exception):
-    """Determina que la version cargada es anterior a la actual2"""
+    """Determina que la version cargada es anterior a la actual"""
     def __init__(self, configuracion):
         Exception.__init__(self)
         self.configuracion = configuracion
