@@ -49,12 +49,12 @@ class Agrupador:
         if dic.has_key("numerodecimales"):
             self.numerodecimales = 3
         self.tags = [ristratipo] #Tiene una lista con las caracteristicas del agrupador
-        if dic.has_key("etiquetable") and dic["etiquetable"]:
+        if dic.get("etiquetable"):
             self.etiquetas = {}
             self.tags.append("etiquetable")
-        if dic.has_key("discreto") and dic["discreto"]:
+        if dic.get("discreto"):
             self.tags.append("discreto")
-        if dic.has_key("numerico") and dic["numerico"]:
+        if dic.get("numerico"):
             self.tags.append("numerico")
         self.__tipovariableasociado = dic["clasevariable"]
 
