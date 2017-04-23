@@ -349,7 +349,8 @@ class VPrincipal(QtGui.QMainWindow):
                 filename += ".driza"
             try:
                 self.__gestorproyectos.guardar(filename)
-            except FicheroExisteException, fichero:
+            except FicheroExisteException as e:
+                fichero = e.fichero
                 returncode = QMessageBox.information(self, 'Atencion:', 'El fichero' + fichero.fichero + ' ya existe' , 'Sobreescribir', 'Otro nombre', 'Cancelar', 0, 1)
                 if returncode == 0:
                     self.__gestorproyectos.guardar(filename, True)

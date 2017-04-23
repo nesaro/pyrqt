@@ -145,7 +145,8 @@ class VSalida(QtGui.QMainWindow):
                 filename+=".dro"
             try:
                 self.__gestorsalida.guardar(self.__contenido, filename)
-            except FicheroExisteException,fichero:
+            except FicheroExisteException as e:
+                fichero = e.fichero
                 codigoretorno = QMessageBox.information(self, 'Atencion:', 'El fichero' +\
                         fichero.fichero + ' ya existe' , 'Sobreescribir', \
                         'Otro nombre', 'Cancelar', 0, 1)
