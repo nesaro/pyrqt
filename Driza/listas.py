@@ -164,10 +164,5 @@ class StaticList:
         """ Lista los tipos de fichero soportados por driza """
         return ["driza"]
 
-    @property
-    def extensiones_importar(self):
-        """ Lista con las extensiones de formatos de importacion aceptados"""
-        return ["txt"]
-
 SL = StaticList()
 
