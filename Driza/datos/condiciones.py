@@ -43,8 +43,7 @@ def procesa_condicion(datos, ristra):
 #Abstracta
 class Condicion:
     """Esta clase expresara una condicion parecida a las de tipo SQL"""
-    def __init__(self):
-        pass
+    pass
 
 class Seleccion(Condicion):
     """ 
