@@ -21,7 +21,10 @@
 
 """Gestion de categorias"""
 
+import copy
 import logging
+from sets import Set
+from collections import defaultdict
 LOG = logging.getLogger(__name__)
 
 def conv_categorias_arbol(nombre, conjuntoscategorias):
@@ -43,7 +46,6 @@ def conv_categorias_arbol(nombre, conjuntoscategorias):
             listacompuestos.append(categorias)
     # Elemento longitud n (llamada recursiva)
     elementomasfrecuente = moda_lista(listacompuestos)
-    import copy
     copialistacompuestos1 = copy.deepcopy(listacompuestos)
     copialistacompuestos2 = copy.deepcopy(listacompuestos)
     while elementomasfrecuente:
@@ -67,13 +69,10 @@ def conv_categorias_arbol(nombre, conjuntoscategorias):
 def moda_lista(listalistas):
     """Dada una lista con listas de cadenas, 
     devuelve aquella cadena que es la más frecuente"""
-    diccionariofrecuencia = dict()
+    diccionariofrecuencia = defaultdict(lambda: 0)
     for lista in listalistas:
         for elemento in lista:
-            if not diccionariofrecuencia.has_key(elemento):
-                diccionariofrecuencia[elemento] = 0
-            else:
-                diccionariofrecuencia[elemento] += 1
+            diccionariofrecuencia[elemento] += 1
     maximo = 0
     resultado = None
     for (elemento, frecuencia) in diccionariofrecuencia.items():
@@ -106,19 +105,15 @@ class GestorCategorias:
 
     def cargar(self):
         """Carga las categorias en el gestor"""
-        micategoria = Categoria("Texto de prueba para descriptivo","Descriptivo")
-        micategoria2 = Categoria("Texto de prueba para CH","Contraste de Hipotesis")
+        micategoria = Categoria("Texto de prueba para descriptivo", "Descriptivo")
+        micategoria2 = Categoria("Texto de prueba para CH", "Contraste de Hipotesis")
         self.listacategorias = [micategoria, micategoria2]
 
     def has_key(self, key):
         """Devuelve verdadero si existe la categoria"""
-        from sets import Set
         if not isinstance (key, Set):
             assert TypeError
-        for categoria in self.listacategorias:
-            if categoria.etiquetas == key:
-                return True
-        return False
+        return bool([x for x in self.listacategorias if x.etiquetas == key])
 
     def __getitem__(self, key):
         """Operador []"""
@@ -131,7 +126,6 @@ class GestorCategorias:
     def obtener_categoria(self, key):
         """Equivalente a [], solo que si no encuentra el valor
         devuelve False en vez de una excepción"""
-        from sets import Set
         if not isinstance (key, Set):
             assert TypeError
         for categoria in self.listacategorias:
@@ -142,7 +136,6 @@ class GestorCategorias:
     def obtener_categoria_aprox(self, key):
         """Devuelve el label Mas cercano a la definicion que se nos pide.
         key es una lista ordenada, el elemento general esta por la izquierda"""
-        from sets import Set
         if not isinstance(key, list):
             assert TypeError
         copialista = key[:]
@@ -165,6 +158,5 @@ class Categoria:
             if not isinstance(etiqueta, str):
                 raise TypeError
         self.descripcion = texto
-        from sets import Set
         self.etiquetas = Set(etiquetas)
 
