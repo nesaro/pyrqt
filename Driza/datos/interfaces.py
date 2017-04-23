@@ -157,7 +157,7 @@ class InterfazDatos:
         """inserta un registro en la posicion pos"""
         from Driza.datos.datos import Registro
         import types
-        if dato == None:
+        if dato is None:
             registro = Registro(self._portero.actual().variables())
             self._portero.actual().registros().insert(pos, registro)
         elif isinstance(dato, Registro):

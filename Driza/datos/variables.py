@@ -89,18 +89,16 @@ class VariableDiscreta(Variable):
     def __eq__(self, other):
         if isinstance(other, Variable):
             return self.valor == other.valor
-        else:
-            return self.valor == other
+        return self.valor == other
 
 class Entero(VariableDiscreta, VariableNumerica):
     """Toda variable que tiene como representacion interna un entero"""
     def _interno(self, valor):
         """Actua como constructor, devolviendo el valor que almacena la variable"""
-        resultado = None
-        if valor == None or valor == "None" or valor == "NA"\
+        if valor is None or valor == "None" or valor == "NA"\
                 or valor == "nan" or valor == float("nan") or valor == "":
-            resultado = None
-        elif isinstance(valor, str):
+            return None
+        if isinstance(valor, str):
             resultado = int(valor)
         elif isinstance(valor, int) or isinstance(valor, long) or isinstance(valor, float):
             resultado = int(valor)
@@ -147,8 +145,7 @@ class Factor(VariableDiscreta):
             return str()
         if isinstance(cadena, str):
             return cadena
-        else:
-            return str(cadena)
+        return str(cadena)
 
     def to_R(self):
         """Convert value to R format"""
@@ -160,10 +157,10 @@ class Factor(VariableDiscreta):
         return ''
 
     def __cmp__(self, otrovalor):
-        if self.valor == None:
+        if self.valor is None:
             return False
         if isinstance(otrovalor, Variable):
-            if otrovalor.valor == None:
+            if otrovalor.valor is None:
                 return False
             else:
                 return self.__compare(otrovalor.valor)
@@ -185,15 +182,12 @@ class Real(VariableNumerica):
     def _interno(self, valor):
         """Actua como constructor, devolviendo el valor que almacena la variable"""
         if isinstance(valor, Real):
-            return getattr(valor,'valor')
-        elif valor == None or valor == "None" or valor == "NA"\
+            return valor.valor
+        if valor == None or valor == "None" or valor == "NA"\
                 or valor == "nan" or isnan(valor)\
                 or valor == "":
             return None
-        elif isinstance(valor, float):
-            return valor
-        else:
-            return float(valor)
+        return float(valor)
 
     def to_R(self):
         """Convert value to R format"""
@@ -205,7 +199,7 @@ class Real(VariableNumerica):
         return self.valor
 
     def __cmp__(self, otrovalor):
-        if self.valor == None:
+        if self.valor is None:
             return False
         if isinstance(otrovalor, Variable):
             if otrovalor.valor == None:

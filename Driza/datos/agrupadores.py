@@ -41,7 +41,7 @@ class Agrupador:
         self.set_name(nombre)
         self.descripcion = descripcion
         self.diccionarioconversion = dic["diccionarioconversion"]
-        if valorpordefecto == None:
+        if valorpordefecto is None:
             self.valorpordefecto = dic["valorpordefecto"]
         else:
             self.valorpordefecto = valorpordefecto
