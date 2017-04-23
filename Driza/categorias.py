@@ -100,38 +100,13 @@ class GestorCategorias:
     El indice es un conjunto (que es una lista en la que no importa el orden
     """
     def __init__(self):
-        self.listacategorias = []
+        self.categorias = {}
         self.cargar()
 
     def cargar(self):
         """Carga las categorias en el gestor"""
-        micategoria = Categoria("Texto de prueba para descriptivo", "Descriptivo")
-        micategoria2 = Categoria("Texto de prueba para CH", "Contraste de Hipotesis")
-        self.listacategorias = [micategoria, micategoria2]
-
-    def has_key(self, key):
-        """Devuelve verdadero si existe la categoria"""
-        if not isinstance (key, Set):
-            assert TypeError
-        return bool([x for x in self.listacategorias if x.etiquetas == key])
-
-    def __getitem__(self, key):
-        """Operador []"""
-        if not self.has_key(key):
-            raise IndexError
-        for categoria in self.listacategorias:
-            if categoria.etiquetas == key:
-                return categoria
-    
-    def obtener_categoria(self, key):
-        """Equivalente a [], solo que si no encuentra el valor
-        devuelve False en vez de una excepción"""
-        if not isinstance (key, Set):
-            assert TypeError
-        for categoria in self.listacategorias:
-            if categoria.etiquetas == key:
-                return categoria
-        return False
+        self.categorias = {"Texto de prueba para descriptivo": {"Descriptivo"},
+                           "Texto de prueba para CH": {"Contraste de Hipotesis"},}
 
     def obtener_categoria_aprox(self, key):
         """Devuelve el label Mas cercano a la definicion que se nos pide.
@@ -140,10 +115,9 @@ class GestorCategorias:
             assert TypeError
         copialista = key[:]
         while copialista:
-            if self.obtener_categoria(Set(copialista)):
-                return self.obtener_categoria(Set(copialista))
-            else:
-                copialista = copialista[1:]
+            if Set(copialista) in self.categorias:
+                return self.categorias[Set(copialista)]
+            copialista = copialista[1:]
         LOG.debug("No encontre ningun subconjunto de labels")
         return False
 

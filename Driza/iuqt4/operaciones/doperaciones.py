@@ -25,6 +25,7 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QLabel, QTreeWidget, QTreeWidgetItem, QErrorMessage
 from Driza.iuqt4.ui.doperaciones import Ui_DialogoOperaciones
 from Driza.categorias import GestorCategorias
+from sets import ImmutableSet
 import logging
 LOG = logging.getLogger("Driza.iuqt4.operaciones.doperaciones")
 
@@ -92,7 +93,7 @@ class DOperaciones(QtGui.QDialog):
     """
 
     def __init__(self, parent, idu, gestoroperaciones, vsalida):
-        self.__diccionariowidgets = {}
+        self.__widgets = {}
         self.__init_dic_widgets()
         self.__gestorcategorias = GestorCategorias()
         QtGui.QDialog.__init__(self, parent)
@@ -116,7 +117,7 @@ class DOperaciones(QtGui.QDialog):
         from Driza.excepciones import OpcionesIncorrectaException
         import rpy
         nombre = unicode(self.ui.treeWidget.currentItem().text(0))
-        widget = self.__diccionariowidgets["operaciones"][nombre]
+        widget = self.__widgets["operaciones"][nombre]
         try:
             resultado = self.__gestoroperaciones[nombre].procedimiento(widget.seleccion(), widget.opciones())
         except OpcionesIncorrectaException:
@@ -186,9 +187,9 @@ class DOperaciones(QtGui.QDialog):
 
     def __init_dic_widgets(self):
         """Inicializa los diccionarios de widgets, que permiten el acceso posterior a estos"""
-        self.__diccionariowidgets["categorias"] = {}
-        self.__diccionariowidgets["operaciones"] = {}
-        self.__diccionariowidgets["otros"] = {}
+        self.__widgets["categorias"] = {}
+        self.__widgets["operaciones"] = {}
+        self.__widgets["otros"] = {}
 
     def __init_dic_widgets_otros(self):
         """Inicializa el diccionario de widgets en la categoria otros"""
@@ -196,26 +197,25 @@ class DOperaciones(QtGui.QDialog):
         noimplementado.setText("No implementado")
         condicionesincorrectas = QLabel(None)
         condicionesincorrectas.setText("No se dan las condiciones adecuadas")
-        self.__diccionariowidgets["otros"]["condicionesincorrectas"] = condicionesincorrectas
-        self.__diccionariowidgets["otros"]["noimplementado"] = noimplementado
+        self.__widgets["otros"]["condicionesincorrectas"] = condicionesincorrectas
+        self.__widgets["otros"]["noimplementado"] = noimplementado
         self.ui.stackedWidget.addWidget(noimplementado)
         self.ui.stackedWidget.addWidget(condicionesincorrectas)
     def __init_widgets_categorias(self):
         """Inicializa los widgets de cada categoria"""
-        from sets import ImmutableSet
-        for categoria in self.__gestorcategorias.listacategorias:
-            tmpset = ImmutableSet(categoria.etiquetas)
+        for categoria, values in self.__gestorcategorias.categorias.items():
+            tmpset = ImmutableSet(values)
             label = QLabel(None)
             #label.setAlignment(QLabel.AlignLeft)
-            label.setText(categoria.descripcion)
-            self.__diccionariowidgets["categorias"][tmpset] = label
+            label.setText(categoria)
+            self.__widgets["categorias"][tmpset] = label
             self.ui.stackedWidget.addWidget(label)
 
     def __init_widgets_operaciones(self):
         """Añade los widgets en el widgetstack y en el diccionario de widgets"""
         for titulo, operacion in self.__gestoroperaciones.items():
             widget = self.__render_widget(titulo, operacion.widget)
-            self.__diccionariowidgets["operaciones"][titulo] = widget
+            self.__widgets["operaciones"][titulo] = widget
             self.ui.stackedWidget.addWidget(widget)
 
     def __myUpdate(self):
@@ -251,10 +251,12 @@ class DOperaciones(QtGui.QDialog):
         LOG.debug("__mostrar_widget nombre:" + nombre)
         if self.__gestoroperaciones.has_key(nombre):
             if self.__gestoroperaciones.funcionchequeocondiciones(nombre):
-                self.ui.stackedWidget.setCurrentWidget(self.__diccionariowidgets["operaciones"][nombre])
+                self.ui.stackedWidget.setCurrentWidget(self.__widgets["operaciones"][nombre])
             else:
-                self.ui.stackedWidget.setCurrentWidget(self.__diccionariowidgets["otros"]["condicionesincorrectas"])
-        elif self.__gestorcategorias.has_key(nombre):
-            self.ui.stackedWidget.setCurrentWidget(self.__gestorcategorias[nombre])
+                self.ui.stackedWidget.setCurrentWidget(self.__widgets["otros"]["condicionesincorrectas"])
+        elif any(nombre in x for x in self.__gestorcategorias.categorias.values()):
+            category_set = [x for x in self.__gestorcategorias.categorias.values() if nombre in x][0]
+            category_set = ImmutableSet(category_set)
+            self.ui.stackedWidget.setCurrentWidget(self.__widgets['categorias'][category_set])
         else:
-            self.ui.stackedWidget.setCurrentWidget(self.__diccionariowidgets["otros"]["noimplementado"])
+            self.ui.stackedWidget.setCurrentWidget(self.__widgets["otros"]["noimplementado"])
