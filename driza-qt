@@ -30,8 +30,6 @@ Driza main program
 
 import logging
 from Driza.core import DrizaCore
-
-#Cuerpo principal del programa
     
 if __name__ == "__main__":
     #Obtencion de parametros de ejecucion

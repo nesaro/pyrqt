@@ -62,18 +62,11 @@ class DrizaCore:
         logging.info('Cargado modulo de proyectos')
         gestoroperaciones = operaciones.GestorOperaciones(idr, self.__gestorconfig)
         logging.info('Cargado modulo de operaciones')
-        if True: #En futuras revisiones se podrá decidir la interfaz
-            from Driza.iuqt3.interfaz import InterfazQt3
-            self.__iu = InterfazQt3(self.__gestorconfig, portero, idu, idf, \
-                    gestorproyectos, gestoroperaciones, gestorpaquetes, \
-                    options, esnuevo)
-            logging.info('Cargado modulo de Interfaz de usuario qt3')
-        else:
-            from Driza.iuqt4.interfaz import InterfazQt4
-            self.__iu = InterfazQt4(self.__gestorconfig, portero, idu, idf, \
-                    gestorproyectos, gestoroperaciones, gestorpaquetes, \
-                    options, esnuevo)
-            logging.info('Cargado modulo de Interfaz de usuario qt4')
+        from Driza.iuqt4.interfaz import InterfazQt4
+        self.__iu = InterfazQt4(self.__gestorconfig, portero, idu, idf, \
+                gestorproyectos, gestoroperaciones, gestorpaquetes, \
+                options, esnuevo)
+        logging.info('Cargado modulo de Interfaz de usuario qt4')
 
     #FUNCIONES PUBLICAS
 

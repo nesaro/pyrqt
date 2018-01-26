@@ -106,7 +106,7 @@ class GestorConfig:
             nuevo = True
             configuracion = Configuracion()
             guardar_config(configuracion, self.__fichero)
-        except VersionAnterior(configuracion):
+        except VersionAnterior:
             #Aqui van las correcciones para cada revision
             if configuracion["version"] < 2:
                 del configuracion["primeravez"]
