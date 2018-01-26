@@ -22,12 +22,12 @@
 """Módulo de gestores"""
 
 import logging
-LOG = logging.getLogger("Driza.gestores")
+LOG = logging.getLogger(__name__)
 
 def save_pkl(fichero, contenido, sobreescribir = False):
     """Guardar un fichero con pickle"""
     import os
-    if not sobreescribir and os.path.exists(fichero): #El fichero existe
+    if not sobreescribir and os.path.exists(fichero):
         from Driza.excepciones import FicheroExisteException
         raise FicheroExisteException(fichero)
     archivo = open(fichero, 'w')
