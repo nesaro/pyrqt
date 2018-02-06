@@ -21,7 +21,9 @@
 
 """Dialogo de configuracion"""
 
-from PyQt4 import QtCore,QtGui
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import SIGNAL
+from PyQt4.QtGui import QMessageBox
 from Driza.iuqt4.ui.dconfig import Ui_DialogoConfig
 from Driza.iuqt4.ui.wconfig1 import Ui_wconfig1
 
@@ -30,10 +32,10 @@ class DConfig(QtGui.QDialog):
 
     def __init__(self,config,parent=None,):
         QtGui.QDialog.__init__(self,parent)
-        self.ui=Ui_DialogoConfig()
+        self.ui = Ui_DialogoConfig()
         self.ui.setupUi(self)
-        self.__wgeneral=QtGui.QDialog()
-        self.__wgeneralui=Ui_wconfig1()
+        self.__wgeneral = QtGui.QDialog()
+        self.__wgeneralui = Ui_wconfig1()
         self.__wgeneralui.setupUi(self.__wgeneral)
         #VARIABLES PRIVADAS
 
@@ -55,16 +57,16 @@ class DConfig(QtGui.QDialog):
         Ante un cambio en los campos del dialogo, pregunta al usuario si guarda la configuración
         """
         if not self.__cambiado:
-            DialogoConfig.accept(self)
+            self.ui.accept(self)
         else:
             self.__cambiado = False # Volvemos a ponerlo en falso
             codigoretorno = QMessageBox.information(self,u'Atención: Guardar', u'Ha cambiado la configuración, desea guardarla?', 'Guardarla','Cancelar','Dejarlo estar',0,1)
             if codigoretorno == 0:
                 #Crear una interfaz usuario configuracion #DECISION DE DISEÑO, pendiente
                 self.__guardar_config()
-                DialogoConfig.accept(self)
+                self.ui.accept(self)
             elif codigoretorno == 2:
-                DialogoConfig.reject(self)
+                self.ui.reject(self)
             else:
                 self.__cambiado = True
 
@@ -82,7 +84,6 @@ class DConfig(QtGui.QDialog):
 
     def __conexiones(self):
         """Bloque de conexiones"""
-        from PyQt4.QtCore import SIGNAL
         self.connect(self.__wgeneralui.lineEdit1,SIGNAL("textChanged(const QString&)"),self.__cambio)
         self.connect(self.__wgeneralui.checkBox1,SIGNAL("clicked()"),self.__cambio)
         self.connect(self.__wgeneralui.spinBox1,SIGNAL("valueChanged(int)"),self.__cambio)
@@ -94,8 +95,8 @@ class DConfig(QtGui.QDialog):
 
     def __guardar_config(self):
         """Guarda la configuración en el objeto que la maneja"""
-        self.__config.configuracion["tmpdir"] = str(self.__wgeneral.lineEdit1.text())
-        self.__config.configuracion["vsplash"] = self.__wgeneral.checkBox1.isChecked()
-        self.__config.configuracion["decimales"] = int(self.__wgeneral.spinBox1.value())
-        self.__config.configuracion["nundo"] = int(self.__wgeneral.spinBox2.value())
+        self.__config.configuracion["tmpdir"] = str(self.__wgeneralui.lineEdit1.text())
+        self.__config.configuracion["vsplash"] = self.__wgeneralui.checkBox1.isChecked()
+        self.__config.configuracion["decimales"] = int(self.__wgeneralui.spinBox1.value())
+        self.__config.configuracion["nundo"] = int(self.__wgeneralui.spinBox2.value())
         self.__config.save()
