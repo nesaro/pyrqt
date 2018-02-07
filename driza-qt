@@ -50,8 +50,7 @@ if __name__ == "__main__":
     #Creacion de la clase principal
     try:
         programaprincipal = DrizaCore(OPTIONS)
-    except ImportError:
-        print "PyQt4 not found"
+    except NotImplementedError:
         import sys
         sys.exit(1)
     if ARGS:

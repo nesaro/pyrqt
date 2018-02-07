@@ -27,7 +27,7 @@ from Driza.iuqt4.ui.vprincipal import Ui_VentanaPrincipal
 from Driza.iuqt4.dconfig import DConfig
 from Driza.iuqt4.dbuscar import DBuscar
 from Driza.iuqt4.operaciones.doperaciones import DOperaciones
-#from Driza.iu.dimportartexto import DImportarTexto
+from Driza.iuqt4.dimportartexto import DImportarTexto
 from Driza.iuqt4.dfiltrado import DFiltrado
 from Driza.iuqt4.vsalida import VSalida
 from grid import Grid
@@ -63,7 +63,7 @@ class VPrincipal(QtGui.QMainWindow):
         self.__dbuscar = DBuscar(self,"busqueda")
         self.__dconfig = DConfig(config,self)
         self.__dfiltro = DFiltrado(self,self.__idu)
-        #self.__dimportartexto=DImportarTexto(self,idf)
+        self.__dimportartexto=DImportarTexto(self,idf)
         self.__portero = portero
         self.__gestorproyectos = gestorproyectos
         self.grid = Grid(self, self.__idu, self.__portero)
@@ -98,7 +98,7 @@ class VPrincipal(QtGui.QMainWindow):
 
     #FUNCIONES PUBLICAS
     
-    def abrir_proyecto(self, parent = None, filename = None):
+    def abrir_proyecto(self, parent=None, filename = None):
         """ Lanza el diálogo de apertura de fichero """
         from Driza.excepciones import FicheroNoExisteException, FicheroErroneoException,FicheroTipoDesconocidoException
         if not parent: 
@@ -157,15 +157,8 @@ class VPrincipal(QtGui.QMainWindow):
     
     def mostrar_undo_redo(self):
         """Determina que botones estan activados y cuales no del submenu de edición"""
-        if self.__portero.puedo_undo():
-            self.ui.actionDeshacer.setEnabled(True)
-        else:
-            self.ui.actionDeshacer.setEnabled(False)
-
-        if self.__portero.puedo_redo():
-            self.ui.actionRehacer.setEnabled(True)
-        else:
-            self.ui.actionRehacer.setEnabled(False)
+        self.ui.actionDeshacer.setEnabled(bool(self.__portero.puedo_undo()))
+        self.ui.actionRehacer.setEnabled(bool(self.__portero.puedo_redo()))
 
     #FUNCIONES PRIVADAS
 

@@ -33,13 +33,9 @@ class DImportarTexto(QtGui.QDialog):
 
     def __init__(self, parent, interfazdatosfichero):
         """Inicialización"""
-        QtGui.QDialog.__init__(self, parent, "dialogo importar texto", 0, 0)
-        self.ui = Ui_DialogoImportarTexto
+        QtGui.QDialog.__init__(self, parent)
+        self.ui = Ui_DialogoImportarTexto()
         self.ui.setupUi(self)
-        self.setFinishEnabled(self.page(1), True)
-        self.setNextEnabled(self.page(0), False)
-        self.setHelpEnabled(self.page(0), False)
-        self.setHelpEnabled(self.page(1), False)
         self.archivo = None
         self.__idf = interfazdatosfichero
         self.__conexiones()
@@ -53,10 +49,7 @@ class DImportarTexto(QtGui.QDialog):
             delatr = ":"
         else:
             delatr = "\t"
-        if self.checkBox1.isChecked():
-            cabecera = True
-        else:
-            cabecera = False
+        cabecera = bool(self.checkBox1.isChecked())
         from rpy import RException
         try:
             self.__idf.borrar_todo()
