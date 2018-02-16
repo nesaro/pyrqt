@@ -73,13 +73,11 @@ def moda_lista(listalistas):
     for lista in listalistas:
         for elemento in lista:
             diccionariofrecuencia[elemento] += 1
-    maximo = 0
-    resultado = None
-    for (elemento, frecuencia) in diccionariofrecuencia.items():
-        if frecuencia > maximo:
-            maximo = frecuencia
-            resultado = elemento
-    return resultado
+    max_count = max(diccionariofrecuencia.values())
+    elements_with_max_count = [key for (key, count) 
+                                   in diccionariofrecuencia.items()
+                                   if count == max_count]
+    return elements_with_max_count[0]
 
 class Arbol:
     """Un arbol n-ario. Sirve para representar la jerarquia de categorias de operaciones"""
