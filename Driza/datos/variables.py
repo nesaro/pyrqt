@@ -202,10 +202,9 @@ class Real(VariableNumerica):
         if self.valor is None:
             return False
         if isinstance(otrovalor, Variable):
-            if otrovalor.valor == None:
+            if otrovalor.valor is None:
                 return False
-            else:
-                return self.__compare(otrovalor.valor)
+            return self.__compare(otrovalor.valor)
         else:
             return self.__compare(otrovalor) #Delegamos la excepcion a float
 
@@ -234,22 +233,17 @@ class Logico(VariableDiscreta):
     """Tipo logico (booleano"""
     def _interno(self, valor):
         """Actua como constructor, devolviendo el valor que almacena la variable"""
-        if valor == None or valor == "None" or valor == "NA"\
-                or valor == "nan" or valor == float("nan") or valor == "":
+        if valor in (None, "None", "NA", "nan", float("nan"), ""):
             return None
-        elif valor == True or valor == "True"\
-                or valor == "Verdadero" or valor == "1":
-            return True
-        else:
-            return False
+        return valor in (True, "True", "Verdadero", "1")
 
     def __nonzero__(self):
-        if self.valor == None: 
+        if self.valor is None: 
             return False
         return self.valor.__nonzero__()
 
     def __eq__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         if isinstance(otro, Logico):
             return otro.valor == self.valor
@@ -258,22 +252,22 @@ class Logico(VariableDiscreta):
 
 
     def __xor__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         return self.valor.__xor__(otro.valor)
 
     def __int__(self):
-        if self.valor == None:
+        if self.valor is None:
             return None
         return int(self.valor)
 
     def __cmp__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         return self.valor.__cmp__(otro.valor)
 
     def __str__(self):
-        if self.valor == None: 
+        if self.valor is None: 
             return ""
         elif self.valor == True:
             return "1"

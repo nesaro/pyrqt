@@ -241,18 +241,16 @@ class PorteroDatos:
     def undo(self):
         """Realiza un undo, desplazando el indice de ListaUndoRedo"""
         LOG.debug("Solicitud de undo a portero")
-        if self.__index < self.__lista.tama:
-            LOG.debug("Undo ha resuelto satisfactoriamente")
-            self.__index += 1
-        else:
+        if self.__index >= self.__lista.tama:
             raise IndexError
+        LOG.debug("Undo ha resuelto satisfactoriamente")
+        self.__index += 1
 
     def redo(self):
         """Realiza un redo, desplazando el indice de ListaUndoRedo"""
-        if self.__index > 0:
-            self.__index -= 1
-        else:
+        if self.__index <= 0:
             raise IndexError
+        self.__index -= 1
 
     def puedo_undo(self):
         """Devuelve un valor lógico indicando si es posible realizar un undo"""

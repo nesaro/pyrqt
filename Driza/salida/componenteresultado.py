@@ -33,18 +33,10 @@ class DefinicionElementoResultadoTabla(DefinicionElementoResultado):
     """Define una tabla por cada resultado"""
     def __init__(self, nombre, diccionarioopciones):
         DefinicionElementoResultado.__init__(self, nombre)
-        self.numerofilas = 1
-        self.autoencoger = False
-        self.disposicion = "Horizontal"
+        self.autoencoger = "autoencoger" in diccionarioopciones
+        self.disposicion = diccionarioopciones.get('disposicion', "Horizontal")
         self.numerodecimales = diccionarioopciones["config"]["decimales"]
-        if diccionarioopciones.has_key("borde"):
-            pass #TODO
-        if diccionarioopciones.has_key("autoencoger"):
-            self.autoencoger = True
-        if diccionarioopciones.has_key("disposicion"):
-            self.disposicion = diccionarioopciones["disposicion"]
-        if diccionarioopciones.has_key("numerofilas"):
-            self.numerofilas = diccionarioopciones["numerofilas"]
+        self.numerofilas = diccionarioopciones.get("numerofilas", 1)
         self.cabecera = diccionarioopciones["cabecera"]
 
     def renderizar(self, listadiccionarios):

@@ -115,11 +115,7 @@ class InterfazDatos:
         """
         if not tipo:
             return self._portero.actual().variables().lista_nombres()
-        lista = []
-        for variable in self._portero.actual().variables():
-            if variable.tipo == tipo:
-                lista.append(variable.name())
-        return lista
+        return [x.name() for x in self._portero.actual().variables() if x.tipo == tipo]
                 
     def obtener_casos(self, indice):
         """Devuelve todos los casos existentes de una determinada variable"""
@@ -138,10 +134,7 @@ class InterfazDatos:
         la variable representada por indice.
         Para uso de las clases del programa
         """
-        lista = []
-        for valor in self._portero.actual().registros():
-            lista.append(valor[indice])
-        return lista
+        return [x[indice] for x in self._portero.actual().registros()]
 
     def borrar_todo(self):
         """Borra todos los datos"""
@@ -180,21 +173,20 @@ class InterfazDatos:
         Añade una variable de tipo tipo al array de variables. 
         Rellena los registros con el valor por defecto
         """
-        if not nombre:
-            if self.n_var() == 0:
+        if not nombre and self.n_var() == 0:
                 nombre = "VAR0"
+        elif not nombre:
+            nombreultimavariable = self.var(-1).name()
+            import re
+            expresion = re.compile('^VAR[0-9]*$')
+            if expresion.match(nombreultimavariable):
+                numero = int(nombreultimavariable.replace("VAR", ""))+1
             else:
-                nombreultimavariable = self.var(-1).name()
-                import re
-                expresion = re.compile('^VAR[0-9]*$')
-                if expresion.match(nombreultimavariable):
-                    numero = int(nombreultimavariable.replace("VAR", ""))+1
-                else:
-                    numero = self.n_var()
-                nombre = "VAR" + str(numero)
-                while nombre in self.lista_tit():
-                    numero += 1
-                    nombre = "VAR"+str(numero)
+                numero = self.n_var()
+            nombre = "VAR" + str(numero)
+            while nombre in self.lista_tit():
+                numero += 1
+                nombre = "VAR"+str(numero)
 
         self._ana_var_privado(nombre, tipo, valorpordefecto, descripcion, protegerfiltro)
 
