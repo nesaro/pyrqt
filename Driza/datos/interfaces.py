@@ -433,7 +433,7 @@ class InterfazDatosR(InterfazDatos):
         caso la lista de datos es devuelta directamente en formato float, 
         y acepta condiciones de filtrado
         """
-        if not isinstance(vars,list):
+        if not isinstance(vars, list):
             vars = [ vars ] 
         for var in vars:
             if not "numerico" in self.var(var).tags:
@@ -453,7 +453,7 @@ class InterfazDatosR(InterfazDatos):
                 listacampoactual.append(register[var])
                 if not register[var].valido():
                     isvalid = False
-            if ("*filtro" in self.lista_tit()):
+            if "*filtro" in self.lista_tit():
                 indicefiltro = self._obtener_indice_variable("*filtro")
                 from types import NoneType
                 if isinstance(register[indicefiltro].valor, NoneType):
