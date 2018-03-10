@@ -3,4 +3,4 @@ python:
     - 3.4
 install:
     - pip install pylint
-script: pylint -E driza
+script: pylint -E Driza
