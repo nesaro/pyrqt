@@ -27,7 +27,7 @@ significacion={"nombre":u"Significación","tipo":"EntradaTexto"}
 widget={"tipo":"CalculoDoble","opciones":[significacion,diccionarioalternativa]}
 
 def funcion(dato,variable,caso,opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario={}
     lista1=[float(x) for x in dato.getCol(variable[0],caso=caso)]
     lista2=[float(x) for x in dato.getCol(variable[1],caso=caso)]

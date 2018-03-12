@@ -91,7 +91,7 @@ class GestorConfig:
     def __init__(self):
         import os
         self.__fichero = os.environ["HOME"]+"/.driza"
-        self.configuracion = None
+        self.configuracion = {}
 
     def cargar(self, fichero = None):
         """Carga un fichero de configuracion, por defecto ~/.driza"""
@@ -99,7 +99,7 @@ class GestorConfig:
         nuevo = False
         if fichero:
             self.__fichero = fichero
-        configuracion = None
+        configuracion = {}
         try:
             configuracion = cargar_config(self.__fichero)
         except IOError:

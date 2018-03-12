@@ -35,7 +35,7 @@ definicionresultado = [
 
 #Funcion principal
 def funcionprincipal(dato,comanda,opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario={}
     condicion1=comanda[0][0]+"="+comanda[0][1]
     condicion2=comanda[0][0]+"="+comanda[0][2]

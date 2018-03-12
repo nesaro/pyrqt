@@ -33,17 +33,17 @@ class Variable:
         self.tvariable = agrupador
         if isinstance(valor, self.__class__):
             self.valor = getattr(valor, 'valor')
-        self.valor = self._interno(valor)
+        self.valor = self._interno(valor) #pylint: disable=no-member
 
     def valido(self):
         """Devuelve verdadero si el valor es valido"""
         return self.valor != None
 
     def __cmp__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         if isinstance(otro, Variable):
-            if otro.valor == None:
+            if otro.valor is None:
                 return False
             else:
                 return self.valor.__cmp__(otro.valor)
@@ -183,7 +183,7 @@ class Real(VariableNumerica):
         """Actua como constructor, devolviendo el valor que almacena la variable"""
         if isinstance(valor, Real):
             return valor.valor
-        if valor == None or valor == "None" or valor == "NA"\
+        if valor is None or valor == "None" or valor == "NA"\
                 or valor == "nan" or isnan(valor)\
                 or valor == "":
             return None
@@ -202,7 +202,7 @@ class Real(VariableNumerica):
         if self.valor is None:
             return False
         if isinstance(otrovalor, Variable):
-            if otrovalor.valor == None:
+            if otrovalor.valor is None:
                 return False
             else:
                 return self.__compare(otrovalor.valor)
@@ -234,7 +234,7 @@ class Logico(VariableDiscreta):
     """Tipo logico (booleano"""
     def _interno(self, valor):
         """Actua como constructor, devolviendo el valor que almacena la variable"""
-        if valor == None or valor == "None" or valor == "NA"\
+        if valor is None or valor == "None" or valor == "NA"\
                 or valor == "nan" or valor == float("nan") or valor == "":
             return None
         elif valor == True or valor == "True"\
@@ -244,12 +244,12 @@ class Logico(VariableDiscreta):
             return False
 
     def __nonzero__(self):
-        if self.valor == None: 
+        if self.valor is None: 
             return False
         return self.valor.__nonzero__()
 
     def __eq__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         if isinstance(otro, Logico):
             return otro.valor == self.valor
@@ -258,22 +258,22 @@ class Logico(VariableDiscreta):
 
 
     def __xor__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         return self.valor.__xor__(otro.valor)
 
     def __int__(self):
-        if self.valor == None:
+        if self.valor is None:
             return None
         return int(self.valor)
 
     def __cmp__(self, otro):
-        if self.valor == None:
+        if self.valor is None:
             return False
         return self.valor.__cmp__(otro.valor)
 
     def __str__(self):
-        if self.valor == None: 
+        if self.valor is None: 
             return ""
         elif self.valor == True:
             return "1"

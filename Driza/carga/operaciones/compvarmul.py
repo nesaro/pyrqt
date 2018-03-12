@@ -26,7 +26,7 @@ significacion={"nombre":u"Significación","tipo":"EntradaTexto"}
 widget={"tipo":"CalculoSimple","opciones":[significacion]}
 
 def funcion(dato,variables,caso,opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario={}
     milista=[]
     for variable in variables:

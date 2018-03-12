@@ -28,7 +28,7 @@ widget={"tipo":"2Variables3Casos","opciones":[significacion,diccionarioalternati
 
 
 def funcion(dato,variable,caso,opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario={}
     primertermino=variable[0]
     segundotermino=variable[1]

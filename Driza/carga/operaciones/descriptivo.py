@@ -61,7 +61,7 @@ definicionresultado = [
 
 
 def funcionprincipal(dato,variable,opciones):
-    from rpy import r
+    from rpy import r  #pylint: disable=import-error
     diccionario={"Descriptivo":{"Media":None,"Varianza":None,u"Desviación":None,"Mediana":None,"Moda":None,"Rango":None,u"Máximo":None,u"Mínimo":None,"Percentil":None,"Curtosis":None,u"Coeficiente de Asimetría":None}}
     lista=dato.query(str(variable))
     diccionario["Descriptivo"]["Variable"]=str(variable)
