@@ -32,7 +32,7 @@ widget = {"tipo":"Variable", "opciones":[factor]}
 
 def funcion(dato, variable, caso, opciones):  
     """Funcion que convierte los datos de entrada en los resultados"""
-    import rpy
+    import rpy #pylint: disable=import-error
     diccionario = {}
     r_data = {"Variable":[], "Factor":[]}
     for x in dato.query(variable, caso = caso):

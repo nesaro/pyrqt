@@ -32,7 +32,7 @@ definicionresultado = [
         {"tipo":"Tabla","nombre":"Ji cuadrado","cabecera":["Variable",u"Significación"]}]
 
 def funcionprincipal(dato,variable,opciones):
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     lista=dato.query(variable)
     num=len(lista)
     numcasos=len(list(r.table(lista)))

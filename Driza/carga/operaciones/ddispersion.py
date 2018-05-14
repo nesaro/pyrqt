@@ -29,7 +29,7 @@ widget = {"tipo":"VariableVariable","opciones":[] }
 definicionresultado = [{"tipo":"Imagen","nombre":u"Diagrama de dispersión"}]
 
 def funcionprincipal(dato,variables,opciones): 
-    from rpy import r
+    from rpy import r  #pylint: disable=import-error
     diccionario = {}
     diccionario[u"Diagrama de dispersión"]={}
     variable1=variables[0]

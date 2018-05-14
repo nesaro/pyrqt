@@ -33,7 +33,7 @@ class Agrupador:
         from Driza.listas import SL
         if not isinstance(ristratipo, str):
             raise TypeError
-        if not SL.TIPOSAGRUPADOR.has_key(ristratipo):
+        if ristratipo not in SL.TIPOSAGRUPADOR:
             raise NameError
         dic = SL.TIPOSAGRUPADOR[ristratipo]
         if not issubclass(dic["clasevariable"], Variable):

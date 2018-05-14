@@ -31,7 +31,7 @@ widget={"tipo":"CalculoSimple","opciones":[mediaobjetivo,significacion,diccionar
 
 
 def funcion(dato,variable,caso,opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario={}
     lista=[float(x) for x in dato.getCol(variable,caso=caso)]
     if opciones[u"Hipótesis alternativa"]==">":

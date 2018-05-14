@@ -25,7 +25,7 @@ descripcion="BLABLABLA"
 tipo="Distribucion"
 
 def funcion(dato,opciones):  
-    from rpy import r
+    from rpy import r  #pylint: disable=import-error
     diccionario={}
     if opciones.has_key("Cuantiles"):
         if opciones["Cuantiles"][u"DirecciónCola"]=='izquierda':

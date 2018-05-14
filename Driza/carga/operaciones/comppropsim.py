@@ -28,7 +28,7 @@ mediaobjetivo={"nombre":"Proporcion objetivo","tipo":"EntradaTexto"}
 widget={"tipo":"ProporcionSimple","opciones":[mediaobjetivo,significacion,diccionarioalternativa]}
 
 def funcion(dato, variable, caso, opciones):  
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario = {}
     lavar=variable[0]
     condicion=variable[1]

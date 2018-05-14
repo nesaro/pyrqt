@@ -119,16 +119,3 @@ class GestorCategorias:
         LOG.debug("No encontre ningun subconjunto de labels")
         return False
 
-        
-      
-class Categoria:
-    """Clase que representa una categoria a la que puede pertenecer una operación.
-    Incluye un texto que sirve como descripcion.
-    No la identifica un nombre, sino un conjunto de etiquetas"""
-    def __init__(self, texto, *etiquetas):
-        for etiqueta in etiquetas:
-            if not isinstance(etiqueta, str):
-                raise TypeError
-        self.descripcion = texto
-        self.etiquetas = Set(etiquetas)
-

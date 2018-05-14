@@ -417,7 +417,7 @@ class InterfazDatosR(InterfazDatos):
     def formato_R(self):
         """Devuelve una copia de los datos actuales en el formato data de R"""
         #TODO: Falta el control de filtrado
-        import rpy
+        import rpy #pylint: disable=import-error
         diccionario = {}
         for variable in self._portero.actual().variables:
             if variable.tipo != "Factor":
@@ -466,7 +466,7 @@ class InterfazDatosR(InterfazDatos):
                     isvalid = False 
             if isvalid:
                 if len(vars) > 1:
-                    listafinal = map(to_R,listacampoactual)
+                    listafinal = map(to_R,listacampoactual) #pylint: disable=undefined-variable
                     lista.append(listafinal)
                 else:
                     lista.append(listacampoactual[0].to_R())
@@ -480,7 +480,7 @@ class InterfazDatosFicheros(InterfazDatos):
         if not os.path.exists(fichero):
             from Driza.excepciones import FicheroNoExisteException
             raise FicheroNoExisteException(fichero)
-        from rpy import r
+        from rpy import r #pylint: disable=import-error
         datos = r.read_table(fichero, sep = opciones["delimitadoratrib"], \
                 header = opciones["cabeceras"], na_strings="NA", dec=".", \
                 strip_white = False)
