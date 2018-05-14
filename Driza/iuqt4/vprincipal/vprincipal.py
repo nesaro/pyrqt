@@ -150,7 +150,7 @@ class VPrincipal(QtGui.QMainWindow):
         if not self.__dproyecto_modificado(): 
             return
         if not self.parent.vsalida.isVisible():
-            self.__config.guardar()
+            self.__config.save()
             QtGui.qApp.exit(0)
         else:
             self.hide()

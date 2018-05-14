@@ -51,7 +51,7 @@ def cargar_config(fichero):
     except ImportError:
         from configparser import ConfigParser
     configfile = ConfigParser()
-    config = Configuracion()
+    config = Configuration.default_factory()
     archivo = open(fichero,"r")
     configfile.readfp(archivo)
     config.cargar_diccionario(configfile._sections["General"])
@@ -104,7 +104,7 @@ class GestorConfig:
             configuracion = cargar_config(self.__fichero)
         except IOError:
             nuevo = True
-            configuracion = Configuracion()
+            configuracion = Configuration.default_factory()
             guardar_config(configuracion, self.__fichero)
         except VersionAnterior:
             #Aqui van las correcciones para cada revision
@@ -119,31 +119,25 @@ class GestorConfig:
         self.configuracion = configuracion
         return nuevo #Devuelve si el fichero es nuevo o no
             
-    def guardar(self, fichero = None):
+    def save(self, fichero = None):
         """Guarda el fichero de configuracion en un fichero"""
         if fichero:
             self.__fichero = fichero
         guardar_config(self.configuracion, self.__fichero)
 
 
-class Configuracion(dict):
+class Configuration(dict):
     """Redefinición de diccionario que contiene todos los valores de la configuración.
     Posee funciones para exportación a texto"""
-    def __init__(self):
-        dict.__init__(self)
+    @classmethod
+    def default_factory(cls):
         listaficheros = LIFOList(5)
-        #Entero que representa la versión del formato de configuración
-        self.__setitem__("version", 2) 
-        #Directorio de trabajo temporal
-        self.__setitem__("tmpdir", "/tmp")
-        #Lista de los últimos ficheros abiertos
-        self.__setitem__("lfichero", listaficheros)
-        #Decimales a mostrar en la salida
-        self.__setitem__("decimales", 3)
-        #Número de niveles de deshacer
-        self.__setitem__("nundo", 5)
-        #Determina si se muestra la ventana splash
-        self.__setitem__("vsplash", True)
+        return cls({"version": 2,
+                    "tmpdir": "/tmp",
+                    "lfichero": listaficheros,
+                    "decimales": 3,
+                    "nundo": 5,
+                    "vsplash": True})
 
     def cargar_diccionario(self, diccionario):
         """Rellena los valores a partir de un diccionario"""
