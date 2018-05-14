@@ -32,7 +32,7 @@ definicionresultado = [
         {"tipo":"Tabla","nombre":"KS","cabecera":["Variable",u"Significación"]}]
 
 def funcionprincipal(dato,variable,opciones):
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     lista=dato.query(variable)
     diccionario = {}
     diccionario["KS"] = {}

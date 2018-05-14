@@ -27,7 +27,7 @@ tipo="Calculo"
 widget={"tipo":"CalculoDoble","opciones":{}}
 
 def funcion(dato,variable,caso,opciones):  # Cambiar cosa por caso
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     variable1 = variable[0]
     variable2 = variable[1]
     lista1=dato.query(variable1,caso)

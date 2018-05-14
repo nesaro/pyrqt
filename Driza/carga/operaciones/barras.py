@@ -29,7 +29,7 @@ definicionresultado = [
         ]
 
 def funcionprincipal(dato, variable, opciones): 
-    from rpy import r
+    from rpy import r #pylint: disable=import-error
     diccionario = {"Diagrama de Barras":{}}
     lista = dato.query(variable)
     import random
