@@ -33,39 +33,6 @@ class StaticList:
             }
 
     @property
-    def TIPOSWIDGETOPCIONESQT3(self):
-        from Driza.iuqt3.operaciones import wopciones
-        return {
-            "SeleccionSimple":{"clase":wopciones.EWOSeleccionSimple},
-            "SeleccionMultiple":{"clase":wopciones.EWOSeleccionMultiple},
-            "ListaSimple":{"clase":wopciones.EWOListaSimple},
-            "EntradaTexto":{"clase":wopciones.EWOEntradaTexto},
-            "Texto":{"clase":wopciones.EWOEtiqueta},
-            "Variables":{"clase":wopciones.EWOListaVariables},
-            "Factores":{"clase":wopciones.EWOListaFactores}
-            }
-
-    @property
-    def TIPOSWIDGETOPERACIONESQT3(self):
-        from Driza.iuqt3.operaciones import seleccion
-        return {
-            "Variable":{
-                "seleccion":seleccion.SelectorVariable},
-            "VariableVariable":{
-                "seleccion":seleccion.SelectorVariableVariable},
-            "VariableCaso":{
-                "seleccion":seleccion.SelectorDiscriminadorSimple},
-            "VariableCasoCaso":{
-                "seleccion":seleccion.SelectorDiscriminadorDoble},
-            "VariableVariableCaso":{
-                "seleccion":seleccion.SelectorVariableDiscriminadorSimple},
-            "VariableCasoCasoVariableVariable":{
-                "seleccion":seleccion.SelectorVariableVariableDiscriminadorDoble},
-            "DiscriminadorCasoCasoVariable":{
-                "seleccion":seleccion.SelectorVariableDiscriminadorDoble}
-            }
-
-    @property
     def TIPOSWIDGETOPCIONESQT4(self):
         from Driza.iuqt4.operaciones import wopciones
         return {

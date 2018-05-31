@@ -169,7 +169,7 @@ class SelectorElementosEstudio(QtGui.QWidget):
     def __borrar_elemento(self):
         """Borra el elemento seleccionado en lacaja de seleccion"""
         if self._cajaseleccion.currentItem():
-            del self.seleccion[self._cajaseleccion.currentItem()]
+            del self.seleccion[self._cajaseleccion.currentItem()] #FIXME
             self._actualizar_cajas()
 
     def _add_element(self):
