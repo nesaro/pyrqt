@@ -38,11 +38,15 @@ if __name__ == "__main__":
     from optparse import OptionParser
     USAGE = "usage: %prog [opciones] [fichero]"
     from pyrqt import VERSION, CODENAME
-    VER = "pyrqt " + VERSION + " Codename:" + CODENAME + "\n Copyright (C) 2006-2008  Néstor Arocha Rodríguez, Inmaculada Luengo Merino"
+    VER = "pyrqt " + VERSION + " Codename:" + CODENAME + "\n Copyright (C) 2006-2018  Néstor Arocha Rodríguez, Inmaculada Luengo Merino"
     PARSER = OptionParser(usage = USAGE, version = VER)
-    PARSER.add_option("-s", "--splash", action="store_true", dest="vsplash", help="Mostrar la ventana de splash")
-    PARSER.add_option("-n", "--nosplash", action="store_false", dest="vsplash", help="No mostrar la ventana de splash")
-    PARSER.add_option("-d", "--debuglevel", action="store", type="int", dest="debuglevel", help="El nivel de debug que se desea mostrar")
+    PARSER.add_option("-s", "--splash", action="store_true",
+                      dest="vsplash", help="Mostrar la ventana de splash")
+    PARSER.add_option("-n", "--nosplash", action="store_false",
+                      dest="vsplash", help="No mostrar la ventana de splash")
+    PARSER.add_option("-d", "--debuglevel", action="store",
+                      type="int", dest="debuglevel",
+                      help="El nivel de debug que se desea mostrar")
     (OPTIONS, ARGS) = PARSER.parse_args()
     debuglevel = 51
     if OPTIONS.debuglevel:

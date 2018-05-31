@@ -46,7 +46,10 @@ class VPrincipal(QtGui.QMainWindow):
     """Ventana principal, hereda de vprincipal, que esta generado por el designer. 
     Esta clase es padre de la mayoria de los dialogos, y es la que permite introducir los datos a el usuario"""
 
-    def __init__(self, parent, config, portero, idu, gestorproyectos, gestortemas, gestoroperaciones): 
+    def __init__(self, parent, config, portero, idu,
+                 gestorproyectos,
+                 gestortemas,
+                 gestoroperaciones):
         """Inicializador de la ventana principal"""
         QtGui.QMainWindow.__init__(self,None)
         self.ui=Ui_VentanaPrincipal()
