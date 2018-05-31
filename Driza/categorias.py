@@ -73,6 +73,8 @@ def moda_lista(listalistas):
     for lista in listalistas:
         for elemento in lista:
             diccionariofrecuencia[elemento] += 1
+    if not diccionariofrecuencia:
+        return None
     max_count = max(diccionariofrecuencia.values())
     elements_with_max_count = [key for (key, count) 
                                    in diccionariofrecuencia.items()
