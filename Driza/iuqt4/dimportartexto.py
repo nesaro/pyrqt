@@ -22,7 +22,8 @@
 """Dialogo de importacion de texto"""
 
 from Driza.iuqt4.ui.dimportartexto import Ui_DialogoImportarTexto
-from PyQt4 import QtCore,QtGui
+from PyQt4 import QtCore, QtGui
+from PyQt4.QtCore import SIGNAL
 
 
 class DImportarTexto(QtGui.QDialog):
@@ -32,48 +33,42 @@ class DImportarTexto(QtGui.QDialog):
     """
 
     def __init__(self, parent, interfazdatosfichero):
-        """Inicialización"""
-        QtGui.QDialog.__init__(self, parent, "dialogo importar texto", 0, 0)
-        self.ui = Ui_DialogoImportarTexto
+        QtGui.QDialog.__init__(self, parent)
+                               
+        self.ui = Ui_DialogoImportarTexto()
         self.ui.setupUi(self)
-        self.setFinishEnabled(self.page(1), True)
-        self.setNextEnabled(self.page(0), False)
-        self.setHelpEnabled(self.page(0), False)
-        self.setHelpEnabled(self.page(1), False)
         self.archivo = None
         self.__idf = interfazdatosfichero
         self.__conexiones()
-    #FUNCIONES PUBLICAS        
 
     def accept(self):
         """Aceptacion del dialogo"""
-        if self.comboBox1.currentText() == "Espacio":
+        if self.ui.comboBox1.currentText() == "Espacio":
             delatr = ""
-        elif self.comboBox1.currentText() == "Dos puntos":
+        elif self.ui.comboBox1.currentText() == "Dos puntos":
             delatr = ":"
         else:
             delatr = "\t"
-        if self.checkBox1.isChecked():
-            cabecera = True
-        else:
-            cabecera = False
+        cabecera = self.ui.checkBox1.isChecked()
         from rpy import RException
         try:
             self.__idf.borrar_todo()
-            self.__idf.cargar_texto(self.archivo, delimitadoratrib = delatr, cabeceras = cabecera)
+            self.__idf.cargar_texto(self.archivo,
+                                    delimitadoratrib=delatr,
+                                    cabeceras=cabecera)
         except RException:
             msg = u"R No pudo importar el fichero"
             QMessageBox.critical(self, u'Error!', msg)
             LOG.exception("Excepcion en la importacion de texto")
-        DialogoImportarTexto.accept(self)
+        QtGui.QDialog.accept(self)
         self.parent().grid.myUpdate()
 
 
-    #FUNCIONES PRIVADAS
     def __conexiones(self):
         """Bloque de conexiones"""
-        self.connect(self.pushButton1, SIGNAL("clicked()"), \
-                self.__seleccionar_fichero)
+        self.connect(self.ui.pushButton1,
+                     SIGNAL("clicked()"),
+                     self.__seleccionar_fichero)
 
     def __seleccionar_fichero(self):
         """
@@ -81,9 +76,10 @@ class DImportarTexto(QtGui.QDialog):
         el boton de seleccion de fichero
         """
         filtro = "%s files (*.%s);;" % ("Txt", "txt")
-        cadenaarchivo = str(QFileDialog.getOpenFileName(QString.null, filtro, \
-                self, None, "importar fichero", ""))
+        cadenaarchivo = str(QtGui.QFileDialog.getOpenFileName(None,
+                                                              "importar fichero",
+                                                              filtro,
+                                                              ""))
         if cadenaarchivo:
             self.archivo = cadenaarchivo
-            self.textLabel1.setText(cadenaarchivo)
-            self.setNextEnabled(self.page(0), True)
+            self.ui.textLabel1.setText(cadenaarchivo)
