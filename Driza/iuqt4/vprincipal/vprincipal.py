@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-#Copyright (C) 2006-2008  Néstor Arocha Rodríguez
+#Copyright (C) 2006-2018  Néstor Arocha Rodríguez
 
 #This file is part of Driza.
 #
@@ -27,7 +27,7 @@ from Driza.iuqt4.ui.vprincipal import Ui_VentanaPrincipal
 from Driza.iuqt4.dconfig import DConfig
 from Driza.iuqt4.dbuscar import DBuscar
 from Driza.iuqt4.operaciones.doperaciones import DOperaciones
-#from Driza.iu.dimportartexto import DImportarTexto
+from Driza.iuqt4.dimportartexto import DImportarTexto
 from Driza.iuqt4.dfiltrado import DFiltrado
 from Driza.iuqt4.vsalida import VSalida
 from grid import Grid
@@ -63,7 +63,7 @@ class VPrincipal(QtGui.QMainWindow):
         self.__dbuscar = DBuscar(self,"busqueda")
         self.__dconfig = DConfig(config,self)
         self.__dfiltro = DFiltrado(self,self.__idu)
-        #self.__dimportartexto=DImportarTexto(self,idf)
+        self.__dimportartexto = DImportarTexto(self,idf)
         self.__portero = portero
         self.__gestorproyectos = gestorproyectos
         self.grid = Grid(self, self.__idu, self.__portero)
@@ -98,9 +98,9 @@ class VPrincipal(QtGui.QMainWindow):
 
     #FUNCIONES PUBLICAS
     
-    def abrir_proyecto(self, parent = None, filename = None):
+    def abrir_proyecto(self, parent=None, filename=None):
         """ Lanza el diálogo de apertura de fichero """
-        from Driza.excepciones import FicheroNoExisteException, FicheroErroneoException,FicheroTipoDesconocidoException
+        from Driza.excepciones import FicheroNoExisteException, FicheroErroneoException, FicheroTipoDesconocidoException
         if not parent: 
             parent = self
         if not self.__dproyecto_modificado(): 
@@ -157,28 +157,26 @@ class VPrincipal(QtGui.QMainWindow):
     
     def mostrar_undo_redo(self):
         """Determina que botones estan activados y cuales no del submenu de edición"""
-        if self.__portero.puedo_undo():
-            self.ui.actionDeshacer.setEnabled(True)
-        else:
-            self.ui.actionDeshacer.setEnabled(False)
-
-        if self.__portero.puedo_redo():
-            self.ui.actionRehacer.setEnabled(True)
-        else:
-            self.ui.actionRehacer.setEnabled(False)
-
-    #FUNCIONES PRIVADAS
+        can_undo = bool(self.__portero.puedo_undo())
+        can_redo = bool( self.__portero.puedo_redo())
+        self.ui.actionDeshacer.setEnabled(can_undo)
+        self.ui.actionRehacer.setEnabled(can_redo)
 
     def __importar(self):
         """Importa los datos de un fichero"""
         if not self.__dproyecto_modificado(): 
             return
-        self.parent.dimportartexto.show()
+        self.__dimportartexto.show()
 
     def __dproyecto_modificado(self):
         """Pregunta en caso de que haya sido modificado el proyecto si desea ser guardado"""
         if not self.__idu.original():
-            returncode = QMessageBox.information(self, 'Atencion:', 'El proyecto actual ha sido modificado, desea guardarlo?', 'Guardarlo', 'No guardarlo', 'Volver', 0, 1)
+            returncode = QMessageBox.information(self,
+                                                 'Atencion:',
+                                                 'El proyecto actual ha sido modificado, desea guardarlo?',
+                                                 'Guardarlo',
+                                                 'No guardarlo',
+                                                 'Volver', 0, 1)
             if returncode == 0:
                 self.__guardar()
             elif returncode == 2:
@@ -342,7 +340,7 @@ class VPrincipal(QtGui.QMainWindow):
         fn = QFileDialog.getSaveFileName(self,"Dialogo guardarFichero","",filtro)
         filename = str(fn)
         if filename:
-            from Driza.excepciones import FicheroExisteException,FicheroTipoDesconocidoException
+            from Driza.excepciones import FicheroExisteException, FicheroTipoDesconocidoException
             import re
             extension = re.compile('.*\..*')
             if not extension.match(filename):
