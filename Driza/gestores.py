@@ -22,9 +22,10 @@
 """Módulo de gestores"""
 
 import logging
+from Driza.excepciones import FicheroTipoDesconocidoException
 LOG = logging.getLogger(__name__)
 
-def save_pkl(fichero, contenido, sobreescribir = False):
+def save_pkl(fichero, contenido, sobreescribir=False):
     """Guardar un fichero con pickle"""
     import os
     if not sobreescribir and os.path.exists(fichero):
@@ -52,7 +53,7 @@ class GestorFicheros:
     def __init__(self):
         self.fichero = None
 
-    def _guardar(self, fichero = None):
+    def _guardar(self, fichero=None):
         """Acciones comunes al guardar un fichero"""
         if fichero: 
             self.fichero = fichero
