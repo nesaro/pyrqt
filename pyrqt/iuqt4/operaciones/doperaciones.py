@@ -23,11 +23,11 @@
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QLabel, QTreeWidget, QTreeWidgetItem, QErrorMessage
-from Driza.iuqt4.ui.doperaciones import Ui_DialogoOperaciones
-from Driza.categorias import GestorCategorias
+from pyrqt.iuqt4.ui.doperaciones import Ui_DialogoOperaciones
+from pyrqt.categorias import GestorCategorias
 from sets import ImmutableSet
 import logging
-LOG = logging.getLogger("Driza.iuqt4.operaciones.doperaciones")
+LOG = logging.getLogger("__name__")
 
 def conv_arbol_listview(padre, arbol):
     """Convierte un arbol en formato listview. Recursiva"""
@@ -114,7 +114,7 @@ class DOperaciones(QtGui.QDialog):
     def accept(self):
         """Acepta el dialogo. Coge la operacion con la que esta trabajando 
         el usuario e inicia el procedimiento de calculo"""
-        from Driza.excepciones import OpcionesIncorrectaException
+        from pyrqt.excepciones import OpcionesIncorrectaException
         import rpy
         nombre = unicode(self.ui.treeWidget.currentItem().text(0))
         widget = self.__widgets["operaciones"][nombre]
@@ -171,7 +171,7 @@ class DOperaciones(QtGui.QDialog):
         """
         self.ui.treeWidget.clear()
         listalistasetiquetas = [operacion.etiquetas for operacion in self.__gestoroperaciones.values()]
-        from Driza import categorias
+        from pyrqt import categorias
         from sets import Set
         arbol = categorias.conv_categorias_arbol("Raiz", listalistasetiquetas)
         #toplevel = QTreeWidgetItem(["Operaciones"])
@@ -225,10 +225,10 @@ class DOperaciones(QtGui.QDialog):
 
     def __render_widget(self, nombre, diccionariowidget):
         """Renderiza un widget a partir de una descripcion en dicccionario"""
-        from Driza.listas import SL
+        from pyrqt.listas import SL
         if not SL.TIPOSWIDGETOPERACIONESQT4.has_key(diccionariowidget["tipo"]):
             raise NameError
-        from Driza.iuqt4.operaciones.woperaciones import WidgetOperacionSelectorOpcion
+        from pyrqt.iuqt4.operaciones.woperaciones import WidgetOperacionSelectorOpcion
         widget = WidgetOperacionSelectorOpcion(nombre, \
                 SL.TIPOSWIDGETOPERACIONESQT4[diccionariowidget["tipo"]]["seleccion"], \
                 diccionariowidget["opciones"], self.__idu)

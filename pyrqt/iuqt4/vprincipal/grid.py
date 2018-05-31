@@ -1,38 +1,38 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-#Copyright (C) 2006-2008   Néstor Arocha Rodríguez
+#Copyright (C) 2006-2018   Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """Grid y clases asociadas"""
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QMessageBox, QComboBox, QInputDialog
 from PyQt4.QtCore import QStringList
-from Driza.datos.variables import * #Para poder preguntar por todos los tipos
+from pyrqt.datos.variables import * #Para poder preguntar por todos los tipos
 import logging
-LOG = logging.getLogger("Driza.iu.widgets.grid")
+LOG = logging.getLogger("__name__")
 
 class  Grid(QtGui.QTabWidget):
     """La tabla que manejara los registros y las variables"""
 
     #Funciones de inicializacion
     def __init__(self, padre, interfazdatos, porterodatos):
-        from Driza.datos.conversion import AgenteConversion
+        from pyrqt.datos.conversion import AgenteConversion
         self.__portero = porterodatos
         QtGui.QTabWidget.__init__(self)#,padre)
         #TODO Pendiente portabilidad qt4
@@ -255,7 +255,7 @@ class  Grid(QtGui.QTabWidget):
     def __combotableitem(self):
         """Devuelve un nuevo objeto tipo combotableitem con la lista de tipos"""
         lista = QtCore.QStringList()
-        from Driza.listas import SL
+        from pyrqt.listas import SL
         from PyQt4.QtCore import SIGNAL
         for tipo in SL.nombrevariables:
             lista.append(tipo)
@@ -279,7 +279,7 @@ class  Grid(QtGui.QTabWidget):
         #Variable modificada
         variable = self.__idu.var(fila)
         if columna == 1:   # El usuario quiere cambiar el tipo
-            from Driza.datos import variables
+            from pyrqt.datos import variables
             textoencuestion = str(self.table2.cellWidget(fila, columna).currentText() )
             #preguntar el tipo de conversion
             metododeseado = self.__preguntar_conversion(variable,textoencuestion)
@@ -288,7 +288,7 @@ class  Grid(QtGui.QTabWidget):
                 self.__idu.setVar(fila, pareja[0],pareja[1])
                 self.__mostrar_t_reg()  
         else: #Restos de campos (Texto)
-            from Driza.excepciones import VariableExisteException
+            from pyrqt.excepciones import VariableExisteException
             try:
                 self.__idu.modificar_var(variable, columna ,str(self.table2.item(fila,y).text()))
             except VariableExisteException:

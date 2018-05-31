@@ -21,9 +21,10 @@
 
 """Dialogo de búsqueda de texto"""
 
+from __future__ import absolute_import
 
 from PyQt4 import QtCore, QtGui
-from Driza.iuqt4.ui.dbuscar import Ui_DialogoBuscar
+from .ui.dbuscar import Ui_DialogoBuscar
 import logging
 LOG = logging.getLogger("Driza.iuqt4.dbuscar")
 

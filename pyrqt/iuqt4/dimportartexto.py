@@ -21,7 +21,7 @@
 
 """Dialogo de importacion de texto"""
 
-from Driza.iuqt4.ui.dimportartexto import Ui_DialogoImportarTexto
+from pyrqt.iuqt4.ui.dimportartexto import Ui_DialogoImportarTexto
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import SIGNAL
 

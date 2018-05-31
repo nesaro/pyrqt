@@ -23,9 +23,9 @@
 
 
 from PyQt4 import QtCore,QtGui
-from Driza.iuqt4.ui.dfiltrado import Ui_DialogoFiltro
+from pyrqt.iuqt4.ui.dfiltrado import Ui_DialogoFiltro
 import logging
-log = logging.getLogger("Driza.iuqt4.ui.dfiltrado")
+log = logging.getLogger("__name__")
 
 
 class DFiltrado(QtGui.QDialog):

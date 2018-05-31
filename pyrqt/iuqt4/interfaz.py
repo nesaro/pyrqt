@@ -36,7 +36,7 @@ from .dcrevar import DCrevar
 from .dsplash import DSplash
 from .vsalida import VSalida
 #from .iuqt4.dimportartexto import DImportarTexto
-from . import gestores
+from .. import gestores
 from .operaciones.doperaciones import DOperaciones
 LOG = logging.getLogger("Driza.iuqt4.interfaz")
 

@@ -3,20 +3,20 @@
 
 #Copyright (C) 2006-2008  Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """Dialogo de creacion de variables"""
@@ -33,10 +33,10 @@
 #comboBox1: Caja con el tipo
 
 
-from Driza.iuqt4.ui.dcrevar import Ui_DialogoCrevar
+from pyrqt.iuqt4.ui.dcrevar import Ui_DialogoCrevar
 from PyQt4 import QtCore, QtGui
 import logging
-LOG = logging.getLogger("Driza.iuqt4.dcrevar")
+LOG = logging.getLogger("__name__")
 
 
 class DCrevar(QtGui.QDialog):
@@ -66,7 +66,7 @@ class DCrevar(QtGui.QDialog):
         """Función de aceptación del dialogo. 
         Avisa al usuario si los datos han sido introducidos incorrectamente, y genera"""
         if self.ui.lineEdit1.text():
-            from Driza.excepciones import VariableExisteException
+            from pyrqt.excepciones import VariableExisteException
             sobreescritura = self.ui.checkBox1.isChecked()
             solofiltrado = False
             if sobreescritura:
@@ -134,7 +134,7 @@ class DCrevar(QtGui.QDialog):
     def __init_lista_tipos(self):
         """Rellena en el comboBox1 la lista de tipos de variables"""
         self.ui.comboBox1.clear()
-        from Driza.listas import SL
+        from pyrqt.listas import SL
         for tipo in SL.nombrevariables:
             self.ui.comboBox1.addItem(tipo)
 

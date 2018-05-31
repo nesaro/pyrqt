@@ -3,20 +3,20 @@
 
 #Copyright (C) 2006-2018  Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """vsalida.py: Ventana que muestra los resultados de las operaciones solicitadas"""
@@ -24,7 +24,7 @@
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QToolButton, QWidget
 from PyQt4.QtCore import QString
-from Driza.iuqt4.ui.vsalida import Ui_VentanaSalida
+from pyrqt.iuqt4.ui.vsalida import Ui_VentanaSalida
 
 class VSalida(QtGui.QMainWindow):
     """Ventana que muestra los resultados de las operaciones solicitadas. 
@@ -144,7 +144,7 @@ class VSalida(QtGui.QMainWindow):
                                                           self)
         filename = str(nombrefichero)
         if filename:
-            from Driza.excepciones import FicheroExisteException, \
+            from pyrqt.excepciones import FicheroExisteException, \
                     FicheroTipoDesconocidoException
             import re
             extension = re.compile('.*\..*')

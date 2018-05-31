@@ -3,20 +3,20 @@
 
 #Copyright (C) 2006-2018  Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 from __future__ import absolute_import
@@ -32,7 +32,7 @@ from ..operaciones.doperaciones import DOperaciones
 from ..dimportartexto import DImportarTexto
 from ..dfiltrado import DFiltrado
 from ..vsalida import VSalida
-from grid import Grid
+from .grid import Grid
 from pyrqt import gestores
 from pyrqt import operaciones
 from pyrqt.listas import SL
@@ -80,7 +80,7 @@ class VPrincipal(QtGui.QMainWindow):
         self.__diccionarioacciones = {}
         self.__colectorfunciones = []
         listalistasetiquetas = [operacion.etiquetas for operacion in gestoroperaciones.values()]
-        from Driza import categorias
+        from pyrqt import categorias
         arbol = categorias.conv_categorias_arbol("Raiz", listalistasetiquetas)
         LOG.debug("Arbol generado:"+str(arbol))
         self.__conv_arbol_menu(self.ui.menuAnalizar , arbol, self.__diccionarioarbolmenu)
@@ -102,7 +102,7 @@ class VPrincipal(QtGui.QMainWindow):
     
     def abrir_proyecto(self, parent=None, filename=None):
         """ Lanza el diálogo de apertura de fichero """
-        from Driza.excepciones import FicheroNoExisteException, FicheroErroneoException, FicheroTipoDesconocidoException
+        from pyrqt.excepciones import FicheroNoExisteException, FicheroErroneoException, FicheroTipoDesconocidoException
         if not parent: 
             parent = self
         if not self.__dproyecto_modificado(): 
@@ -135,12 +135,12 @@ class VPrincipal(QtGui.QMainWindow):
 
     def __myUpdate(self):
         """Acciones de actualizacion"""
-        from Driza import VERSION
+        from pyrqt import VERSION
         if self.__gestorproyectos.fichero:
             nfichero = self.__gestorproyectos.fichero
         else:
             nfichero = "Nuevo fichero"
-        self.setWindowTitle("Driza " + VERSION + " - " + nfichero)
+        self.setWindowTitle("pyrqt " + VERSION + " - " + nfichero)
 
     def showEvent(self, ev):
         self.__myUpdate()
@@ -188,14 +188,14 @@ class VPrincipal(QtGui.QMainWindow):
 
     def __dacerca_de(self):
         """Mensaje acerca de"""
-        from Driza import VERSION
+        from pyrqt import VERSION
         separador = "<hr>"
         ristra ="<html>"
         betatesters = u"Carlos Mestre Gonzalez <br> Luis de Bethencourt Guimerá"
         iconos = "Iconos del Tango Desktop Project: http://tango.freedesktop.org/"
-        ristra += u"Driza %s es una interfaz estadística <br> (C) Néstor Arocha Rodríguez - Tutorizado por Inmaculada luengo Merino<br> Distribuido bajo licencia GPL" +\
+        ristra += u"pyrqt %s es una interfaz estadística <br> (C) Néstor Arocha Rodríguez - Tutorizado por Inmaculada luengo Merino<br> Distribuido bajo licencia GPL" +\
                 separador + "Betatesters:\n" + betatesters + separador + iconos + "</html>"
-        QMessageBox.about(self, "Acerca de Driza", ristra % (VERSION))
+        QMessageBox.about(self, "Acerca de pyrqt", ristra % (VERSION))
     
     def __undo(self):
         """Deshace el último cambio"""
@@ -267,7 +267,7 @@ class VPrincipal(QtGui.QMainWindow):
    #http://www.google.com/codesearch?hl=en&q=+%22qtable%22+%22cut%22+%22paste%22+show:z9otKZeV6U8:R6dK3Cx-dYg:Gh37-3Ie27E&sa=N&cd=48&ct=rc&cs_p=http://mde.abo.fi/confluence/download/attachments/1011/coral-0.9.1.tar.gz&cs_f=coral-0.9.1/coral/modeler/property/propertyeditor.py#a0 
     def __cortar(self):
         """Copia, borra la seleccion y su contenido"""
-        from Driza.excepciones import SeleccionIncorrectaException
+        from pyrqt.excepciones import SeleccionIncorrectaException
         try:
             self.grid.verificar_seleccion_registros()
             self.__portero.guardar_estado()
@@ -342,7 +342,7 @@ class VPrincipal(QtGui.QMainWindow):
         fn = QFileDialog.getSaveFileName(self,"Dialogo guardarFichero","",filtro)
         filename = str(fn)
         if filename:
-            from Driza.excepciones import FicheroExisteException, FicheroTipoDesconocidoException
+            from pyrqt.excepciones import FicheroExisteException, FicheroTipoDesconocidoException
             import re
             extension = re.compile('.*\..*')
             if not extension.match(filename):
