@@ -4,23 +4,23 @@
 
 #Copyright (C) 2007-2008  Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-from Driza.iuqt4.widgetsqt import QGridButtonGroup
+from pyrqt.iuqt4.widgetsqt import QGridButtonGroup
 from PyQt4 import QtCore,QtGui
 
 """Clases relacionadas con los widgets de opciones"""
@@ -272,7 +272,7 @@ class EWOListaFactores(ElementoWidgetOpciones,QtGui.QGroupBox): #era hgroupbox
         QtGui.QGroupBox.__init__(self,parent,"Lista factores")
         self.setTitle(nombre)
         self.nombre = nombre
-        from Driza.widgets.widgetsqt import WidgetListaComboBoxFact
+        from pyrqt.widgets.widgetsqt import WidgetListaComboBoxFact
         self.variables=WidgetListaComboBoxFact(self,datos) #Por defecto sin factores
 
     def opciones(self):
@@ -285,7 +285,7 @@ class EWOListaVariables(ElementoWidgetOpciones,QtGui.QGroupBox): #Era QHgroupBox
         QtGui.QGroupBox.__init__(self,parent,"Texto")
         self.setTitle(nombre)
         self.nombre = nombre
-        from Driza.widgets.widgetsqt import WidgetListaComboBoxVars
+        from pyrqt.widgets.widgetsqt import WidgetListaComboBoxVars
         self.variables=WidgetListaComboBoxVars(self,datos,factores=False) #Por defecto sin factores
 
     def opciones(self):

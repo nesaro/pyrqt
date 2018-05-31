@@ -3,20 +3,20 @@
 #
 #Copyright (C) 2007-2008  Néstor Arocha Rodríguez
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """woperaciones.py: Todos los widgets de operaciones"""
@@ -59,7 +59,8 @@ class WidgetOperacion(QtGui.QWidget):
 class WidgetOperacionSelectorOpcion(WidgetOperacion):
     """WidgetOperacionSelectorOpcion es un widget de operaciones que tiene un solo selector 
     y un solo widget de opciones"""
-    def __init__(self, name, objetowidgetselector, opcioneswidgetopciones, interfazdatos):
+    def __init__(self, name, objetowidgetselector, opcioneswidgetopciones,
+                 interfazdatos):
         WidgetOperacion.__init__(self, name)
 #
 #        #Condiciones a probar
@@ -69,7 +70,7 @@ class WidgetOperacionSelectorOpcion(WidgetOperacion):
 #        assert(isinstance(widgetopciones,WOpciones))
 #
         #Inicializacion de widgets
-        from Driza.iuqt4.operaciones.wopciones import WOpciones
+        from pyrqt.iuqt4.operaciones.wopciones import WOpciones
         self._wseleccion = objetowidgetselector(interfazdatos)
         self._wopciones = WOpciones(opcioneswidgetopciones)
 

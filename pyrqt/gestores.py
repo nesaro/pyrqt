@@ -22,7 +22,7 @@
 """Módulo de gestores"""
 
 import logging
-from Driza.excepciones import FicheroTipoDesconocidoException
+from .excepciones import FicheroTipoDesconocidoException
 LOG = logging.getLogger(__name__)
 
 def save_pkl(fichero, contenido, sobreescribir=False):
