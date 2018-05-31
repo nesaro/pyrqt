@@ -75,7 +75,8 @@ class GestorSalida(GestorFicheros):
         import re
         self.__dro = re.compile('.*\.dro')
 
-    def guardar(self, contenido, fichero = None, sobreescribir = False):
+    def guardar(self, contenido, fichero=None,
+                sobreescribir=False):
         """Guarda un fichero de salida"""
         self._guardar(fichero)
         if self.__dro.match(self.fichero):
@@ -121,7 +122,7 @@ class GestorProyectos(GestorFicheros):
             from Driza.excepciones import FicheroTipoDesconocidoException
             raise FicheroTipoDesconocidoException(self.fichero)
 
-    def cargar(self, fichero, tipo = "Auto"):
+    def cargar(self, fichero, tipo="Auto"):
         """Carga los datos del fichero indicado"""
         self._guardar(fichero)
         if (tipo == "Auto" and self.__driza.match(fichero)) or tipo == "Driza":
