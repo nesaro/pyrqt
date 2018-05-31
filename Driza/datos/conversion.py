@@ -49,25 +49,19 @@ class FuncionConversion:
 
 class CDefault(FuncionConversion):
     """Funcion de conversion por defecto. Transforma al valor por defecto de la TVariable destino"""
-    def __init__(self, tvar1, tvar2):
-        FuncionConversion.__init__(self, tvar1, tvar2)
     def __call__(self, var):
         return self.tvar2.valorpordefecto
 
 
 class CIgualdad(FuncionConversion):
     """Funcion de conversion. Devuelve el valor de la variable 1"""
-    def __init__(self, tvar1, tvar2):
-        FuncionConversion.__init__(self, tvar1, tvar2)
     def __call__(self, var):
         return var.valor
 
 class CRedondeoInferior(FuncionConversion):
     """Devuelve el valor de entrada con redondeo inferior"""
-    def __init__(self, tvar1, tvar2):
-        FuncionConversion.__init__(self, tvar1, tvar2)
     def __call__(self, var):
-        if var.valor == None: 
+        if var.valor is None: 
             return None
         return int(var.valor)
 

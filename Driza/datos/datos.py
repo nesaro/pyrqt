@@ -215,11 +215,10 @@ class ListaUndoRedo(list):
         """Si pasan un indice es que quieren encolar desde alguna posición"""
         if index >= self.tama:
             raise IndexError
-        else:
-            if self.__len__() == self.tama:
-                self.__delitem__(-1)
-            del self[:index]
-            self.insert(0, (objeto, flagoriginal))
+        if self.__len__() == self.tama:
+            self.__delitem__(-1)
+        del self[:index]
+        self.insert(0, (objeto, flagoriginal))
 
     def establecer_nuevo(self, indice, valor):
         """Modifica la flag de original de un indice dado"""
