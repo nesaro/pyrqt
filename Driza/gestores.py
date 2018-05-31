@@ -61,10 +61,6 @@ class GestorFicheros:
             from Driza.excepciones import NombreFicheroNoIndicadoException
             raise NombreFicheroNoIndicadoException
 
-    def _cargar(self, fichero):
-        """Acciones comunes al cargar un fichero"""
-        self.fichero = fichero
-
 
 class GestorSalida(GestorFicheros):
     """
@@ -79,21 +75,16 @@ class GestorSalida(GestorFicheros):
                 sobreescribir=False):
         """Guarda un fichero de salida"""
         self._guardar(fichero)
-        if self.__dro.match(self.fichero):
-            save_pkl(self.fichero, contenido, sobreescribir)
-        else:
-            from Driza.excepciones import FicheroTipoDesconocidoException
+        if not self.__dro.match(self.fichero):
             raise FicheroTipoDesconocidoException(self.fichero)
+        save_pkl(self.fichero, contenido, sobreescribir)
 
     def cargar(self, fichero):
         """Carga los datos del fichero indicado"""
-        if self.__dro.match(fichero):
-            datos = load_pkl(self.fichero)
-            return datos
-        else:
-            from Driza.excepciones import FicheroTipoDesconocidoException
+        if not self.__dro.match(fichero):
             raise FicheroTipoDesconocidoException(fichero)
-        self._cargar(fichero)
+        self.fichero = fichero
+        return load_pkl(self.fichero)
 
 
 class GestorProyectos(GestorFicheros):
@@ -114,29 +105,19 @@ class GestorProyectos(GestorFicheros):
         """Guarda la copia actual de los datos en el fichero indicado"""
         tipo = "Auto"
         self._guardar(fichero)
-        if (tipo == "Auto" and self.__driza.match(self.fichero))\
-                or tipo == "Driza":
-            save_pkl(self.fichero, self.__portero.actual(), sobreescribir)
-            self.__config.configuracion["lfichero"].insert(self.fichero)
-        else:
-            from Driza.excepciones import FicheroTipoDesconocidoException
+        if not self.__driza.match(self.fichero):
             raise FicheroTipoDesconocidoException(self.fichero)
+        save_pkl(self.fichero, self.__portero.actual(), sobreescribir)
+        self.__config.configuracion["lfichero"].insert(self.fichero)
 
     def cargar(self, fichero, tipo="Auto"):
         """Carga los datos del fichero indicado"""
-        self._guardar(fichero)
-        if (tipo == "Auto" and self.__driza.match(fichero)) or tipo == "Driza":
-            datos = load_pkl(self.fichero)
-        else:
-            from Driza.excepciones import FicheroTipoDesconocidoException
+        if fichero:
+            self.fichero = fichero
+        if not ((tipo == "Auto" and self.__driza.match(fichero)) or tipo == "Driza"):
             raise FicheroTipoDesconocidoException(fichero)
+        datos = load_pkl(self.fichero)
         self.__portero.guardar_estado()
-        self.__portero.insertar_estado(datos, flagoriginal = True)
+        self.__portero.insertar_estado(datos,
+                                       flagoriginal=True)
         self.__config.configuracion["lfichero"].insert(self.fichero)
-        self._cargar(fichero)
-
-
-
-
-
-
