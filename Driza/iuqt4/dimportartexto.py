@@ -58,7 +58,7 @@ class DImportarTexto(QtGui.QDialog):
                                     cabeceras=cabecera)
         except RException:
             msg = u"R No pudo importar el fichero"
-            QMessageBox.critical(self, u'Error!', msg)
+            QtGui.QMessageBox.critical(self, u'Error!', msg)
             LOG.exception("Excepcion en la importacion de texto")
         QtGui.QDialog.accept(self)
         self.parent().grid.myUpdate()

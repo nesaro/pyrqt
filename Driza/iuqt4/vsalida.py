@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-#Copyright (C) 2006-2008  Néstor Arocha Rodríguez
+#Copyright (C) 2006-2018  Néstor Arocha Rodríguez
 
 #This file is part of Driza.
 #
@@ -23,6 +23,7 @@
 
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QToolButton, QWidget
+from PyQt4.QtCore import QString
 from Driza.iuqt4.ui.vsalida import Ui_VentanaSalida
 
 class VSalida(QtGui.QMainWindow):
@@ -118,8 +119,12 @@ class VSalida(QtGui.QMainWindow):
         """Pregunta al usuario que fichero cargar"""
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
-            filterlist = filterlist + "%s files (*.%s);;" % (fmt, string.lower(fmt))
-        nombrefichero = QFileDialog.getOpenFileName(QString.null, filterlist, self, None, "Dialogo abrir fichero", "")
+            filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
+        nombrefichero = QtGui.QFileDialog.getOpenFileName(QString.null,
+                                                    filterlist,
+                                                    self,
+                                                    None,
+                                                    "Dialogo abrir fichero", "")
         filename = str(nombrefichero)
         if filename:
             try:
@@ -133,8 +138,10 @@ class VSalida(QtGui.QMainWindow):
         """Pregunta al usuario en que fichero guardar"""
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
-            filterlist = filterlist + "%s files (*.%s);;" % (fmt, string.lower(fmt))
-        nombrefichero = QFileDialog.getSaveFileName(QString.null, filterlist, self)
+            filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
+        nombrefichero = QtGui.QFileDialog.getSaveFileName(QString.null,
+                                                          filterlist,
+                                                          self)
         filename = str(nombrefichero)
         if filename:
             from Driza.excepciones import FicheroExisteException, \
@@ -163,8 +170,10 @@ class VSalida(QtGui.QMainWindow):
         """Pregunta al usuario en que fichero exportar"""
         filterlist = ""
         for fmt in ["html"]: #Candidata al fichero de listas
-            filterlist = filterlist + "%s files (*.%s);;" % (fmt,string.lower(fmt))
-        nombrefichero = QFileDialog.getSaveFileName(QString.null, filterlist, self)
+            filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
+        nombrefichero = QtGui.QFileDialog.getSaveFileName(self,
+                                                          filterlist,
+                                                          )
         filename = str(nombrefichero)
         if filename:
             self.__exportar(filename)
