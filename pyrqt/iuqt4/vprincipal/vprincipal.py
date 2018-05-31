@@ -19,23 +19,25 @@
 #along with Driza; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from __future__ import absolute_import
+
 """Ventana principal"""
 
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QMessageBox,QIcon
-from Driza.iuqt4.ui.vprincipal import Ui_VentanaPrincipal
-from Driza.iuqt4.dconfig import DConfig
-from Driza.iuqt4.dbuscar import DBuscar
-from Driza.iuqt4.operaciones.doperaciones import DOperaciones
-from Driza.iuqt4.dimportartexto import DImportarTexto
-from Driza.iuqt4.dfiltrado import DFiltrado
-from Driza.iuqt4.vsalida import VSalida
+from ..ui.vprincipal import Ui_VentanaPrincipal
+from ..dconfig import DConfig
+from ..dbuscar import DBuscar
+from ..operaciones.doperaciones import DOperaciones
+from ..dimportartexto import DImportarTexto
+from ..dfiltrado import DFiltrado
+from ..vsalida import VSalida
 from grid import Grid
-from Driza import gestores
-from Driza import operaciones
-from Driza.listas import SL
-from Driza.datos import datos
-from Driza.datos import interfaces
+from pyrqt import gestores
+from pyrqt import operaciones
+from pyrqt.listas import SL
+from pyrqt.datos import datos
+from pyrqt.datos import interfaces
 import string
 import logging
 LOG = logging.getLogger(__name__)

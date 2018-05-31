@@ -20,6 +20,8 @@
 #along with Driza; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from __future__ import absolute_import
+
 """Funciones para la creacion/edicion de variables"""
 
 class GestorPaquetes(dict):
@@ -91,8 +93,8 @@ class Paquete(dict):
 
     def __loadModules(self):
         """Carga todas las funciones pertenecientes al paquete como modulo"""
-        cargarmodulo = lambda f: __import__(f, None, None, ["Driza.carga.funciones"])
-        ruta = "Driza.carga.funciones." + self.nombrereal
+        cargarmodulo = lambda f: __import__(f, None, None, ["pyrqt.carga.funciones"])
+        ruta = "pyrqt.carga.funciones." + self.nombrereal
         modulo = cargarmodulo(ruta)
         listamiembros = dir(modulo)
         import re

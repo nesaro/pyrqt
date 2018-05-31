@@ -26,7 +26,7 @@ class StaticList:
     """Stores statics lists"""
     @property
     def TIPOSOPERACION(self):
-        from Driza.operaciones import OperacionCalculo, OperacionCasos
+        from pyrqt.operaciones import OperacionCalculo, OperacionCasos
         return {
             "Calculo":{"nombre":"Calculo","clase":OperacionCalculo},
             "Casos":{"nombre":"Casos","clase":OperacionCasos}
@@ -34,7 +34,7 @@ class StaticList:
 
     @property
     def TIPOSWIDGETOPCIONESQT3(self):
-        from Driza.iuqt3.operaciones import wopciones
+        from pyrqt.iuqt3.operaciones import wopciones
         return {
             "SeleccionSimple":{"clase":wopciones.EWOSeleccionSimple},
             "SeleccionMultiple":{"clase":wopciones.EWOSeleccionMultiple},
@@ -47,7 +47,7 @@ class StaticList:
 
     @property
     def TIPOSWIDGETOPERACIONESQT3(self):
-        from Driza.iuqt3.operaciones import seleccion
+        from pyrqt.iuqt3.operaciones import seleccion
         return {
             "Variable":{
                 "seleccion":seleccion.SelectorVariable},
@@ -67,7 +67,7 @@ class StaticList:
 
     @property
     def TIPOSWIDGETOPCIONESQT4(self):
-        from Driza.iuqt4.operaciones import wopciones
+        from pyrqt.iuqt4.operaciones import wopciones
         return {
             "SeleccionSimple":{"clase":wopciones.EWOSeleccionSimple},
             "SeleccionMultiple":{"clase":wopciones.EWOSeleccionMultiple},
@@ -80,7 +80,7 @@ class StaticList:
 
     @property
     def TIPOSWIDGETOPERACIONESQT4(self):
-        from Driza.iuqt4.operaciones import seleccion
+        from pyrqt.iuqt4.operaciones import seleccion
         return {
             "Variable":{
                 "seleccion":seleccion.SelectorVariable},
@@ -100,7 +100,7 @@ class StaticList:
 
     @property
     def TIPOSAGRUPADOR(self):
-        from Driza.datos import variables
+        from pyrqt.datos import variables
         return {
             "Real":{
                 "clasevariable":variables.Real, 
@@ -145,7 +145,7 @@ class StaticList:
 
     @property
     def ELEMENTOSSALIDA(self):
-        from Driza.salida import componenteresultado
+        from pyrqt.salida import componenteresultado
         return {
             "Texto":{"clase":componenteresultado.DefinicionElementoResultadoParrafo},
             "Tabla":{"clase":componenteresultado.DefinicionElementoResultadoTabla},

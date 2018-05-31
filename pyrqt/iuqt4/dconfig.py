@@ -19,13 +19,15 @@
 #along with Driza; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from __future__ import absolute_import
+
 """Dialogo de configuracion"""
 
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtCore import SIGNAL
 from PyQt4.QtGui import QMessageBox
-from Driza.iuqt4.ui.dconfig import Ui_DialogoConfig
-from Driza.iuqt4.ui.wconfig1 import Ui_wconfig1
+from .ui.dconfig import Ui_DialogoConfig
+from .ui.wconfig1 import Ui_wconfig1
 
 class DConfig(QtGui.QDialog):
     """Permite configurar cualquier aspecto del programa. Esta vinculado al objeto ManejadorConfig"""

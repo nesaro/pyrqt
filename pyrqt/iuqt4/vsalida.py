@@ -65,7 +65,7 @@ class VSalida(QtGui.QMainWindow):
         """Redefinicion del closeEvent de qt"""
         QWidget.closeEvent( self, event )
         if not self.__parent.vprincipal.isVisible():
-            qApp.exit(0)
+            QtCore.qApp.exit(0)
         else:
             self.hide()
 

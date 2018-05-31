@@ -18,6 +18,8 @@
 #along with Driza; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from __future__ import absolute_import
+
 """Módulo de configuracion"""
 
 
@@ -95,7 +97,7 @@ class GestorConfig:
 
     def cargar(self, fichero = None):
         """Carga un fichero de configuracion, por defecto ~/.driza"""
-        from Driza.excepciones import VersionAnterior
+        from .excepciones import VersionAnterior
         nuevo = False
         if fichero:
             self.__fichero = fichero

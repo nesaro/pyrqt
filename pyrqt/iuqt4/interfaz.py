@@ -26,17 +26,18 @@
 
 """Interfaces a las clases de interfaz de usuario"""
 
-from Driza.iuqt4 import temas
+from __future__ import absolute_import
+from . import temas
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QMessageBox,QApplication
 import logging
-from Driza.iuqt4.vprincipal.vprincipal import VPrincipal
-from Driza.iuqt4.dcrevar import DCrevar
-from Driza.iuqt4.dsplash import DSplash
-from Driza.iuqt4.vsalida import VSalida
-#from Driza.iuqt4.dimportartexto import DImportarTexto
-from Driza import gestores
-from Driza.iuqt4.operaciones.doperaciones import DOperaciones
+from .vprincipal.vprincipal import VPrincipal
+from .dcrevar import DCrevar
+from .dsplash import DSplash
+from .vsalida import VSalida
+#from .iuqt4.dimportartexto import DImportarTexto
+from . import gestores
+from .operaciones.doperaciones import DOperaciones
 LOG = logging.getLogger("Driza.iuqt4.interfaz")
 
 class InterfazQt4(QApplication):

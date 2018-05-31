@@ -21,6 +21,7 @@
 
 """Clases de operaciones"""
 
+from __future__ import absolute_import
 import logging
 LOG = logging.getLogger(__name__)
 
@@ -39,7 +40,7 @@ class GestorOperaciones(dict):
 
     def __init_integrado(self):
         """Esta funcion carga en el diccionario las operaciones"""
-        from Driza.listas import SL
+        from .listas import SL
         modules = self.__lista_modulos()
         for operacion in modules:
             try:
@@ -66,8 +67,8 @@ class GestorOperaciones(dict):
         """Devuelve una lista con los modulos ya cargados"""
         #Sacado de:
         # http://www.diveintopython.org/functional_programming/all_together.html
-        import Driza.carga.operaciones
-        ruta = Driza.carga.operaciones.__path__[0]
+        import pyrqt.carga.operaciones
+        ruta = pyrqt.carga.operaciones.__path__[0]
         import os
         import re
         ficheros = os.listdir(ruta)
@@ -76,9 +77,9 @@ class GestorOperaciones(dict):
         ficheros = filter(test.search, ficheros)   
         filenametomodulename = lambda f: os.path.splitext(f)[0]
         modulenames = map(filenametomodulename, ficheros)
-        mifuncion = lambda f: "Driza.carga.operaciones."+f
+        mifuncion = lambda f: "pyrqt.carga.operaciones."+f
         modulenames = map(mifuncion, modulenames)
-        mifuncion2 = lambda f: __import__(f, None, None, ["Driza.carga.operaciones"])
+        mifuncion2 = lambda f: __import__(f, None, None, ["pyrqt.carga.operaciones"])
         modules = []
         for nombremodulo in modulenames:
             try:
@@ -91,7 +92,7 @@ class GestorOperaciones(dict):
 
     def __cargar_definiciones(self, nombre, listadiccionariodefinicion):
         """Carga la definicion de los resultados a partir del diccionario suministrado por el modulo de la operacion"""
-        from Driza.salida.base import GestorFormatoResultado
+        from pyrqt.salida.base import GestorFormatoResultado
         fresultado = GestorFormatoResultado(nombre, self.__config)
         fresultado.cargar_definicion(listadiccionariodefinicion)
         return fresultado
@@ -144,7 +145,7 @@ class OperacionCalculo(Operacion):
         if not listaelementos:
             raise IndexError #TODO Cambiar por execpción mejor
         if not self.funcionchequeoentradausuario(opciones):
-            from Driza.excepciones import OpcionesIncorrectaException
+            from pyrqt.excepciones import OpcionesIncorrectaException
             raise OpcionesIncorrectaException
         lista = []
         #Guardamos en lista cada pareja, enunciado-resultado
@@ -171,7 +172,7 @@ class OperacionCasos(Operacion):
         if not listaelementos:
             raise IndexError #TODO Cambiar por execpción mejor
         if not self.funcionchequeoentradausuario(opciones):
-            from Driza.excepciones import OpcionesIncorrectaException
+            from pyrqt.excepciones import OpcionesIncorrectaException
             raise OpcionesIncorrectaException
         lista = []
         #Guardamos en lista cada pareja, enunciado-resultado

@@ -1,1 +1,2 @@
 *.pyc
+pyrqt/iuqt4/ui/*.py

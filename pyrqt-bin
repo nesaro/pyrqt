@@ -31,14 +31,14 @@ Driza main program
 import logging
 LOG = logging.getLogger(__name__)
 
-from Driza.core import DrizaCore
+from pyrqt.core import DrizaCore
     
 if __name__ == "__main__":
     #Obtencion de parametros de ejecucion
     from optparse import OptionParser
     USAGE = "usage: %prog [opciones] [fichero]"
-    from Driza import VERSION, CODENAME
-    VER = "Driza " + VERSION + " Codename:" + CODENAME + "\n Copyright (C) 2006-2008  Néstor Arocha Rodríguez, Inmaculada Luengo Merino"
+    from pyrqt import VERSION, CODENAME
+    VER = "pyrqt " + VERSION + " Codename:" + CODENAME + "\n Copyright (C) 2006-2008  Néstor Arocha Rodríguez, Inmaculada Luengo Merino"
     PARSER = OptionParser(usage = USAGE, version = VER)
     PARSER.add_option("-s", "--splash", action="store_true", dest="vsplash", help="Mostrar la ventana de splash")
     PARSER.add_option("-n", "--nosplash", action="store_false", dest="vsplash", help="No mostrar la ventana de splash")
@@ -47,13 +47,13 @@ if __name__ == "__main__":
     debuglevel = 51
     if OPTIONS.debuglevel:
         debuglevel = OPTIONS.debuglevel
-    logging.basicConfig(level = debuglevel)
+    #logging.basicConfig(level = debuglevel)
 
     #Creacion de la clase principal
     try:
         programaprincipal = DrizaCore(OPTIONS)
-    except ImportError:
-        print "PyQt4 not found"
+    except:
+        LOG.exception("a")
         import sys
         sys.exit(1)
     if ARGS:

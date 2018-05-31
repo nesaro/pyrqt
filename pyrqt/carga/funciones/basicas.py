@@ -20,7 +20,7 @@
 
 """Funciones básicas"""
 
-from Driza.datos.funciones import Funcion
+from pyrqt.datos.funciones import Funcion
 
 class Default(Funcion):
     """Devuelve el valor por defecto de la variable de entrada"""

@@ -27,13 +27,13 @@
 """
 Driza Core Class
 """
-
-from Driza.datos import datos
-from Driza.datos import interfaces
-from Driza.datos import funciones
-from Driza import gestores
-from Driza import config
-from Driza import operaciones
+from __future__ import absolute_import
+from .datos import datos
+from .datos import interfaces
+from .datos import funciones
+from . import gestores
+from . import config
+from . import operaciones
 
 import logging
 LOG = logging.getLogger(__name__)
@@ -62,7 +62,7 @@ class DrizaCore:
         logging.info('Cargado modulo de proyectos')
         gestoroperaciones = operaciones.GestorOperaciones(idr, self.__gestorconfig)
         logging.info('Cargado modulo de operaciones')
-        from Driza.iuqt4.interfaz import InterfazQt4
+        from .iuqt4.interfaz import InterfazQt4
         self.__iu = InterfazQt4(self.__gestorconfig, portero, idu, idf, \
                 gestorproyectos, gestoroperaciones, gestorpaquetes, \
                 options, esnuevo)

@@ -31,7 +31,7 @@ class GestorFormatoResultado(dict):
 
     def __setitem__(self, indice, elemento):
         """Equivalente al append de list, salvo que controla los tipos"""
-        from Driza.salida.componenteresultado import DefinicionElementoResultado
+        from pyrqt.salida.componenteresultado import DefinicionElementoResultado
         if not isinstance(elemento, DefinicionElementoResultado):
             raise TypeError
         dict.__setitem__(self, indice, elemento)
@@ -40,7 +40,7 @@ class GestorFormatoResultado(dict):
     def cargar_definicion(self, listadiccionariodefinicion):
         """Carga las definiciones del resultado 
         a partir de una lista con dicionarios (Obtenidos de la operacion)"""
-        from Driza.listas import SL
+        from pyrqt.listas import SL
         for dicdefinicion in listadiccionariodefinicion:
             objeto = SL.ELEMENTOSSALIDA[dicdefinicion["tipo"]]["clase"]
             if dicdefinicion["tipo"] == "Texto" or \
@@ -61,7 +61,7 @@ class GestorFormatoResultado(dict):
     def renderizar(self, listaresultados):
         """Devuelve un ResultadoOperacion con todos sus elementos ya relleno"""
         resultadooperacion = ResultadoOperacion(self.__nombre)
-        from Driza.salida.componentesalida import CSTexto
+        from pyrqt.salida.componentesalida import CSTexto
         titulo = CSTexto(size = 5)
         titulo.establecer(self.__nombre)
         separador = CSTexto()
