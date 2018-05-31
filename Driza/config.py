@@ -93,7 +93,7 @@ class GestorConfig:
         self.__fichero = os.environ["HOME"]+"/.driza"
         self.configuracion = {}
 
-    def cargar(self, fichero = None):
+    def cargar(self, fichero=None):
         """Carga un fichero de configuracion, por defecto ~/.driza"""
         from Driza.excepciones import VersionAnterior
         nuevo = False
@@ -117,9 +117,9 @@ class GestorConfig:
             self.configuracion = configuracion
         
         self.configuracion = configuracion
-        return nuevo #Devuelve si el fichero es nuevo o no
+        return nuevo
             
-    def save(self, fichero = None):
+    def save(self, fichero=None):
         """Guarda el fichero de configuracion en un fichero"""
         if fichero:
             self.__fichero = fichero
