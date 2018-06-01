@@ -48,16 +48,14 @@ if __name__ == "__main__":
                       type="int", dest="debuglevel",
                       help="El nivel de debug que se desea mostrar")
     (OPTIONS, ARGS) = PARSER.parse_args()
-    debuglevel = 51
-    if OPTIONS.debuglevel:
-        debuglevel = OPTIONS.debuglevel
+    debuglevel = OPTIONS.debuglevel or 0
     logging.basicConfig(level = debuglevel)
 
     #Creacion de la clase principal
     try:
         programaprincipal = DrizaCore(OPTIONS)
-    except ImportError:
-        print "PyQt4 not found"
+    except:
+        LOG.exception("Unhandled exception")
         import sys
         sys.exit(1)
     if ARGS:

@@ -311,7 +311,7 @@ class VPrincipal(QtGui.QMainWindow):
         """Funcion de salida del programa. Guarda la configuracion"""
         if not self.__dproyecto_modificado(): 
             return
-        self.__config.guardar()
+        self.__config.save()
         QtGui.qApp.exit(0)
 
 
