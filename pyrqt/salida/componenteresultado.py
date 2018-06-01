@@ -3,19 +3,19 @@
 
 #Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """Definicion de los componentes de los resultados"""
@@ -50,7 +50,7 @@ class DefinicionElementoResultadoTabla(DefinicionElementoResultado):
     def renderizar(self, listadiccionarios):
         """Añade una nueva tabla. El parametro ha de ser 
         una lista (filas)con listas (columnas)"""
-        from Driza.salida.componentesalida import CSLista, CSTexto, CSTabla
+        from pyrqt.salida.componentesalida import CSLista, CSTexto, CSTabla
         resultado = CSLista()
         titulo = CSTexto(size=3)
         titulo.establecer(self.nombre)
@@ -90,7 +90,7 @@ class DefinicionElementoResultadoFila(DefinicionElementoResultado):
     def renderizar(self, listadiccionarios):
         """Añade una nueva tabla. 
         El parametro ha de ser una lista (filas)con listas (columnas)"""
-        from Driza.salida.componentesalida import CSLista, CSTexto, CSTabla
+        from pyrqt.salida.componentesalida import CSLista, CSTexto, CSTabla
         resultado = CSLista()
         titulo = CSTexto(size=3)
         titulo.establecer(self.nombre)
@@ -115,7 +115,7 @@ class DefinicionElementoResultadoParrafo(DefinicionElementoResultado):
 
     def renderizar(self, diccionario):
         """El diccionario es recibido por la funcionprincipal de la operacion"""
-        from Driza.salida.componentesalida import CSTexto
+        from pyrqt.salida.componentesalida import CSTexto
         miresultado = CSTexto()
         miresultado.establecer(diccionario["contenido"])
         return miresultado
@@ -134,7 +134,7 @@ class DefinicionElementoResultadoImagen(DefinicionElementoResultado):
 
     def renderizar(self, listadiccionario):
         """El diccionario es recibido por la funcionprincipal de la operacion"""
-        from Driza.salida.componentesalida import CSImagen, CSLista
+        from pyrqt.salida.componentesalida import CSImagen, CSLista
         resultado = CSLista()
         for diccionario in listadiccionario:
             miresultado = CSImagen()

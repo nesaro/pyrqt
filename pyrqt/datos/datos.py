@@ -4,20 +4,20 @@
 
 #Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """
@@ -50,7 +50,7 @@ class Registro(dict):
         Si nos pasa un entero, devolvemos el campo asociado a la variable con ese indice
         """
         miindice = indice
-        from Driza.datos.agrupadores import Agrupador
+        from pyrqt.datos.agrupadores import Agrupador
         if isinstance(indice, Agrupador):
             miindice = indice.name()
         if isinstance(indice, int):
@@ -69,9 +69,7 @@ class Registro(dict):
         Redefinicion de []= de la lista. Almacena en el valor 
         convertido a formato interno por la variable asociada
         """
-        #import traceback
-        #traceback.print_stack()
-        from Driza.datos.agrupadores import Agrupador
+        from .agrupadores import Agrupador
         miindice = indice
         if isinstance(indice, Agrupador):
             miindice = indice.name()
@@ -85,7 +83,7 @@ class Registro(dict):
 
     def __delitem__(self, indice):
         """Pemite hacer el del"""
-        from Driza.datos.agrupadores import Agrupador
+        from .agrupadores import Agrupador
         miindice = indice
         if isinstance(indice, Agrupador):
             miindice = indice.name()

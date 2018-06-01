@@ -4,20 +4,20 @@
 
 #Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 
-#This file is part of Driza.
+#This file is part of pyrqt.
 #
-#Driza is free software; you can redistribute it and/or modify
+#pyrqt is free software; you can redistribute it and/or modify
 #it under the terms of the GNU General Public License as published by
 #the Free Software Foundation; either version 2 of the License, or
 #(at your option) any later version.
 #
-#Driza is distributed in the hope that it will be useful,
+#pyrqt is distributed in the hope that it will be useful,
 #but WITHOUT ANY WARRANTY; without even the implied warranty of
 #MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #GNU General Public License for more details.
 #
 #You should have received a copy of the GNU General Public License
-#along with Driza; if not, write to the Free Software
+#along with pyrqt; if not, write to the Free Software
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """ Interfaces de acceso a los datos """
@@ -29,7 +29,7 @@ def comprobar_nombre_filtro(nombre):
     """Comprueba si el nombre no coincide con el nombre de filtro"""
     if nombre == "*filtro":
         #El nombre *filtro está reservado
-        from  Driza.excepciones import VariableExisteException
+        from  pyrqt.excepciones import VariableExisteException
         raise VariableExisteException()
 
 class InterfazDatos:
@@ -155,7 +155,7 @@ class InterfazDatos:
 
     def ins_reg(self, pos, dato = None):
         """inserta un registro en la posicion pos"""
-        from Driza.datos.datos import Registro
+        from pyrqt.datos.datos import Registro
         import types
         if dato is None:
             registro = Registro(self._portero.actual().variables())
@@ -203,14 +203,14 @@ class InterfazDatos:
     def _ana_var_privado(self, nombre, tipo, valorpordefecto, descripcion, protegerfiltro = True):
         """Añade una variable, sin preocuparse por los registros"""
         if nombre in self.lista_tit():
-            from  Driza.excepciones import VariableExisteException
+            from pyrqt.excepciones import VariableExisteException
             raise VariableExisteException()
         if protegerfiltro:
             comprobar_nombre_filtro(nombre)
-        from Driza.listas import SL
+        from pyrqt.listas import SL
         if not SL.TIPOSAGRUPADOR.has_key(tipo): 
             raise TypeError
-        from Driza.datos.agrupadores import Agrupador
+        from pyrqt.datos.agrupadores import Agrupador
         if tipo == "Ordinal" or tipo == "Entero" or tipo == "Real":
             self._portero.actual().variables().append\
                     (Agrupador(nombre, tipo, descripcion, valorpordefecto)) 
@@ -286,7 +286,7 @@ class InterfazDatosUsuario(InterfazDatos):
         """
         if indice == 0 or indice == "nombre":
             if valor in self.lista_tit():
-                from  Driza.excepciones import VariableExisteException
+                from  pyrqt.excepciones import VariableExisteException
                 raise VariableExisteException()
             comprobar_nombre_filtro(valor)
             variable.set_name(valor)
@@ -310,7 +310,7 @@ class InterfazDatosUsuario(InterfazDatos):
                 and self.var(indice).name() != variable.name():
             #Comprobamos que no se trata de un cambio de atributo 
             #de la variable
-            from  Driza.excepciones import VariableExisteException
+            from  pyrqt.excepciones import VariableExisteException
             raise VariableExisteException()
         comprobar_nombre_filtro(variable.name())
         if not columna:
@@ -442,7 +442,7 @@ class InterfazDatosR(InterfazDatos):
         #de alguna condicion
         #TODO assert la variable es distinta a la 
         #de alguna condicion
-        from Driza.datos.condiciones import procesa_condicion
+        from pyrqt.datos.condiciones import procesa_condicion
         mifuncion = lambda f: procesa_condicion(self, f)
         listacondiciones = map(mifuncion, condiciones)
         lista = []
@@ -478,7 +478,7 @@ class InterfazDatosFicheros(InterfazDatos):
         """Carga los datos de un fichero de texto"""
         import os
         if not os.path.exists(fichero):
-            from Driza.excepciones import FicheroNoExisteException
+            from pyrqt.excepciones import FicheroNoExisteException
             raise FicheroNoExisteException(fichero)
         from rpy import r #pylint: disable=import-error
         datos = r.read_table(fichero, sep = opciones["delimitadoratrib"], \
