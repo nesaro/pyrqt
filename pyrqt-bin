@@ -1,0 +1,64 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+###################################
+#
+#  DRIZA
+#
+###################################
+
+
+#Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino 
+#This file is part of Driza.
+#
+#Driza is free software; you can redistribute it and/or modify
+#it under the terms of the GNU General Public License as published by
+#the Free Software Foundation; either version 2 of the License, or
+#(at your option) any later version.
+#
+#Driza is distributed in the hope that it will be useful,
+#but WITHOUT ANY WARRANTY; without even the implied warranty of
+#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#GNU General Public License for more details.
+#
+#You should have received a copy of the GNU General Public License
+#along with Driza; if not, write to the Free Software
+#Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+"""
+Driza main program
+"""
+
+import logging
+LOG = logging.getLogger(__name__)
+
+from pyrqt.core import DrizaCore
+    
+if __name__ == "__main__":
+    #Obtencion de parametros de ejecucion
+    from optparse import OptionParser
+    USAGE = "usage: %prog [opciones] [fichero]"
+    from pyrqt import VERSION, CODENAME
+    VER = "pyrqt " + VERSION + " Codename:" + CODENAME + "\n Copyright (C) 2006-2018  Néstor Arocha Rodríguez, Inmaculada Luengo Merino"
+    PARSER = OptionParser(usage = USAGE, version = VER)
+    PARSER.add_option("-s", "--splash", action="store_true",
+                      dest="vsplash", help="Mostrar la ventana de splash")
+    PARSER.add_option("-n", "--nosplash", action="store_false",
+                      dest="vsplash", help="No mostrar la ventana de splash")
+    PARSER.add_option("-d", "--debuglevel", action="store",
+                      type="int", dest="debuglevel",
+                      help="El nivel de debug que se desea mostrar")
+    (OPTIONS, ARGS) = PARSER.parse_args()
+    debuglevel = OPTIONS.debuglevel or 0
+    logging.basicConfig(level = debuglevel)
+
+    #Creacion de la clase principal
+    try:
+        programaprincipal = DrizaCore(OPTIONS)
+    except:
+        LOG.exception("Unhandled exception")
+        import sys
+        sys.exit(1)
+    if ARGS:
+        programaprincipal.cargarfichero(ARGS[0])
+    programaprincipal.bucle()
+
