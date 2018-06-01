@@ -48,16 +48,14 @@ if __name__ == "__main__":
                       type="int", dest="debuglevel",
                       help="El nivel de debug que se desea mostrar")
     (OPTIONS, ARGS) = PARSER.parse_args()
-    debuglevel = 51
-    if OPTIONS.debuglevel:
-        debuglevel = OPTIONS.debuglevel
-    #logging.basicConfig(level = debuglevel)
+    debuglevel = OPTIONS.debuglevel or 0
+    logging.basicConfig(level = debuglevel)
 
     #Creacion de la clase principal
     try:
         programaprincipal = DrizaCore(OPTIONS)
     except:
-        LOG.exception("a")
+        LOG.exception("Unhandled exception")
         import sys
         sys.exit(1)
     if ARGS:
