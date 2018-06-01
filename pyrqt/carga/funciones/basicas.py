@@ -27,6 +27,7 @@ class Default(Funcion):
     def __init__(self):
         nombre = "Default(x)"
         Funcion.__init__(self, nombre)
+
     def __call__(self, instanciavariable):
         return instanciavariable.tvariable.valorpordefecto
     

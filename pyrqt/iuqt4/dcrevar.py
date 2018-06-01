@@ -42,7 +42,7 @@ LOG = logging.getLogger("__name__")
 class DCrevar(QtGui.QDialog):
     """Dialogo de creación de variables, permite obtener nuevas variables a partir de las ya existentes"""
 
-    def __init__(self, parent, dato, config,gestorpaquetes):
+    def __init__(self, parent, dato, config, gestorpaquetes):
         """Inicialización"""
         QtGui.QDialog.__init__(self, parent)
         self.ui=Ui_DialogoCrevar()

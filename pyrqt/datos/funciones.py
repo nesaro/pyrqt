@@ -101,10 +101,7 @@ class Paquete(dict):
         principal = re.compile('^[A-Z]+')
         nuevalista = [x for x in listamiembros if principal.match(x)]
         del nuevalista[nuevalista.index("Funcion")] #El único elemento que no interesa
-        nuevalista2 = []
-        for nombremodulo in nuevalista:
-            object = getattr(modulo,nombremodulo)()
-            nuevalista2.append(object)
+        nuevalista2 = [getattr(modulo,nombremodulo)() for nombremodulo in nuevalista]
         for indicepaquete in range(len(nuevalista)):
             self.__setitem__(nuevalista[indicepaquete], \
                     nuevalista2[indicepaquete]) 
