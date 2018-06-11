@@ -99,25 +99,6 @@ class GestorCategorias:
     """Clase que carga y almacena las categorias.
     El indice es un conjunto (que es una lista en la que no importa el orden
     """
-    def __init__(self):
-        self.categorias = {}
-        self.cargar()
-
-    def cargar(self):
-        """Carga las categorias en el gestor"""
-        self.categorias = {"Texto de prueba para descriptivo": {"Descriptivo"},
-                           "Texto de prueba para CH": {"Contraste de Hipotesis"},}
-
-    def obtener_categoria_aprox(self, key):
-        """Devuelve el label Mas cercano a la definicion que se nos pide.
-        key es una lista ordenada, el elemento general esta por la izquierda"""
-        if not isinstance(key, list):
-            assert TypeError
-        copialista = key[:]
-        while copialista:
-            if Set(copialista) in self.categorias:
-                return self.categorias[Set(copialista)]
-            copialista = copialista[1:]
-        LOG.debug("No encontre ningun subconjunto de labels")
-        return False
+    categorias = {"Texto de prueba para descriptivo": {"Descriptivo"},
+                  "Texto de prueba para CH": {"Contraste de Hipotesis"},}
 
