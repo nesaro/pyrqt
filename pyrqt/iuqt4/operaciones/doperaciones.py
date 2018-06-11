@@ -95,7 +95,7 @@ class DOperaciones(QtGui.QDialog):
     def __init__(self, parent, idu, gestoroperaciones, vsalida):
         self.__widgets = {}
         self.__init_dic_widgets()
-        self.__gestorcategorias = GestorCategorias()
+        self.__gestorcategorias = GestorCategorias
         QtGui.QDialog.__init__(self, parent)
         self.ui=Ui_DialogoOperaciones()
         self.ui.setupUi(self)
