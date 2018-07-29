@@ -128,13 +128,13 @@ class DOperaciones(QtGui.QDialog):
         #    errormessage.showMessage(u"Seleccion incorrecta")
         #    LOG.exception("excepcion capturada")
         except KeyError:
-            QErrorMessage(self,"error").message(u"Hay elementos de la salida sin definir(o mal definidos) en la operación")
+            QErrorMessage(self).showMessage(u"Hay elementos de la salida sin definir(o mal definidos) en la operación")
             LOG.exception("Excepción Generada por un módulo de operaciones")
         except rpy.RException:
-            QErrorMessage(self, "error").message(u"R devolvio un error")
+            QErrorMessage(self).showMessage(u"R devolvio un error")
             log.exception("Excepción de RPY")
         except AssertionError:
-            QErrorMessage(self, "error").message(u"Error desconocido")
+            QErrorMessage(self).showMessage(u"Error desconocido")
         else:
             self.__vsalida.ana_res(resultado) #Añadir a la salida el resultado
             self.__vsalida.hide() #TODO averiguar como hacer para que recupere el foco sin ocultar la ventana
