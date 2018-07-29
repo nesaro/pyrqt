@@ -63,17 +63,12 @@ class Tabla:
             self._ncols = len(args)
         if len(args) != self._ncols:
             raise IndexError
-        else:
-            self._contenido.append(args)
+        self._contenido.append(args)
 
 
     def _numero_validos(self):
         """Devuelve el número de elementos válidos"""
-        i = 0
-        for elemento in self._lista_validos():
-            if elemento:
-                i += 1
-        return i
+        return len([x for x in self._lista_validos() if x])
 
     def _lista_validos(self):
         """Devuelve una lista con verdaderos y falsos que determinan 

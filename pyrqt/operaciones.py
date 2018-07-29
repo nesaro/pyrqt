@@ -147,17 +147,9 @@ class OperacionCalculo(Operacion):
         if not self.funcionchequeoentradausuario(opciones):
             from pyrqt.excepciones import OpcionesIncorrectaException
             raise OpcionesIncorrectaException
-        lista = []
-        #Guardamos en lista cada pareja, enunciado-resultado
-        for elemento in listaelementos:
-            lista.append(self.funcion(self.dato, elemento, opciones))
-       
-        
-        #Creamos el resultado de salida
-        resultado = self.listadefinicionresultado.renderizar(lista)
+        lista = [self.funcion(self.dato, elemento, options) for elemento in listaelementos]
+        return self.listadefinicionresultado.renderizar(lista)
 
-        #Devolvemos el objeto
-        return resultado
 
 class OperacionCasos(Operacion):
     """Los calculos que se realizan sobre un conjunto de variables por separado. 
@@ -182,8 +174,5 @@ class OperacionCasos(Operacion):
                 lista.append(self.funcion(self.dato, variable, str(caso.valor), opciones))
        
         #Creamos el resultado de salida
-        resultado = self.listadefinicionresultado.renderizar(lista)
-
-        #Devolvemos el objeto
-        return resultado
+        return self.listadefinicionresultado.renderizar(lista)
 
