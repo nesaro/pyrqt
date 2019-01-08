@@ -22,31 +22,26 @@
 """Módulo de gestores"""
 
 import logging
+import pickle
+import os
 from .excepciones import FicheroTipoDesconocidoException
 LOG = logging.getLogger(__name__)
 
-def save_pkl(fichero, contenido, sobreescribir=False):
+def _save_pkl(fichero, content, sobreescribir=False):
     """Guardar un fichero con pickle"""
-    import os
     if not sobreescribir and os.path.exists(fichero):
         from pyrqt.excepciones import FicheroExisteException
         raise FicheroExisteException(fichero)
-    archivo = open(fichero, 'w')
-    import pickle
-    pickle.dump(contenido, archivo)
-    archivo.close()
+    with open(fichero, 'w') as f:
+        pickle.dump(content, f)
 
-def load_pkl(fichero):
+def _load_pkl(filepath):
     """ Carga un fichero con Pickle """
-    import os
-    if not os.path.exists(fichero):
+    if not os.path.exists(filepath):
         from pyrqt.excepciones import FicheroNoExisteException
-        raise FicheroNoExisteException(fichero)
-    archivo = open(fichero, 'r')
-    import pickle
-    datos = pickle.load(archivo) 
-    archivo.close()
-    return datos
+        raise FicheroNoExisteException(filepath)
+    with open(filepath, 'r') as f:
+        return pickle.load(f) 
 
 class GestorFicheros:
     """Clase padre de los gestores que trabajan con ficheros"""
@@ -77,14 +72,14 @@ class GestorSalida(GestorFicheros):
         self._guardar(fichero)
         if not self.__dro.match(self.fichero):
             raise FicheroTipoDesconocidoException(self.fichero)
-        save_pkl(self.fichero, contenido, sobreescribir)
+        _save_pkl(self.fichero, contenido, sobreescribir)
 
     def cargar(self, fichero):
         """Carga los datos del fichero indicado"""
         if not self.__dro.match(fichero):
             raise FicheroTipoDesconocidoException(fichero)
         self.fichero = fichero
-        return load_pkl(self.fichero)
+        return _load_pkl(self.fichero)
 
 
 class GestorProyectos(GestorFicheros):
@@ -107,7 +102,7 @@ class GestorProyectos(GestorFicheros):
         self._guardar(fichero)
         if not self.__driza.match(self.fichero):
             raise FicheroTipoDesconocidoException(self.fichero)
-        save_pkl(self.fichero, self.__portero.actual(), sobreescribir)
+        _save_pkl(self.fichero, self.__portero.actual(), sobreescribir)
         self.__config.configuracion["lfichero"].insert(self.fichero)
 
     def cargar(self, fichero, tipo="Auto"):
@@ -116,7 +111,7 @@ class GestorProyectos(GestorFicheros):
             self.fichero = fichero
         if not ((tipo == "Auto" and self.__driza.match(fichero)) or tipo == "Driza"):
             raise FicheroTipoDesconocidoException(fichero)
-        datos = load_pkl(self.fichero)
+        datos = _load_pkl(self.fichero)
         self.__portero.guardar_estado()
         self.__portero.insertar_estado(datos,
                                        flagoriginal=True)
