@@ -81,10 +81,8 @@ class VersionAnterior(Exception):
 
 class OpcionesIncorrectaException(Exception):
     """Excepcion que ocurre cuando se pasan los parametros incorrectamente"""
-    def __init__(self):
-        Exception.__init__(self)
+    pass
 
 class SeleccionIncorrectaException(Exception):
     """Excepcion que ocurre cuando se hace una seleccion incorrecta en una tabla"""
-    def __init__(self):
-        Exception.__init__(self)
+    pass
