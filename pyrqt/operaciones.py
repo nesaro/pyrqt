@@ -135,7 +135,7 @@ class Operacion:
 
 class OperacionCalculo(Operacion):
     """Los calculos que se realizan sobre un conjunto de variables por separado"""
-    def procedimiento(self, seleccion, opciones):
+    def procedimiento(self, seleccion, opts):
         """Esta funcion llama a la funcion "funcion" definida por cada operacion,
         y despues crea un objeto del tipo salida, tambien definido en cada operacion
         Finalmente, lo devuelve para la ventana de salida"""
@@ -143,11 +143,11 @@ class OperacionCalculo(Operacion):
         #Obtenemos los datos que ha introducido el usuario
         listaelementos = seleccion
         if not listaelementos:
-            raise IndexError #TODO Cambiar por execpción mejor
-        if not self.funcionchequeoentradausuario(opciones):
+            raise IndexError #TODO Cambiar por exepción mejor
+        if not self.funcionchequeoentradausuario(opts):
             from pyrqt.excepciones import OpcionesIncorrectaException
             raise OpcionesIncorrectaException
-        lista = [self.funcion(self.dato, elemento, options) for elemento in listaelementos]
+        lista = [self.funcion(self.dato, elemento, opts) for elemento in listaelementos]
         return self.listadefinicionresultado.renderizar(lista)
 
 
