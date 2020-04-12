@@ -2,7 +2,7 @@ QT GUI for R. Formerly named driza
 
 REQUIREMENTS
 ============
-* Python > 2.4
+* Python >= 3.4
 * Qt > 4.0
 * rpy
 
