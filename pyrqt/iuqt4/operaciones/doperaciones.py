@@ -25,7 +25,6 @@ from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QLabel, QTreeWidget, QTreeWidgetItem, QErrorMessage
 from pyrqt.iuqt4.ui.doperaciones import Ui_DialogoOperaciones
 from pyrqt.categorias import GestorCategorias
-from sets import ImmutableSet
 import logging
 LOG = logging.getLogger("__name__")
 
@@ -42,7 +41,6 @@ def listview_elementos_finales(listviewitem):
     La lista solo contiene aquellos elementos que no tienen hijos(finales)
     """
     #FIXME: Requiere que listview tenga al menos un item
-    from sets import Set
     if isinstance (listviewitem,QTreeWidget):
         listahijos = []
         for indice in range (listviewitem.topLevelItemCount()):
@@ -51,7 +49,7 @@ def listview_elementos_finales(listviewitem):
 
     if not listviewitem.child(0):
         #Elemento final
-        return [listviewitem, Set([listviewitem.text(0)])]
+        return [listviewitem, set([listviewitem.text(0)])]
 
     else:
         elemento = listviewitem.child(0)
@@ -62,11 +60,10 @@ def listview_elementos_finales(listviewitem):
         return formarcategoriasdesdehijos(listviewitem, listahijos)
 
 def formarcategoriasdesdehijos(listviewitem, listahijos):
-    from sets import Set
     listasalida = []
     for hijo in listahijos:
         listaresultado = listview_elementos_finales(hijo)
-        if len(listaresultado) == 2 and isinstance(listaresultado[1], Set):
+        if len(listaresultado) == 2 and isinstance(listaresultado[1], set):
             if isinstance(listviewitem, QTreeWidgetItem):
                 listaresultado[1].add(listviewitem.text(0))
             listasalida.append(listaresultado)
@@ -116,7 +113,7 @@ class DOperaciones(QtGui.QDialog):
         el usuario e inicia el procedimiento de calculo"""
         from pyrqt.excepciones import OpcionesIncorrectaException
         import rpy
-        nombre = unicode(self.ui.treeWidget.currentItem().text(0))
+        nombre = str(self.ui.treeWidget.currentItem().text(0))
         widget = self.__widgets["operaciones"][nombre]
         try:
             resultado = self.__gestoroperaciones[nombre].procedimiento(widget.seleccion(), widget.opciones())
@@ -155,7 +152,7 @@ class DOperaciones(QtGui.QDialog):
     def __cambiar_elemento(self):
         """Procedimiento que actualiza el widget en función de la selección del arbol"""
         LOG.debug("__cambiar_elemento: BEGIN")
-        self.__operacion = unicode(self.ui.treeWidget.currentItem().text(0),'iso-8859-1')
+        self.__operacion = str(self.ui.treeWidget.currentItem().text(0))
         self.__mostrar_widget()
 
     def __conexiones(self):
@@ -172,7 +169,6 @@ class DOperaciones(QtGui.QDialog):
         self.ui.treeWidget.clear()
         listalistasetiquetas = [operacion.etiquetas for operacion in self.__gestoroperaciones.values()]
         from pyrqt import categorias
-        from sets import Set
         arbol = categorias.conv_categorias_arbol("Raiz", listalistasetiquetas)
         #toplevel = QTreeWidgetItem(["Operaciones"])
         #self.ui.treeWidget.addTopLevelItem(toplevel)
@@ -182,7 +178,7 @@ class DOperaciones(QtGui.QDialog):
         listaelementosfinales = listview_elementos_finales(self.ui.treeWidget)
         for operacion in self.__gestoroperaciones.values():
             for elementofinal in listaelementosfinales:
-                if Set(operacion.etiquetas) == Set(map(str,elementofinal[1])):
+                if set(operacion.etiquetas) == set(map(str,elementofinal[1])):
                     QTreeWidgetItem(elementofinal[0], [operacion.nombre])
 
     def __init_dic_widgets(self):
@@ -201,10 +197,11 @@ class DOperaciones(QtGui.QDialog):
         self.__widgets["otros"]["noimplementado"] = noimplementado
         self.ui.stackedWidget.addWidget(noimplementado)
         self.ui.stackedWidget.addWidget(condicionesincorrectas)
+
     def __init_widgets_categorias(self):
         """Inicializa los widgets de cada categoria"""
         for categoria, values in self.__gestorcategorias.categorias.items():
-            tmpset = ImmutableSet(values)
+            tmpset = frozenset(values)
             label = QLabel(None)
             #label.setAlignment(QLabel.AlignLeft)
             label.setText(categoria)
@@ -226,7 +223,7 @@ class DOperaciones(QtGui.QDialog):
     def __render_widget(self, nombre, diccionariowidget):
         """Renderiza un widget a partir de una descripcion en dicccionario"""
         from pyrqt.listas import SL
-        if not SL.TIPOSWIDGETOPERACIONESQT4.has_key(diccionariowidget["tipo"]):
+        if diccionariowidget["tipo"] not in SL.TIPOSWIDGETOPERACIONESQT4:
             raise NameError
         from pyrqt.iuqt4.operaciones.woperaciones import WidgetOperacionSelectorOpcion
         widget = WidgetOperacionSelectorOpcion(nombre, \
@@ -247,16 +244,16 @@ class DOperaciones(QtGui.QDialog):
         """Muestra el widget asociado a la seleccion actual"""
         if not self.ui.treeWidget.currentItem(): 
             return
-        nombre = unicode(self.ui.treeWidget.currentItem().text(0))
+        nombre = str(self.ui.treeWidget.currentItem().text(0))
         LOG.debug("__mostrar_widget nombre:" + nombre)
-        if self.__gestoroperaciones.has_key(nombre):
+        if nombre in self.__gestoroperaciones:
             if self.__gestoroperaciones.funcionchequeocondiciones(nombre):
                 self.ui.stackedWidget.setCurrentWidget(self.__widgets["operaciones"][nombre])
             else:
                 self.ui.stackedWidget.setCurrentWidget(self.__widgets["otros"]["condicionesincorrectas"])
         elif any(nombre in x for x in self.__gestorcategorias.categorias.values()):
             category_set = [x for x in self.__gestorcategorias.categorias.values() if nombre in x][0]
-            category_set = ImmutableSet(category_set)
+            category_set = frozenset(category_set)
             self.ui.stackedWidget.setCurrentWidget(self.__widgets['categorias'][category_set])
         else:
             self.ui.stackedWidget.setCurrentWidget(self.__widgets["otros"]["noimplementado"])

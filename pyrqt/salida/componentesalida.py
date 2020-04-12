@@ -217,15 +217,13 @@ class CSTexto(ComponenteSalida):
         ComponenteSalida.__init__(self)
         self.contenido = ""
         self.size = None
-        if args.has_key("size"):
+        if "size" in args:
             self.size = args["size"]
 
     def establecer(self, texto):
         """Establece el valor del texto"""
         if isinstance(texto, str):
             self.contenido = texto
-        elif isinstance(texto, unicode):
-            self.contenido = texto.encode('iso-8859-1', 'replace')
         else:
             self.contenido(str(texto))
 
@@ -236,7 +234,7 @@ class CSTexto(ComponenteSalida):
                 ristra = "<font size=+" + str(self.size) + ">" + self.contenido + "</font><br>"
             else:
                 ristra = self.contenido + "<br>"
-            return unicode(ristra, 'iso-8859-1')
+            return ristra
         else: 
             return u""
 

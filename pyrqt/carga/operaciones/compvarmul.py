@@ -64,7 +64,7 @@ def interfazresultado(resultado,listaopciones,floatrender=None):
 
 
 def comprobarentrada(opciones):  
-    if not opciones.has_key(u"Significación"):
+    if u"Significación" not in opciones:
         from pyrqt.excepciones import OpcionesIncorrectaException
         raise OpcionesIncorrectaException
 

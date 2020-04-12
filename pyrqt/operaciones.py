@@ -48,7 +48,7 @@ class GestorOperaciones(dict):
                 widget = operacion.widget
                 definicionresultado = self.__cargar_definiciones(\
                         operacion.nombre, operacion.definicionresultado)
-                if SL.TIPOSOPERACION.has_key(tipo):
+                if tipo in SL.TIPOSOPERACION:
                     objetooperacion = SL.TIPOSOPERACION[tipo]["clase"]
                     mioperacion = objetooperacion(operacion.nombre, \
                             self.__idr, operacion.etiquetas, widget, \

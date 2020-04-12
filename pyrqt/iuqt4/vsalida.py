@@ -23,7 +23,6 @@
 
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QToolButton, QWidget
-from PyQt4.QtCore import QString
 from pyrqt.iuqt4.ui.vsalida import Ui_VentanaSalida
 
 class VSalida(QtGui.QMainWindow):
@@ -120,7 +119,7 @@ class VSalida(QtGui.QMainWindow):
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
             filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
-        nombrefichero = QtGui.QFileDialog.getOpenFileName(QString.null,
+        nombrefichero = QtGui.QFileDialog.getOpenFileName('',
                                                     filterlist,
                                                     self,
                                                     None,
@@ -139,7 +138,7 @@ class VSalida(QtGui.QMainWindow):
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
             filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
-        nombrefichero = QtGui.QFileDialog.getSaveFileName(QString.null,
+        nombrefichero = QtGui.QFileDialog.getSaveFileName('',
                                                           filterlist,
                                                           self)
         filename = str(nombrefichero)
@@ -199,7 +198,7 @@ class VSalida(QtGui.QMainWindow):
         self.ui.listWidget.clear()
         i = 0
         for elemento in self.__contenido:
-            self.ui.listWidget.insertItem(i, unicode(elemento.titulo))
+            self.ui.listWidget.insertItem(i, str(elemento.titulo))
             i += 1
 
     def __borrar_elemento(self):

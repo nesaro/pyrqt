@@ -31,7 +31,7 @@ class ContenedorElementoWidgetOpciones:
             """Inicializa la lista de los elementos que contiene el contenedor"""
             self.lista=[]
 
-    def parse(self,diccionario):
+    def parse(self, diccionario):
         """Transforma un diccionario con el nombre y las opciones de un widget en el propio widget"""
         if diccionario:
             if diccionario["tipo"]=="EntradaTexto":
@@ -95,11 +95,11 @@ class ContenedorElementoWidgetOpciones:
             diccionario.update(elemento.opciones())
         return diccionario
 
-class WOpciones(QtGui.QFrame,ContenedorElementoWidgetOpciones):
+class WOpciones(QtGui.QWidget, ContenedorElementoWidgetOpciones):
     """Cualquier widget que tenga un conjunto de opciones"""
-    def __init__(self,interfazdatos):
-        #QtGui.QVBoxLayout.__init__(self)#,None,"Widget opciones")
-        QtGui.QFrame.__init__(self)#,None,"Widget opciones")
+    def __init__(self, interfazdatos):
+        QtGui.QWidget.__init__(self)#,None,"Widget opciones")
+        #QtGui.QFrame.__init__(self)#,None,"Widget opciones")
         ContenedorElementoWidgetOpciones.__init__(self)
         #TODO Pendiente portabilidad qt4
         #self.clearWState(Qt.WState_Polished)

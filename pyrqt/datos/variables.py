@@ -128,7 +128,7 @@ class Entero(VariableDiscreta, VariableNumerica):
     def etiqueta(self):
         """Devuelve la etiqueta del valor en caso de que exista"""
         if self.valido():
-            if self.tvariable.etiquetas.has_key(str(self.valor)):
+            if str(self.valor) in self.tvariable.etiquetas:
                 return self.tvariable.etiquetas[str(self.valor)]
         return self.__str__()
 

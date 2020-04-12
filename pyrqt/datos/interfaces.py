@@ -54,7 +54,7 @@ class InterfazDatos:
         que se quiere acceder a la columna
         """
         import types
-        if indice.__class__ == types.IntType:
+        if isinstance(indice, int):
             return self._portero.actual().registros()[indice]
         else:
             return self.col(indice)
@@ -68,7 +68,7 @@ class InterfazDatos:
             se entiende que se quiere modificar a la columna
         """
         import types
-        if indice.__class__ == types.IntType:
+        if isinstance(indice, int):
             self._portero.actual().registros[indice] = valor
         else: 
             #Añade los registros que no existen
@@ -83,7 +83,7 @@ class InterfazDatos:
     def __delitem__(self, indice):
         """define el borrado con la función del, borra un registro"""
         import types
-        if indice.__class__ == types.IntType:
+        if indice.__class__ == types.Int:
             self._portero.actual().registros().__delitem__(indice)
 
     #FUNCIONES PUBLICAS Accesoras
@@ -208,7 +208,7 @@ class InterfazDatos:
         if protegerfiltro:
             comprobar_nombre_filtro(nombre)
         from pyrqt.listas import SL
-        if not SL.TIPOSAGRUPADOR.has_key(tipo): 
+        if tipo not in SL.TIPOSAGRUPADOR: 
             raise TypeError
         from pyrqt.datos.agrupadores import Agrupador
         if tipo == "Ordinal" or tipo == "Entero" or tipo == "Real":
@@ -270,7 +270,7 @@ class InterfazDatosUsuario(InterfazDatos):
     def borrar_var(self, indice):
         """Borra una variable y su contenido asociado"""
         for reg in self._portero.actual().registros():
-            if reg.has_key(indice):
+            if indice in reg:
                 del reg[indice]
         try:
             del self._portero.actual().variables()[indice] 
@@ -407,9 +407,9 @@ class InterfazDatosR(InterfazDatos):
     def resolver_etiqueta(self, variable, caso):
         """Devuelve la etiqueta sie xiste, si no devuelve el caso tal cual"""
         variable = self.var(variable)
-        if variable.etiquetas.has_key(caso):
+        if caso in variable.etiquetas:
             return variable.etiquetas[caso]
-        elif variable.etiquetas.has_key(str(caso)):
+        elif str(caso) in variable.etiquetas:
             return variable.etiquetas[str(caso)]
         else:
             return caso
@@ -487,7 +487,7 @@ class InterfazDatosFicheros(InterfazDatos):
         for nombre, columna in datos.items():
             import types
             milista = []
-            if type(columna[0]) == types.IntType:
+            if isinstance(columna[0], int):
                 self.ana_var(nombre, "Entero")
                 for registro in columna:
                     if registro == -2147483648: #Valor nulo
@@ -495,11 +495,11 @@ class InterfazDatosFicheros(InterfazDatos):
                     else: 
                         resultado = int(registro)
                     milista.append(resultado)
-            elif type(columna[0]) == types.StringType:
+            elif isinstance(columna[0], str):
                 #Es un Factor
                 self.ana_var(nombre, "Factor")
                 milista = columna
-            elif type(columna[0]) == types.FloatType:
+            elif isinstance(columna[0], float):
                 self.ana_var(nombre, "Real")
                 milista = columna
             else: 

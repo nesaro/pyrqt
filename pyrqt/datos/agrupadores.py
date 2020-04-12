@@ -34,7 +34,7 @@ class Agrupador:
         if not isinstance(ristratipo, str):
             raise TypeError
         if ristratipo not in SL.TIPOSAGRUPADOR:
-            raise NameError
+            raise ValueError
         dic = SL.TIPOSAGRUPADOR[ristratipo]
         if not issubclass(dic["clasevariable"], Variable):
             raise TypeError
@@ -46,7 +46,7 @@ class Agrupador:
         else:
             self.valorpordefecto = valorpordefecto
         self.tipo = ristratipo
-        if dic.has_key("numerodecimales"):
+        if "numerodecimales" in dic:
             self.numerodecimales = 3
         self.tags = [ristratipo] #Tiene una lista con las caracteristicas del agrupador
         if dic.get("etiquetable"):

@@ -55,10 +55,10 @@ class Registro(dict):
             miindice = indice.name()
         if isinstance(indice, int):
             miindice = self.__lvariables[indice].name()
-        if not (isinstance(miindice, str) or isinstance(miindice, unicode)): 
+        if not isinstance(miindice, str): 
             LOG.warning(u"Tipo erroneo del registro:" + str(miindice.__class__))
             raise TypeError
-        if not self.has_key(miindice): 
+        if not miindice in self: 
             nuevovalor = self.__lvariables[miindice].nuevo_item()
             self.__setitem__(miindice, nuevovalor)
             return nuevovalor
@@ -152,7 +152,7 @@ class ListaVar(list):
         import types
         if isinstance(parametro, int):
             return parametro
-        elif parametro.__class__ == types.StringType:
+        elif isinstance(parametro, str):
             for elemento in self:  
                 if elemento.name() == parametro:
                     return self.index(elemento)

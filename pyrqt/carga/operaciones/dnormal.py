@@ -27,19 +27,19 @@ tipo="Distribucion"
 def funcion(dato,opciones):  
     from rpy import r  #pylint: disable=import-error
     diccionario={}
-    if opciones.has_key("Cuantiles"):
+    if "Cuantiles" in opciones:
         if opciones["Cuantiles"][u"DirecciónCola"]=='izquierda':
             sentido=True
         else:
             sentido=False
         diccionario["cuantiles"]=r.qnorm([float(opciones["Cuantiles"]["Probabilidad"])],mean=float(opciones["Cuantiles"]["Media"]),sd=float(opciones["Cuantiles"][u"Desviación"]),lower_tail=sentido)
-    if opciones.has_key("Probabilidades"):
+    if "Probabilidades" in opciones:
         if opciones["Probabilidades"][u"DirecciónCola"]=='izquierda':
             sentido=True
         else:
             sentido=False
         diccionario["probabilidades"]=r.pnorm([float(opciones["Probabilidades"]["Valores"])],mean=float(opciones["Probabilidades"]["Media"]),sd=float(opciones["Probabilidades"][u"Desviación"]),lower_tail=sentido)
-    if opciones.has_key(u"Gráfica"):
+    if u"Gráfica" in opciones:
         import random
         nombrefichero="/tmp/driza"+str(random.randint(1,99999))+".png"
         diccionario["ruta"]=nombrefichero
@@ -68,11 +68,11 @@ def initresultado(resultado,opciones):
 
 def interfazresultado(resultado,diccionario,floatrender=None):
     """Este método dice como introducir los datos en la tabla"""
-    if diccionario.has_key("cuantiles"):
+    if "cuantiles" in diccionario:
         resultado["cuantiles"].set(diccionario["cuantiles"])
-    if diccionario.has_key("probabilidades"):
+    if "probabilidades" in diccionario:
         resultado["probabilidades"].set(diccionario["probabilidades"])
-    if diccionario.has_key("ruta"):
+    if "ruta" in diccionario:
         resultado["grafica"].set(diccionario["ruta"])
 
 

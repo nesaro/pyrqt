@@ -1,6 +1,5 @@
 MAKE=/usr/bin/make
 PREFIX=$(DESTDIR)/usr/
-PYTHONLIB=$(PREFIX)/lib/python2.4/site-packages/
 
 
 

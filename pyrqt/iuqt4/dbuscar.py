@@ -60,7 +60,11 @@ class DBuscar(QtGui.QDialog):
             tablaactual.setCurrentCell(resultado[0], resultado[1])
             self.accept()
             return
-        codigoretorno = QMessageBox.warning(self, 'Atencion', 'No he encontrado nada', '¿Continuar desde el principio?', 'Salir', '', 0, 1)
+        codigoretorno = QMessageBox.warning(self, 'Atencion',
+                                            'No he encontrado nada',
+                                            '¿Continuar desde el principio?',
+                                            'Salir',
+                                            '', 0, 1)
         if codigoretorno == 1:
             self.reject()
             return

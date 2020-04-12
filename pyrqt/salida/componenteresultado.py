@@ -37,13 +37,13 @@ class DefinicionElementoResultadoTabla(DefinicionElementoResultado):
         self.autoencoger = False
         self.disposicion = "Horizontal"
         self.numerodecimales = diccionarioopciones["config"]["decimales"]
-        if diccionarioopciones.has_key("borde"):
+        if "borde" in diccionarioopciones:
             pass #TODO
-        if diccionarioopciones.has_key("autoencoger"):
+        if "autoencoger" in diccionarioopciones:
             self.autoencoger = True
-        if diccionarioopciones.has_key("disposicion"):
+        if "disposicion" in diccionarioopciones:
             self.disposicion = diccionarioopciones["disposicion"]
-        if diccionarioopciones.has_key("numerofilas"):
+        if "numerofilas" in diccionarioopciones:
             self.numerofilas = diccionarioopciones["numerofilas"]
         self.cabecera = diccionarioopciones["cabecera"]
 
@@ -83,7 +83,7 @@ class DefinicionElementoResultadoFila(DefinicionElementoResultado):
     """Define una tabla a la que cada llamada le añade una fila"""
     def __init__(self, nombre, diccionarioopciones):
         DefinicionElementoResultado.__init__(self, nombre)
-        if diccionarioopciones.has_key("borde"):
+        if "borde" in diccionarioopciones:
             pass #TODO
         self.cabecera = diccionarioopciones["cabecera"]
 
@@ -128,7 +128,7 @@ class DefinicionElementoResultadoImagen(DefinicionElementoResultado):
         if diccionario:
             pass
         #    self.nombre = nombre
-        #    if diccionario.has_key("ruta"):
+        #    if "ruta" in diccionario:
         #        self.__ruta = diccionario["ruta"]
 
 

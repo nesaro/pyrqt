@@ -27,6 +27,7 @@ class Default(Funcion):
     def __init__(self):
         nombre = "Default(x)"
         Funcion.__init__(self, nombre)
+
     def __call__(self, instanciavariable):
         return instanciavariable.tvariable.valorpordefecto
     
@@ -45,6 +46,7 @@ class Exp(Funcion):
     def __init__(self):
         nombre = "Exp(x)"
         Funcion.__init__(self, nombre)
+
     def __call__(self, instanciavariable):
         import math
         return math.exp(float(instanciavariable))
@@ -54,6 +56,7 @@ class Pow(Funcion):
     def __init__(self):
         nombre = "Pow(x,y)"
         Funcion.__init__(self, nombre)
+
     def __call__(self, var1, var2):
         import math
         return math.pow(float(var1), float(var2))

@@ -25,7 +25,7 @@ from PyQt4 import QtCore,QtGui
 class WidgetOperacion(QtGui.QWidget):
     """Clase base de todos los widgets de operaciones"""
     def __init__(self, name):
-        if isinstance(name, unicode):
+        if isinstance(name, str):
             name = name.encode("latin1")
         if not name:
             self.setName("WidgetOperacion")

@@ -88,15 +88,14 @@ class VPrincipal(QtGui.QMainWindow):
         LOG.debug("Arbol generado:"+str(arbol))
         self.__conv_arbol_menu(self.ui.menuAnalizar , arbol, self.__diccionarioarbolmenu)
         listaelementosmenu =  self.__lista_etiquetas_menu(self.__diccionarioarbolmenu, [])
-        from sets import Set
         for operacion in gestoroperaciones.values():
             LOG.debug("Operacion procesada para generar el menu")
             for elementofinal in listaelementosmenu:
                 LOG.debug("Elemento final procesado para generar el menu")
-                if Set(operacion.etiquetas) == Set(elementofinal[1]):
+                if set(operacion.etiquetas) == set(elementofinal[1]):
                     LOG.debug("Elemento final encontrado, generando hoja")
                     accion = QtGui.QAction(self)
-                    accion.setText(unicode(operacion.nombre))
+                    accion.setText(str(operacion.nombre))
                     elementofinal[0].addAction(accion)
                     self.__diccionarioacciones[operacion.nombre] = accion
         #self.__atajos()
@@ -115,7 +114,6 @@ class VPrincipal(QtGui.QMainWindow):
             for fmt in SL.extensiones_fichero:
                 filtro = filtro + "%s files (*.%s);;" % (fmt, string.lower(fmt))
             from PyQt4.QtGui import QFileDialog
-            from PyQt4.QtCore import QString
             filename = QFileDialog.getOpenFileName(self, "Dialogo abrir fichero", "", filtro)
             filename = str(filename)
         if filename:
@@ -386,9 +384,8 @@ class VPrincipal(QtGui.QMainWindow):
 
     def __conv_arbol_menu(self, padre, arbol, diccionario):
         """Convierte un arbol a formato menu.  Recursiva"""
-        from PyQt4.QtCore import QString
         for hijo in arbol.enlaces:
-            nuevarama = QtGui.QMenu(QString(str(hijo.contenido)),self)
+            nuevarama = QtGui.QMenu(str(hijo.contenido), self)
             padre.addMenu(nuevarama)
             diccionario[str(hijo.contenido)] = {"objeto":nuevarama}
             self.__conv_arbol_menu(nuevarama, hijo, diccionario[str(hijo.contenido)])

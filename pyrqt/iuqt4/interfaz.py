@@ -87,7 +87,7 @@ class InterfazQt4(QApplication):
         if self.__ioperaciones.listamodulosdefectuosos:
             ristra = u""
             for modulo in self.__ioperaciones.listamodulosdefectuosos:
-                ristra += unicode(modulo) + "\n"
+                ristra += modulo + "\n"
             mensaje = u"Las siguientes operaciones no han podido ser cargadas:\n" + ristra
             QMessageBox.information(self.vprincipal, QtCore.QCoreApplication.translate("VPrincipal","Error loading operations"), mensaje)
         logging.info('Lanzando Bucle Principal')

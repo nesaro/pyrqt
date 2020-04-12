@@ -32,7 +32,6 @@ widget={"tipo":"CalculoSimple","opciones":[mediaobjetivo,significacion,diccionar
 
 def funcion(dato,variable,caso,opciones):  
     from rpy import r #pylint: disable=import-error
-    diccionario={}
     lista=[float(x) for x in dato.getCol(variable,caso=caso)]
     if opciones[u"Hipótesis alternativa"]==">":
         lateral="greater"
@@ -75,7 +74,7 @@ def interfazresultado(resultado,listaopciones,floatrender=None):
 
 
 def comprobarentrada(opciones):  
-    if not opciones.has_key(u"Significación") or not opciones.has_key("Media objetivo"):
+    if u"Significación" not in opciones or "Media objetivo" not in opciones:
         from pyrqt.excepciones import OpcionesIncorrectaException
         raise OpcionesIncorrectaException
 

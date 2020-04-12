@@ -116,7 +116,7 @@ class DFiltrado(QtGui.QDialog):
         """Actualiza la caja de variables disponibles"""
         self.ui.comboBox1.clear()
         for var in self.__idu.lista_tit():
-            self.ui.comboBox1.addItem(QtCore.QString(var))
+            self.ui.comboBox1.addItem(str(var))
 
     def myUpdate(self):
         """Actualizacion del dialogo"""

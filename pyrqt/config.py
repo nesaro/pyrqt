@@ -70,13 +70,13 @@ def guardar_config(config, fichero):
     El parametro fichero es opcional e indica un fichero alternativo al 
     de configuracion por defecto
     """
-    from ConfigParser import ConfigParser
+    from configparser import ConfigParser
     configfile = ConfigParser()
     config["lfichero"] = ",".join(config["lfichero"])
     configfile.add_section("General")
 
     for oper, valor in config.items():
-        configfile.set("General", oper, valor)
+        configfile.set("General", oper, str(valor))
 
     archivo = open(fichero, "w")
     configfile.write(archivo)

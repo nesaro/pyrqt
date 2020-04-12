@@ -23,7 +23,6 @@
 
 import copy
 import logging
-from sets import Set
 from collections import defaultdict
 LOG = logging.getLogger(__name__)
 

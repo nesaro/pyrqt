@@ -23,7 +23,7 @@ def __moda(vector):
     """Halla el valor más frecuente de un vector"""
     diccionariofrecuencias = {}
     for elemento in vector:
-        if diccionariofrecuencias.has_key(elemento):
+        if elemento in diccionariofrecuencias:
             diccionariofrecuencias[elemento] += 1
         else:
             diccionariofrecuencias[elemento] = 1
@@ -66,21 +66,21 @@ def funcionprincipal(dato,variable,opciones):
     lista=dato.query(str(variable))
     diccionario["Descriptivo"]["Variable"]=str(variable)
     diccionario["Descriptivo"][u"Número de casos"]=len(lista)
-    if opciones.has_key("Media"): diccionario["Descriptivo"]["Media"]=r.mean(lista)
-    if opciones.has_key("Varianza"): diccionario["Descriptivo"]["Varianza"]=r.var(lista)
-    if opciones.has_key(u"Desviación"): diccionario["Descriptivo"][u"Desviación"]=r.sd(lista)
-    if opciones.has_key("Mediana"): diccionario["Descriptivo"]["Mediana"]=r.median(lista)
+    if "Media" in opciones: diccionario["Descriptivo"]["Media"]=r.mean(lista)
+    if "Varianza" in opciones: diccionario["Descriptivo"]["Varianza"]=r.var(lista)
+    if u"Desviación" in opciones: diccionario["Descriptivo"][u"Desviación"]=r.sd(lista)
+    if "Mediana" in opciones: diccionario["Descriptivo"]["Mediana"]=r.median(lista)
     #http://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_dstat.html
     #http://wiki.r-project.org/rwiki/doku.php?id=tips:stats-basic:modalvalue&s=modal
-    if opciones.has_key("Moda"): diccionario["Descriptivo"]["Moda"]=__moda(lista)
-    if opciones.has_key("Rango"): diccionario["Descriptivo"]["Rango"]=r.range(lista)
-    if opciones.has_key(u"Máximo"): diccionario["Descriptivo"][u"Máximo"]=r.max(lista)
-    if opciones.has_key(u"Mínimo"): diccionario["Descriptivo"][u"Mínimo"]=r.min(lista)
-    if opciones.has_key("Percentil"): diccionario["Descriptivo"]["Percentil"]="TODO"
-    if opciones.has_key("Curtosis"):
+    if "Moda" in opciones: diccionario["Descriptivo"]["Moda"]=__moda(lista)
+    if "Rango" in opciones: diccionario["Descriptivo"]["Rango"]=r.range(lista)
+    if u"Máximo" in opciones: diccionario["Descriptivo"][u"Máximo"]=r.max(lista)
+    if u"Mínimo" in opciones: diccionario["Descriptivo"][u"Mínimo"]=r.min(lista)
+    if "Percentil" in opciones: diccionario["Descriptivo"]["Percentil"]="TODO"
+    if "Curtosis" in opciones:
         r.require("e1071")
         diccionario["Descriptivo"]["Curtosis"]=r.kurtosis(lista)
-    if opciones.has_key(u"Coeficiente de Asimetría"):
+    if u"Coeficiente de Asimetría" in opciones:
         r.require("e1071")
         diccionario["Descriptivo"][u"Coeficiente de Asimetría"]=r.skewness(lista)
 

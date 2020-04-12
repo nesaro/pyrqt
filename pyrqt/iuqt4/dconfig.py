@@ -45,7 +45,7 @@ class DConfig(QtGui.QDialog):
         self.__config=config
 
         self.ui.listWidget.clear()
-        self.ui.listWidget.insertItem(0,QtCore.QString("General"))
+        self.ui.listWidget.insertItem(0,str("General"))
         #Inicializacion de widgets
         #self.__wgeneral=wconfig1(self.widgetStack1,"ficheros",)
         self.ui.stackedWidget.addWidget(self.__wgeneral)

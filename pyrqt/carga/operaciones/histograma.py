@@ -44,7 +44,7 @@ def funcionprincipal(dato,variable,opciones):
 
 
 def funcionchequeoentradausuario(opciones):  
-    if not opciones.has_key(u"NúmeroIntervalos"):
+    if not u"NúmeroIntervalos" in opciones:
         return False
     return True
 

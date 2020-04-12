@@ -32,19 +32,19 @@ class WidgetSeleccionCaja(QtGui.QWidget):
         from pyrqt.iuqt4.widgetsqt import WidgetListaListBox
         QtGui.QWidget.__init__(self, parent)
         layout = QtGui.QVBoxLayout(self)
-    	self.label = QtGui.QLabel(self)
-    	self.label.setText(nombre)
-    	self.caja=WidgetListaListBox(self)
+        self.label = QtGui.QLabel(self)
+        self.label.setText(nombre)
+        self.caja=WidgetListaListBox(self)
         layout.addWidget(self.label)
         layout.addWidget(self.caja)
 
 class WidgetSeleccionCajaCaja(QtGui.QWidget):
     """Dos ListBoxLista en disposición vertical"""
     def __init__(self, nombre1, nombre2, parent = None):
-    	QtGui.QWidget.__init__(self, parent)
+        QtGui.QWidget.__init__(self, parent)
         layout = QtGui.QVBoxLayout(self)
-    	self.caja1 = WidgetSeleccionCaja(nombre1, parent)
-    	self.caja2 = WidgetSeleccionCaja(nombre2, parent)
+        self.caja1 = WidgetSeleccionCaja(nombre1, parent)
+        self.caja2 = WidgetSeleccionCaja(nombre2, parent)
         layout.addWidget(self.caja1)
         layout.addWidget(self.caja2)
 
@@ -52,31 +52,31 @@ class WidgetSeleccionCajaCaja(QtGui.QWidget):
 class WidgetSeleccionCajaComboCombo(QtGui.QFrame):
     """Tiene un listbox y dos combobox"""
     def __init__(self, nombre, parent=None):
-    	QtGui.QFrame.__init__(self,parent)
-    	self.caja=WidgetSeleccionCaja(nombre, self)
+        QtGui.QFrame.__init__(self,parent)
+        self.caja=WidgetSeleccionCaja(nombre, self)
         from pyrqt.iuqt4.widgetsqt import WidgetListaComboBox
-    	self.combo1=WidgetListaComboBox(self)
-    	self.combo2=WidgetListaComboBox(self)
+        self.combo1=WidgetListaComboBox(self)
+        self.combo2=WidgetListaComboBox(self)
 
 class WidgetSeleccionCajaCajaCajaComboCombo(QtGui.QHBoxLayout):
     """Widget con dos zonas"""
     def __init__(self, nombre1, nombre2, nombre3):
-    	QtGui.QHBoxLayout.__init__(self,None)
-    	self.zona1 = WidgetSeleccionCajaCaja(nombre1,nombre2,self)
-    	self.zona2 = WidgetSeleccionCajaComboCombo(nombre1,self)
+        QtGui.QHBoxLayout.__init__(self,None)
+        self.zona1 = WidgetSeleccionCajaCaja(nombre1,nombre2,self)
+        self.zona2 = WidgetSeleccionCajaComboCombo(nombre1,self)
 
 class WidgetSeleccionCajaComboComboCajaCaja(QtGui.QHBoxLayout):
     """Widget con dos zonas"""
     def __init__(self, nombre1, nombre2, nombre3):
-    	QtGui.QHBoxLayout.__init__(self, None)
-    	self.zona1 = WidgetSeleccionCajaComboCombo(nombre1, self)
-    	self.zona2 = WidgetSeleccionCajaCaja(nombre2, nombre3,self)
+        QtGui.QHBoxLayout.__init__(self, None)
+        self.zona1 = WidgetSeleccionCajaComboCombo(nombre1, self)
+        self.zona2 = WidgetSeleccionCajaCaja(nombre2, nombre3,self)
 
 class WidgetSeleccionCajaComboComboCaja(QtGui.QFrame): 
     """Widget con dos zonas"""
     def __init__(self, nombre1, nombre2):
         #QtGui.QHBoxLayout.__init__(self,None)
         QtGui.QFrame.__init__(self, None)
-    	self.zona1=WidgetSeleccionCajaComboCombo(nombre1, self)
-    	self.zona2=WidgetSeleccionCaja(nombre2, self)
+        self.zona1=WidgetSeleccionCajaComboCombo(nombre1, self)
+        self.zona2=WidgetSeleccionCaja(nombre2, self)
 

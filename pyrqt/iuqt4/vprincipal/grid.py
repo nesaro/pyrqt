@@ -22,7 +22,6 @@
 """Grid y clases asociadas"""
 from PyQt4 import QtCore,QtGui
 from PyQt4.QtGui import QMessageBox, QComboBox, QInputDialog
-from PyQt4.QtCore import QStringList
 from pyrqt.datos.variables import * #Para poder preguntar por todos los tipos
 import logging
 LOG = logging.getLogger("__name__")
@@ -42,12 +41,12 @@ class  Grid(QtGui.QTabWidget):
         tabLayout = QtGui.QVBoxLayout(self.tab)#,11,6,"tabLayout")
         self.table1 = QtGui.QTableWidget(self.tab)
         tabLayout.addWidget(self.table1)
-        self.insertTab(0, self.tab, QtCore.QString.fromLatin1("&Registros"))
+        self.insertTab(0, self.tab, "&Registros")
         self.tab_2 = QtGui.QWidget(self)
         tabLayout_2 = QtGui.QVBoxLayout(self.tab_2)#,11,6,"tabLayout_2")
         self.table2 = QtGui.QTableWidget(self.tab_2)
         tabLayout_2.addWidget(self.table2)
-        self.insertTab(1,self.tab_2,QtCore.QString.fromLatin1("&Variables"))
+        self.insertTab(1,self.tab_2,"&Variables")
         self.modoetiqueta = False # Variable que guarda si estamos en modo etiqueta o normal
 
         self.__nreg = 10 
@@ -64,8 +63,8 @@ class  Grid(QtGui.QTabWidget):
         self.table1.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.table1.setColumnCount(16) 
         self.table1.setRowCount(64)
-        qstringvacio=QtCore.QString('')
-        qstringlist=QtCore.QStringList()
+        qstringvacio=''
+        qstringlist=[]
         for x in range(self.table1.horizontalHeader().count()):
             qstringlist.append(qstringvacio)
         self.table1.setHorizontalHeaderLabels(qstringlist)
@@ -76,11 +75,11 @@ class  Grid(QtGui.QTabWidget):
         self.table2.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
         self.table2.setRowCount(self.__nvar)
         self.table2.setColumnCount(4)
-        qstringlist = QtCore.QStringList()
-        qstringlist.append(QtCore.QString.fromLatin1("Nombre"))
-        qstringlist.append(QtCore.QString.fromLatin1("Tipo"))
-        qstringlist.append(QtCore.QString.fromLatin1("Valor por defecto"))
-        qstringlist.append(QtCore.QString.fromLatin1("Etiqueta"))
+        qstringlist = []
+        qstringlist.append("Nombre")
+        qstringlist.append("Tipo")
+        qstringlist.append("Valor por defecto")
+        qstringlist.append("Etiqueta")
         self.table2.setHorizontalHeaderLabels(qstringlist)
 
     def __conexiones(self):
@@ -230,11 +229,11 @@ class  Grid(QtGui.QTabWidget):
         if pos:
             self.table1.setHorizontalHeaderItem(pos,QtGui.QTableWidgetItem(self.__idu.var(pos).name()))
         else:
-            qstringlist=QtCore.QStringList()
-            qstringvacio=QtCore.QString('')
+            qstringlist=[]
+            qstringvacio=''
             i = 0
             for x in range(self.__idu.n_var()):
-                qstringlist.append(QtCore.QString.fromLatin1(self.__idu.var(i).name()))
+                qstringlist.append(self.__idu.var(i).name())
                 i += 1
 
             for x in range(self.__idu.n_var(),self.table1.horizontalHeader().count()):
@@ -243,7 +242,7 @@ class  Grid(QtGui.QTabWidget):
 
     def __mostrar_lateral_t_reg(self):
         """Muestra los numeros laterales. Sirve para el filtrado"""
-        qstringlist=QtCore.QStringList()
+        qstringlist=[]
         #lista=self.__idu.getCol(self.__gestorfiltro.variable,filtrado=False)
         for i in range(self.__idu.n_reg()):
         #    if self.__gestorfiltro.variable and not lista[i]:
@@ -254,7 +253,7 @@ class  Grid(QtGui.QTabWidget):
 
     def __combotableitem(self):
         """Devuelve un nuevo objeto tipo combotableitem con la lista de tipos"""
-        lista = QtCore.QStringList()
+        lista = []
         from pyrqt.listas import SL
         from PyQt4.QtCore import SIGNAL
         for tipo in SL.nombrevariables:
@@ -362,14 +361,14 @@ class  Grid(QtGui.QTabWidget):
             LOG.debug("__preguntar_conversion: Bad type for string: "+str(objetivo.__class__))
             raise TypeError
         lista = []
-        if variable.diccionarioconversion.has_key("Agrupador"):
+        if "Agrupador" in variable.diccionarioconversion:
             #Conversión a todos los tipos
             lista += variable.diccionarioconversion["Agrupador"]
         for tipo in variable.diccionarioconversion.iterkeys():
             if tipo == objetivo:
                 lista += variable.diccionarioconversion[tipo]
         #Elaborar una lista y preguntar al usuario
-        qlista = QStringList()
+        qlista = []
         for elemento in lista:
             qlista.append(elemento)
         cadena = QInputDialog.getItem(self, "Elige!", u"Elige una función de conversion", qlista, 0, False)

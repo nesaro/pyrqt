@@ -178,9 +178,9 @@ class SelectorElementosEstudio(QtGui.QWidget):
 
 class SelectorVariable(SelectorElementosEstudio):
     """Este selector posee dos cajas y dos botones, que son pasados en la inicialización. Una de las cajas almacena todas las posibilidades,mientras que la otra almacena la seleccion"""
-    def __init__(self,dato):
+    def __init__(self, dato):
         """Clase de inicialización, almacena los componentes"""
-        from componenteseleccion import WidgetSeleccionCaja
+        from .componenteseleccion import WidgetSeleccionCaja
         SelectorElementosEstudio.__init__(self, dato, WidgetSeleccionCaja("Variables"))
 
     def _add_element(self):
@@ -204,7 +204,7 @@ class SelectorVariableVariable(SelectorElementosEstudio):
 
     def __init__(self,dato):
         """Clase de inicialización, almacena los componentes"""
-        from componenteseleccion import WidgetSeleccionCajaCaja
+        from .componenteseleccion import WidgetSeleccionCajaCaja
         SelectorElementosEstudio.__init__(self,dato,WidgetSeleccionCajaCaja("Variable1","Variable2"))
 
     def _add_element(self):
@@ -338,7 +338,7 @@ class SelectorVariableDiscriminadorSimple(SelectorElementosEstudio):
 class SelectorVariableDiscriminadorDoble(SelectorElementosEstudio):
     """Esta clase..."""
     def __init__(self, dato):
-        from componenteseleccion import WidgetSeleccionCajaComboComboCaja
+        from .componenteseleccion import WidgetSeleccionCajaComboComboCaja
         from PyQt4.QtCore import SIGNAL
         SelectorElementosEstudio.__init__(self,dato,WidgetSeleccionCajaComboComboCaja("Discriminador","Variable"))
         self.connect(self._cajadisponible.zona1.caja,SIGNAL("selectionChanged()"),self.__actualizar_combos)
