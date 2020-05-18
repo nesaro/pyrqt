@@ -42,7 +42,7 @@ setup (name = "driza",
         scripts = ['driza-qt'])
 
 
-if sys.version_info < (2, 4):
-    print >>sys.stderr, 'You need at least Python 2.4 for %s %s' % (PACKAGE, VERSION)
+if sys.version_info < (3, 0):
+    print >>sys.stderr, 'You need at least Python 3.0 for %s %s' % (PACKAGE, VERSION)
     sys.exit(3)
 
