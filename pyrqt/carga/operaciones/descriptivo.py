@@ -19,22 +19,6 @@
 #Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 """Estudio descriptivo de variables"""
-def __moda(vector):
-    """Halla el valor más frecuente de un vector"""
-    diccionariofrecuencias = {}
-    for elemento in vector:
-        if elemento in diccionariofrecuencias:
-            diccionariofrecuencias[elemento] += 1
-        else:
-            diccionariofrecuencias[elemento] = 1
-    frecuenciamayor = 0
-    moda = "None"
-    for clave, valor in diccionariofrecuencias.items():
-        if valor> frecuenciamayor:
-            frecuenciamayor = valor
-            moda = clave
-    return moda
-
 nombre="Descriptivo"
 tipo="Calculo"
 etiquetas=["Descriptivos"]
@@ -57,13 +41,19 @@ widget={"tipo":"Variable","opciones":[doc,dod,dof,percentil]}
 
 #Definicion del formato de resultados
 definicionresultado = [
-        {"tipo":"Tabla","nombre":"Descriptivo","autoencoger":True,"disposicion":"Vertical","cabecera":["Variable",u"Número de casos","Media","Varianza",u"Desviación","Mediana","Moda","Rango",u"Máximo",u"Mínimo","Percentil","Curtosis",u"Coeficiente de Asimetría"]}]
+        {"tipo":"Tabla","nombre":"Descriptivo","autoencoger":True,
+         "disposicion":"Vertical",
+         "cabecera":["Variable",u"Número de casos","Media","Varianza",u"Desviación","Mediana","Moda",
+                     "Rango",u"Máximo",u"Mínimo","Percentil","Curtosis",u"Coeficiente de Asimetría"]}]
 
 
-def funcionprincipal(dato,variable,opciones):
+def funcionprincipal(dato, variable, opciones):
     from rpy import r  #pylint: disable=import-error
-    diccionario={"Descriptivo":{"Media":None,"Varianza":None,u"Desviación":None,"Mediana":None,"Moda":None,"Rango":None,u"Máximo":None,u"Mínimo":None,"Percentil":None,"Curtosis":None,u"Coeficiente de Asimetría":None}}
-    lista=dato.query(str(variable))
+    import statistics
+    diccionario={"Descriptivo":{"Media":None,"Varianza":None,u"Desviación":None,"Mediana":None,
+                                "Moda":None,"Rango":None,u"Máximo":None,u"Mínimo":None,"Percentil":None,
+                                "Curtosis":None,u"Coeficiente de Asimetría":None}}
+    lista=dato.query(variable)
     diccionario["Descriptivo"]["Variable"]=str(variable)
     diccionario["Descriptivo"][u"Número de casos"]=len(lista)
     if "Media" in opciones: diccionario["Descriptivo"]["Media"]=r.mean(lista)
@@ -72,7 +62,8 @@ def funcionprincipal(dato,variable,opciones):
     if "Mediana" in opciones: diccionario["Descriptivo"]["Mediana"]=r.median(lista)
     #http://cran.r-project.org/doc/contrib/Lemon-kickstart/kr_dstat.html
     #http://wiki.r-project.org/rwiki/doku.php?id=tips:stats-basic:modalvalue&s=modal
-    if "Moda" in opciones: diccionario["Descriptivo"]["Moda"]=__moda(lista)
+    if "Moda" in opciones:
+        diccionario["Descriptivo"]["Moda"]=statistics.mode(lista)
     if "Rango" in opciones: diccionario["Descriptivo"]["Rango"]=r.range(lista)
     if u"Máximo" in opciones: diccionario["Descriptivo"][u"Máximo"]=r.max(lista)
     if u"Mínimo" in opciones: diccionario["Descriptivo"][u"Mínimo"]=r.min(lista)
