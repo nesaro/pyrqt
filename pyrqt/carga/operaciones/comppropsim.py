@@ -41,7 +41,11 @@ def funcion(dato, variable, caso, opciones):
         lateral="less"
     else:
         lateral="two.sided"
-    diccionario=r.prop_test(len(lista1),len(lista2),alternative=lateral,p=float(opciones["Proporcion objetivo"]),conf_level=float(opciones[u"Significación"])/100)
+    diccionario=r.prop_test(len(lista1),
+                            len(lista2),
+                            alternative=lateral,
+                            p=float(opciones["Proporcion objetivo"]),
+                            conf_level=float(opciones[u"Significación"])/100)
     diccionario["confianza"]=float(opciones[u"Significación"])/100
     return diccionario
 
