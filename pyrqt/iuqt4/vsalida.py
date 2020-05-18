@@ -54,7 +54,7 @@ class VSalida(QtGui.QMainWindow):
         i = 1
         for resultado in self.__contenido:
             cadenasalida += "<a name=" + str(i) + "></a>"
-            cadenasalida += resultado.html().encode('iso-8859-1', 'replace')
+            cadenasalida += resultado.html()
             i += 1
         self.ui.textBrowser.setText(cadenasalida)
         self.ui.textBrowser.scrollToAnchor(str(len(self.__contenido)))
