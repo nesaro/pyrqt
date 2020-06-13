@@ -119,11 +119,9 @@ class VSalida(QtGui.QMainWindow):
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
             filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
-        nombrefichero = QtGui.QFileDialog.getOpenFileName('',
-                                                    filterlist,
-                                                    self,
-                                                    None,
-                                                    "Dialogo abrir fichero", "")
+        nombrefichero = QtGui.QFileDialog.getOpenFileName(filter=filterlist,
+                                                          parent=self,
+                                                          caption="Dialogo abrir fichero")
         filename = str(nombrefichero)
         if filename:
             try:
@@ -138,9 +136,9 @@ class VSalida(QtGui.QMainWindow):
         filterlist = ""
         for fmt in ["dro"]: #Candidata al fichero de listas
             filterlist = filterlist + "%s files (*.%s);;" % (fmt, fmt.lower())
-        nombrefichero = QtGui.QFileDialog.getSaveFileName('',
-                                                          filterlist,
-                                                          self)
+        nombrefichero = QtGui.QFileDialog.getSaveFileName(filter=filterlist,
+                                                          parent=self,
+                                                          )
         filename = str(nombrefichero)
         if filename:
             from pyrqt.excepciones import FicheroExisteException, \
@@ -153,15 +151,15 @@ class VSalida(QtGui.QMainWindow):
                 self.__gestorsalida.guardar(self.__contenido, filename)
             except FicheroExisteException as e:
                 fichero = e.fichero
-                codigoretorno = QMessageBox.information(self, 'Atencion:', 'El fichero' +\
-                        fichero.fichero + ' ya existe' , 'Sobreescribir', \
+                codigoretorno = QtGui.QMessageBox.information(self, 'Atencion:', 'El fichero' +\
+                        str(fichero) + ' ya existe' , 'Sobreescribir', \
                         'Otro nombre', 'Cancelar', 0, 1)
                 if codigoretorno == 0:
                     self.__gestorsalida.guardar(self.__contenido, filename, True)
                 elif codigoretorno == 1:
                     self.__dguardarfichero()
             except FicheroTipoDesconocidoException:
-                QMessageBox.warning(self, u'Atención', \
+                QtGui.QMessageBox.warning(self, u'Atención', \
                         u'La extensión del fichero es incorrecta.\nPruebe con otra extensión')
 
     

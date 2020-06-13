@@ -32,7 +32,7 @@ def _save_pkl(fichero, content, sobreescribir=False):
     if not sobreescribir and os.path.exists(fichero):
         from pyrqt.excepciones import FicheroExisteException
         raise FicheroExisteException(fichero)
-    with open(fichero, 'w') as f:
+    with open(fichero, 'wb') as f:
         pickle.dump(content, f)
 
 def _load_pkl(filepath):
@@ -40,7 +40,7 @@ def _load_pkl(filepath):
     if not os.path.exists(filepath):
         from pyrqt.excepciones import FicheroNoExisteException
         raise FicheroNoExisteException(filepath)
-    with open(filepath, 'r') as f:
+    with open(filepath, 'rb') as f:
         return pickle.load(f) 
 
 class GestorFicheros:
