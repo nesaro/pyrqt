@@ -32,7 +32,7 @@ class GestorPaquetes(dict):
     def __init__(self):
         dict.__init__(self)
         basicas = Paquete("basicas")
-        self.__setitem__("basicas", basicas)
+        self.basicas = basicas
         #Intenta cargar el modulo
         #Cargaria todas las funciones de este
         #Leeria una descripción del modulo 
