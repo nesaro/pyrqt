@@ -107,7 +107,3 @@ class Funcion:
         """Todas las clases hijas deben reescribir el valor de estos atributos"""
         self.nombre = nombre
 
-    def nombre_completo(self):
-        """Devuelve el nombre completo del modulo, con su paquete"""
-        return self.__module__.split(".")[-1] + "." + self.nombre
-
