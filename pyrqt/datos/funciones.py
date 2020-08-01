@@ -56,18 +56,12 @@ class GestorPaquetes(dict):
                 raise
             return funcion
 
-    def lista_funciones(self, prefijo = True):
+    def lista_funciones(self):
         """Devuelve una lista con todos los paquetes y todas las funciones
         Prefijo determina si en el nombre se incluye la familia de la funcion
         """
-        if prefijo:
-            lista = []
-            for paquete in self.items():
-                for funcion in paquete[1].keys():
-                    lista.append(paquete[1].nombrereal + "." + funcion)
-        else:
-            for paquete in self.items():
-                lista = [funcion for funcion in paquete[1].keys()]
+        for paquete in self.items():
+            lista = [funcion for funcion in paquete[1].keys()]
         return lista
 
     def obtener_funcion(self, texto):

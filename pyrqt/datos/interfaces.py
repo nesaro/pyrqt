@@ -381,7 +381,7 @@ class InterfazDatosUsuario(InterfazDatos):
         #    ristra = "cosatmp[\""+texto[0]+"\"][\""+texto[1]+"\"]"
         #    expresion = expresion.replace(funcion, ristra)
 
-        lista = self.__gestorpaquetes.lista_funciones(False)
+        lista = self.__gestorpaquetes.lista_funciones()
         gestorpaquetes = self.__gestorpaquetes
         #Recorremos la lista de funciones, y hacemos la sustitucion (Sin prefijo)
         for funcion in lista: 
