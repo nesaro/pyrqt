@@ -51,7 +51,7 @@ class GestorPaquetes(dict):
         try:
             return dict.__getitem__(self, clave)
         except KeyError:
-            funcion = self.obtener_funcion(clave)
+            funcion = self.__obtener_funcion(clave)
             if not funcion:
                 raise
             return funcion
@@ -64,7 +64,7 @@ class GestorPaquetes(dict):
             lista = [funcion for funcion in paquete[1].keys()]
         return lista
 
-    def obtener_funcion(self, texto):
+    def __obtener_funcion(self, texto):
         """Busca una funcion con el nombre indicado en todos los paquetes, 
         y la devuelve. Si no encuentra nada, devuelve False"""
         for paquete in self.items():
