@@ -96,6 +96,7 @@ class InterfazDatos:
         """Devuelve el número de registros almacenados"""
         return len(self._portero.actual().registros())
 
+    @property
     def n_var(self):
         """Devuelve el número de variables almacenadas"""
         return len(self._portero.actual().variables())
@@ -181,7 +182,7 @@ class InterfazDatos:
         Rellena los registros con el valor por defecto
         """
         if not nombre:
-            if self.n_var() == 0:
+            if self.n_var == 0:
                 nombre = "VAR0"
             else:
                 nombreultimavariable = self.var(-1).name()
@@ -190,7 +191,7 @@ class InterfazDatos:
                 if expresion.match(nombreultimavariable):
                     numero = int(nombreultimavariable.replace("VAR", ""))+1
                 else:
-                    numero = self.n_var()
+                    numero = self.n_var
                 nombre = "VAR" + str(numero)
                 while nombre in self.lista_tit():
                     numero += 1

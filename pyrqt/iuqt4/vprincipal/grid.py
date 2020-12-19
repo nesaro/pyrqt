@@ -120,7 +120,7 @@ class  Grid(QtGui.QTabWidget):
                     if fila < self.__idu.n_reg():
                         del self.__idu[fila]
                 else:
-                    if fila < self.__idu.n_var():
+                    if fila < self.__idu.n_var:
                         self.__idu.delVar(fila)
 
         for seleccion in range(tabla.numSelections()):
@@ -149,8 +149,8 @@ class  Grid(QtGui.QTabWidget):
                 LOG.debug("Limites totales de seleccion:("+str(bottomrow)+","+str(rightcol)+")")
             if bottomrow >= self.__idu.n_reg(): 
                 bottomrow = self.__idu.n_reg() - 1
-            if rightcol >= self.__idu.n_var(): 
-                rightcol = self.__idu.n_var() - 1
+            if rightcol >= self.__idu.n_var:
+                rightcol = self.__idu.n_var - 1
             for fila in range(toprow, bottomrow+1):
                 nuevafila = []
                 for columna in range(leftcol, rightcol+1):
@@ -168,12 +168,12 @@ class  Grid(QtGui.QTabWidget):
         Si no se indica posicion, se entiende que se quiere rellenar toda la tabla
         """
         LOG.debug("Actualizando tabla de variables completa")
-        if self.__nvar > (self.table2.rowCount()-self.__idu.n_var()):
-            self.table2.setRowCount(self.__idu.n_var()+self.__nvar)
-        for fila in range(self.__idu.n_var(),self.table2.rowCount()):
+        if self.__nvar > (self.table2.rowCount()-self.__idu.n_var):
+            self.table2.setRowCount(self.__idu.n_var + self.__nvar)
+        for fila in range(self.__idu.n_var, self.table2.rowCount()):
             for columna in range(self.table2.columnCount()):
                 pass #Limpiar 
-        for indicevar in range(self.__idu.n_var()):
+        for indicevar in range(self.__idu.n_var):
             self.__mostrar_var(indicevar)
         self.__mostrar_titulo_t_reg()
 
@@ -207,13 +207,13 @@ class  Grid(QtGui.QTabWidget):
                 #self.table1.clearCell(x,y)
                 pass #LIMPIAR
         for i in range(self.table1.rowCount()):
-            for j in range(self.__idu.n_var(), self.table1.columnCount()):
+            for j in range(self.__idu.n_var, self.table1.columnCount()):
                 pass #Introducir contenido
         self.__mostrar_lateral_t_reg()
 
     def __mostrar_reg(self, pos):
         """Muestra un solo dato"""
-        for i in range(self.__idu.n_var()):
+        for i in range(self.__idu.n_var):
             if not(self.table1.item(pos,i) and str(self.__idu[pos][i])==self.table1.item(pos,i).text()):
                 self.table1.setItem(pos,i,QtGui.QTableWidgetItem(str(self.__idu[pos][i])))
 
@@ -232,11 +232,11 @@ class  Grid(QtGui.QTabWidget):
             qstringlist=[]
             qstringvacio=''
             i = 0
-            for x in range(self.__idu.n_var()):
+            for x in range(self.__idu.n_var):
                 qstringlist.append(self.__idu.var(i).name())
                 i += 1
 
-            for x in range(self.__idu.n_var(),self.table1.horizontalHeader().count()):
+            for x in range(self.__idu.n_var, self.table1.horizontalHeader().count()):
                 qstringlist.append(qstringvacio)
             self.table1.setHorizontalHeaderLabels(qstringlist)
 
@@ -269,9 +269,9 @@ class  Grid(QtGui.QTabWidget):
         if self.table2.currentRow()!=fila or self.table2.currentColumn()!=columna: return
         LOG.debug("Modificacion detectada en la tabla de variables")
         self.__portero.guardar_estado()
-        if fila >= self.__idu.n_var(): #Es una nueva variable
+        if fila >= self.__idu.n_var: #Es una nueva variable
             #Variables intermedias (creadas con los valores por defecto)
-            for valorintermedio in range (self.__idu.n_var(), fila):
+            for valorintermedio in range (self.__idu.n_var, fila):
                 self.__insertar_variable()
                 self.__mostrar_var(valorintermedio)
             self.__insertar_variable()
@@ -314,7 +314,7 @@ class  Grid(QtGui.QTabWidget):
     def __insertar_variable(self):
         """Inserta una variable genérica, y ademas comprueba que no nos acercamos a ninguno de los limites de las tablas"""
         self.__idu.ana_var()
-        if self.__nvar > (self.table2.rowCount() - self.__idu.n_var()):
+        if self.__nvar > (self.table2.rowCount() - self.__idu.n_var):
             self.table2.setRowCount(self.table2.rowCount() + 1)
             self.table1.setColumnCount(self.table1.columnCount() + 1)
 
@@ -322,17 +322,17 @@ class  Grid(QtGui.QTabWidget):
         """Actualiza los datos del objeto dato a partir de un cambio en la tabla de datos"""
         if self.table1.currentRow()!=fila or self.table1.currentColumn()!= columna: return
         if (fila < self.__idu.n_reg())\
-                and (columna < self.__idu.n_var())\
+                and (columna < self.__idu.n_var)\
                 and (self.table1.item(fila, columna).text() == str(self.__idu[fila][columna])):
             return
         LOG.debug("Cambiado registro en la tabla")
         valor = self.table1.item(fila, columna).text()
         self.__portero.guardar_estado()
         rango = None
-        if columna >= self.__idu.n_var():
+        if columna >= self.__idu.n_var:
             LOG.debug("Creando nueva variable por demanda en la modificaicon de un registro")
             #Estamos trabajando sobre una variable inexistente
-            rango = range(self.__idu.n_var(), columna + 1)
+            rango = range(self.__idu.n_var, columna + 1)
             for i in rango:
                 self.__insertar_variable()
             self.__mostrar_t_var() #actualizamos la tabla de variables
