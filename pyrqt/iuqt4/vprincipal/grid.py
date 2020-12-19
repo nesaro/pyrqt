@@ -117,7 +117,7 @@ class  Grid(QtGui.QTabWidget):
             lista.reverse()
             for fila in lista:
                 if tablaactual == 0:
-                    if fila < self.__idu.n_reg():
+                    if fila < self.__idu.n_reg:
                         del self.__idu[fila]
                 else:
                     if fila < self.__idu.n_var:
@@ -147,8 +147,8 @@ class  Grid(QtGui.QTabWidget):
                     rightcol = misel.rightCol()
                 LOG.debug("Limites totales de seleccion:("+str(toprow)+","+str(leftcol)+")")
                 LOG.debug("Limites totales de seleccion:("+str(bottomrow)+","+str(rightcol)+")")
-            if bottomrow >= self.__idu.n_reg(): 
-                bottomrow = self.__idu.n_reg() - 1
+            if bottomrow >= self.__idu.n_reg:
+                bottomrow = self.__idu.n_reg - 1
             if rightcol >= self.__idu.n_var:
                 rightcol = self.__idu.n_var - 1
             for fila in range(toprow, bottomrow+1):
@@ -196,12 +196,12 @@ class  Grid(QtGui.QTabWidget):
         """ 
         Rellena la tabla de datos con los registros actuales
         """
-        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg()):
-            self.table1.setRowCount(self.__idu.n_reg() + self.__nreg)
-        for i in range(self.__idu.n_reg()):
+        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg):
+            self.table1.setRowCount(self.__idu.n_reg + self.__nreg)
+        for i in range(self.__idu.n_reg):
             self.__mostrar_reg(i)
         self.__mostrar_titulo_t_reg()
-        for i in range(self.__idu.n_reg(), self.table1.rowCount()):
+        for i in range(self.__idu.n_reg, self.table1.rowCount()):
             for j in range(self.table1.columnCount()):
                 #TODO Pendiente portabilidad qt4
                 #self.table1.clearCell(x,y)
@@ -219,7 +219,7 @@ class  Grid(QtGui.QTabWidget):
 
     def __mostrar_columna_t_reg(self, pos):
         """Muestra una columna de la tabla de registros"""
-        for i in range(self.__idu.n_reg()):
+        for i in range(self.__idu.n_reg):
             if not self.table1.item(i,pos) or  str(self.__idu[i][pos]) != self.table1.item(i,pos).text():
                 self.table1.setItem(i,pos,QtGui.QTableWidgetItem(str(self.__idu[i][pos])))
 
@@ -244,7 +244,7 @@ class  Grid(QtGui.QTabWidget):
         """Muestra los numeros laterales. Sirve para el filtrado"""
         qstringlist=[]
         #lista=self.__idu.getCol(self.__gestorfiltro.variable,filtrado=False)
-        for i in range(self.__idu.n_reg()):
+        for i in range(self.__idu.n_reg):
         #    if self.__gestorfiltro.variable and not lista[i]:
         #        lateral.setLabel(i,"--"+str(i))
         #    else:
@@ -308,7 +308,7 @@ class  Grid(QtGui.QTabWidget):
     def __insertar_registro(self):
         """Inserta un registro genérico, y ademas comprueba que no nos estamos acercando al final de la tabla"""
         self.__idu.ana_reg()
-        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg()):
+        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg):
             self.table1.setRowCount(self.table1.rowCount()+1)
 
     def __insertar_variable(self):
@@ -321,7 +321,7 @@ class  Grid(QtGui.QTabWidget):
     def __modificacion_t_reg(self, fila, columna):
         """Actualiza los datos del objeto dato a partir de un cambio en la tabla de datos"""
         if self.table1.currentRow()!=fila or self.table1.currentColumn()!= columna: return
-        if (fila < self.__idu.n_reg())\
+        if (fila < self.__idu.n_reg)\
                 and (columna < self.__idu.n_var)\
                 and (self.table1.item(fila, columna).text() == str(self.__idu[fila][columna])):
             return
@@ -336,10 +336,10 @@ class  Grid(QtGui.QTabWidget):
             for i in rango:
                 self.__insertar_variable()
             self.__mostrar_t_var() #actualizamos la tabla de variables
-        if fila >= self.__idu.n_reg():
+        if fila >= self.__idu.n_reg:
             #no existen registros intermedios
             LOG.debug("Creando nuevo registro por demanda en la modificaicon de un registro")
-            for i in range (self.__idu.n_reg(), fila):
+            for i in range (self.__idu.n_reg, fila):
                 self.__insertar_registro()
                 self.__mostrar_reg(i)  
             self.__idu.ana_reg() #El último se separa, tenemos que verificar si el usuario ha escrito correctamente
@@ -350,8 +350,8 @@ class  Grid(QtGui.QTabWidget):
         self.__actualizar_reg_interfazdatos(fila, columna, valor)
         self.__mostrar_reg(fila)
         #Comprobacion de que sobra el numero correcto de celdas
-        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg()):
-            self.table1.setRowCount(self.__idu.n_reg() + self.__nreg)
+        if self.__nreg > (self.table1.rowCount() - self.__idu.n_reg):
+            self.table1.setRowCount(self.__idu.n_reg + self.__nreg)
         self.parent().parent().parent().mostrar_undo_redo() #FIXME... que son todos estos parent?
 
     

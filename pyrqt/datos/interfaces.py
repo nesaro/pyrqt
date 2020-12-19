@@ -92,6 +92,7 @@ class InterfazDatos:
         """Devuelve la variable indicada por el indice, por defecto la última"""
         return self._portero.actual().variables()[indice] 
 
+    @property
     def n_reg(self):
         """Devuelve el número de registros almacenados"""
         return len(self._portero.actual().registros())
@@ -172,7 +173,7 @@ class InterfazDatos:
 
     def ana_reg(self, dato=None):
         """Añade un Registro en la ultima posicion"""
-        pos = self.n_reg()+1
+        pos = self.n_reg + 1
         self.ins_reg(pos, dato)
 
     def ana_var(self, nombre = None, tipo = "Real", \
@@ -246,7 +247,7 @@ class InterfazDatosUsuario(InterfazDatos):
             #Si se trabaja solo sobre filtrados, es porque se permite sobreescritura
         if not permitirsobreescritura or not (nombre in self.lista_tit()):
             self._ana_var_privado(nombre, tipo, valorpordefecto, descripcion, vigilarfiltro)
-            for i in range(self.n_reg()):
+            for i in range(self.n_reg):
                 self._portero.actual().registros()[i][nombre] = (listaresultante[i])
         elif permitirsobreescritura and (nombre in self.lista_tit()):
             variable = self.var(nombre)
@@ -257,11 +258,11 @@ class InterfazDatosUsuario(InterfazDatos):
             posicion = self._obtener_indice_variable(nombre)
             if solofiltrados:
                 indicefiltro = self._obtener_indice_variable("*filtro")
-                for i in range(self.n_reg()):
+                for i in range(self.n_reg):
                     if self._portero.actual().registros()[i][indicefiltro]:
                         self._portero.actual().registros()[i][posicion] = listaresultante[i]
             else:
-                for i in range(self.n_reg()):
+                for i in range(self.n_reg):
                     self._portero.actual().registros()[i][posicion] = listaresultante[i]
 
     def establecer_original(self):
@@ -323,7 +324,7 @@ class InterfazDatosUsuario(InterfazDatos):
                 registro[indice] = variable.nuevo_item(array[indice])
         else:
             #Nos pasan la columna con los datos
-            assert(len(columna) == self.n_reg())
+            assert(len(columna) == self.n_reg)
             self._portero.actual().variables()[indice] = variable
             i = 0
             for registro in self._portero.actual().registros():
@@ -390,7 +391,7 @@ class InterfazDatosUsuario(InterfazDatos):
             expresion = expresion.replace(funcion, ristra)
         lista = []
         LOG.debug("Resultado expresion: "+expresion)
-        for i in range(self.n_reg()):
+        for i in range(self.n_reg):
             valido = True
             for j in listaindicevariables:
                 if not self.__getitem__(i)[j].valido():
@@ -505,8 +506,8 @@ class InterfazDatosFicheros(InterfazDatos):
                 milista = columna
             else: 
                 raise TypeError #R Devuelve un tipo desconocido
-            for i in range(self.n_reg(), len(milista)):
+            for i in range(self.n_reg, len(milista)):
                 self.ana_reg()
-            for i in range(self.n_reg()):
+            for i in range(self.n_reg):
                 self._portero.actual().registros()[i][nombre] = milista[i]
 
