@@ -106,7 +106,7 @@ class GestorOperaciones(dict):
         """Devuelve la operación que tenga esas etiquetas, o false si no las encuentra"""
         from sets import Set
         if not isinstance (key, Set):
-            assert TypeError
+            raise TypeError
         for operacion in self.values():
             if Set(operacion.etiquetas) == key:
                 return operacion
