@@ -31,7 +31,7 @@ class AgenteConversion:
 
     def __call__(self, variable, tipovariabledestino, metododeseado):
         from pyrqt.datos.agrupadores import Agrupador
-        nuevavariable = Agrupador(variable.name(), tipovariabledestino)
+        nuevavariable = Agrupador(variable.name, tipovariabledestino)
         nuevavariable.update(variable) #Copia de atributos de la variable
         lista = self.__idu.col(variable)
         LOG.debug("Lista de registros obtenida para la conversión de tipos:" + str(lista))

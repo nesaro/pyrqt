@@ -52,9 +52,9 @@ class Registro(dict):
         miindice = indice
         from pyrqt.datos.agrupadores import Agrupador
         if isinstance(indice, Agrupador):
-            miindice = indice.name()
+            miindice = indice.name
         if isinstance(indice, int):
-            miindice = self.__lvariables[indice].name()
+            miindice = self.__lvariables[indice].name
         if not isinstance(miindice, str): 
             LOG.warning(u"Tipo erroneo del registro:" + str(miindice.__class__))
             raise TypeError
@@ -72,9 +72,9 @@ class Registro(dict):
         from .agrupadores import Agrupador
         miindice = indice
         if isinstance(indice, Agrupador):
-            miindice = indice.name()
+            miindice = indice.name
         if isinstance(indice, int):
-            miindice = self.__lvariables[indice].name()
+            miindice = self.__lvariables[indice].name
         if not isinstance(miindice, str): 
             raise TypeError
         LOG.debug("Estableciendo valor" + str(valor) + "a:" + str(miindice))
@@ -86,9 +86,9 @@ class Registro(dict):
         from .agrupadores import Agrupador
         miindice = indice
         if isinstance(indice, Agrupador):
-            miindice = indice.name()
+            miindice = indice.name
         if isinstance(indice, int):
-            miindice = self.__lvariables[indice].name()
+            miindice = self.__lvariables[indice].name
         if not isinstance(miindice, str): 
             raise TypeError
         dict.__delitem__(self, miindice)
@@ -141,7 +141,7 @@ class ListaVar(list):
 
     def lista_nombres(self):
         """ Devuelve una lista con los nombres de las variables"""
-        return [x.name() for x in self]
+        return [x.name for x in self]
 
 
     def obtener_indice(self, parametro):
@@ -154,7 +154,7 @@ class ListaVar(list):
             return parametro
         elif isinstance(parametro, str):
             for elemento in self:  
-                if elemento.name() == parametro:
+                if elemento.name == parametro:
                     return self.index(elemento)
         elif parametro in self:
             return self.index(parametro)

@@ -104,11 +104,11 @@ class InterfazDatos:
 
     def lista_tit_discreto(self):
         """Devuelve una lista con los titulos de las variables discretas"""
-        return [x.name() for x in self._portero.actual().variables() if "discreto" in x.tags]
+        return [x.name for x in self._portero.actual().variables() if "discreto" in x.tags]
 
     def lista_tit_numerica(self):
         """Devuelve una lista con los titulos de las variables numericas"""
-        return [x.name() for x in self._portero.actual().variables() if "numerico" in x.tags]
+        return [x.name for x in self._portero.actual().variables() if "numerico" in x.tags]
 
     def lista_tit(self, tipo = None):
         """
@@ -117,11 +117,7 @@ class InterfazDatos:
         """
         if not tipo:
             return self._portero.actual().variables().lista_nombres()
-        lista = []
-        for variable in self._portero.actual().variables():
-            if variable.tipo == tipo:
-                lista.append(variable.name())
-        return lista
+        return [x.name for x in self._portero.actual().variables() if x.tipo == tipo]
                 
     def obtener_casos(self, indice):
         """Devuelve todos los casos existentes de una determinada variable"""
@@ -186,7 +182,7 @@ class InterfazDatos:
             if self.n_var == 0:
                 nombre = "VAR0"
             else:
-                nombreultimavariable = self.var(-1).name()
+                nombreultimavariable = self.var(-1).name
                 import re
                 expresion = re.compile('^VAR[0-9]*$')
                 if expresion.match(nombreultimavariable):
@@ -291,7 +287,7 @@ class InterfazDatosUsuario(InterfazDatos):
                 from  pyrqt.excepciones import VariableExisteException
                 raise VariableExisteException()
             comprobar_nombre_filtro(valor)
-            variable.set_name(valor)
+            variable.name = valor
         elif indice == 2 or indice == "valorpordefecto":
             variable.valorpordefecto = valor
         elif indice == 3 or indice == "descripcion":
@@ -308,13 +304,13 @@ class InterfazDatosUsuario(InterfazDatos):
         #una excepcion si no vale
         LOG.debug("Columna pasada a setVar: "+str(columna))
         array = []
-        if variable.name() in self.lista_tit() \
-                and self.var(indice).name() != variable.name():
+        if variable.name in self.lista_tit() \
+                and self.var(indice).name != variable.name:
             #Comprobamos que no se trata de un cambio de atributo 
             #de la variable
             from  pyrqt.excepciones import VariableExisteException
             raise VariableExisteException()
-        comprobar_nombre_filtro(variable.name())
+        comprobar_nombre_filtro(variable.name)
         if not columna:
             #Conversion directa (Inestable)
             for elemento in self.col(indice):
@@ -366,14 +362,14 @@ class InterfazDatosUsuario(InterfazDatos):
         listavars += self._portero.actual().variables() 
         #Evaluamos las variables con el nombre más grande para 
         #evitar los casos en los que una variable contenga a otra
-        listavars.sort(lambda x, y: len(x.name()) > len(y.name()))
+        listavars.sort(lambda x, y: len(x.name) > len(y.name))
         listavars.reverse() 
         listaindicevariables = [] 
         for var in listavars:
             numero = self._obtener_indice_variable(var)
-            if expresion.find(var.name()) !=- 1:
+            if expresion.find(var.name) !=- 1:
                 listaindicevariables.append(numero)
-                expresion = expresion.replace(var.name(), "self.__getitem__(i)["+repr(numero)+"]")
+                expresion = expresion.replace(var.name, "self.__getitem__(i)["+repr(numero)+"]")
 
         #lista = self.__gestorpaquetes.listafunciones()
         #cosatmp = self.__gestorpaquetes
@@ -426,7 +422,7 @@ class InterfazDatosR(InterfazDatos):
                 lista = map(float, self.__getitem__(variable))
             else:
                 lista = map(str, self.__getitem__(variable))
-            diccionario[variable.name()] = lista
+            diccionario[variable.name] = lista
         return rpy.r.data_frame(diccionario)
 
     def query(self, vars, *condiciones):

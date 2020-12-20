@@ -181,8 +181,8 @@ class  Grid(QtGui.QTabWidget):
         """Muestra una unica variable (fila) en la tabla segun el listado de variables"""
         variable = self.__idu.var(pos)
         #self.table2.item(pos,0).setText(str(variable.nombre))
-        if not(self.table2.item(pos,0) and str(variable.name())==self.table2.item(pos,0).text()):
-            self.table2.setItem(pos,0,QtGui.QTableWidgetItem(str(variable.name())))
+        if not(self.table2.item(pos,0) and str(variable.name)==self.table2.item(pos,0).text()):
+            self.table2.setItem(pos,0,QtGui.QTableWidgetItem(str(variable.name)))
         newcombo = self.__combotableitem()
         self.table2.setCellWidget(pos,1, newcombo)    
         #self.table2.item(pos,1).setCurrentItem(variable.tipo)
@@ -227,13 +227,13 @@ class  Grid(QtGui.QTabWidget):
     def __mostrar_titulo_t_reg(self, pos=None):
         """Actualiza los titulos de la tabla de datos segun las variables"""
         if pos:
-            self.table1.setHorizontalHeaderItem(pos,QtGui.QTableWidgetItem(self.__idu.var(pos).name()))
+            self.table1.setHorizontalHeaderItem(pos,QtGui.QTableWidgetItem(self.__idu.var(pos).name))
         else:
             qstringlist=[]
             qstringvacio=''
             i = 0
             for x in range(self.__idu.n_var):
-                qstringlist.append(self.__idu.var(i).name())
+                qstringlist.append(self.__idu.var(i).name)
                 i += 1
 
             for x in range(self.__idu.n_var, self.table1.horizontalHeader().count()):

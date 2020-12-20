@@ -38,7 +38,7 @@ class Agrupador:
         dic = SL.TIPOSAGRUPADOR[ristratipo]
         if not issubclass(dic["clasevariable"], Variable):
             raise TypeError
-        self.set_name(nombre)
+        self.name = nombre
         self.descripcion = descripcion
         self.diccionarioconversion = dic["diccionarioconversion"]
         if valorpordefecto is None:
@@ -62,7 +62,7 @@ class Agrupador:
         """Función de copia de los atributos para cualquier Agrupador.
         Sirve para hacer copias entre Agrupadores
         """
-        self.__nombre = objeto.name()
+        self.__nombre = objeto.name
         self.descripcion = objeto.descripcion
 
     def nuevo_item(self, valor = TypeError): #FIXME Por defecto un valor no usable 
@@ -73,14 +73,16 @@ class Agrupador:
             return self.__tipovariableasociado(self, self.valorpordefecto)
         return self.__tipovariableasociado(self, valor)
 
+    @property
     def name(self):
         return self.__nombre
 
-    def set_name(self, name):
+    @name.setter
+    def name(self, name):
         """Sets var name, with alphanumeric check"""
         import re
         alphanumeric = re.compile("^\*?[a-zA-Z0-9_ ]*$")
         if not alphanumeric.match(name):
-            raise NameError
+            raise ValueError
         self.__nombre = name
 
