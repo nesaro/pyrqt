@@ -29,7 +29,7 @@ def comprobar_nombre_filtro(nombre):
     """Comprueba si el nombre no coincide con el nombre de filtro"""
     if nombre == "*filtro":
         #El nombre *filtro está reservado
-        from  pyrqt.excepciones import VariableExisteException
+        from pyrqt.excepciones import VariableExisteException
         raise VariableExisteException()
 
 class InterfazDatos:
