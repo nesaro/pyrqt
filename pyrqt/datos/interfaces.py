@@ -176,7 +176,7 @@ class InterfazDatos:
         self.ins_reg(pos, dato)
 
     def ana_var(self, nombre = None, tipo = "Real", \
-            valorpordefecto = "NA", descripcion = "", protegerfiltro=True):  
+            valorpordefecto = "NA", descripcion = ""):  
         """
         Añade una variable de tipo tipo al array de variables. 
         Rellena los registros con el valor por defecto
@@ -197,17 +197,16 @@ class InterfazDatos:
                     numero += 1
                     nombre = "VAR"+str(numero)
 
-        self._ana_var_privado(nombre, tipo, valorpordefecto, descripcion, protegerfiltro)
+        self._ana_var_privado(nombre, tipo, valorpordefecto, descripcion)
 
     #Funciones protegidas
 
-    def _ana_var_privado(self, nombre, tipo, valorpordefecto, descripcion, protegerfiltro = True):
+    def _ana_var_privado(self, nombre, tipo, valorpordefecto, descripcion):
         """Añade una variable, sin preocuparse por los registros"""
         if nombre in self.lista_tit():
             from pyrqt.excepciones import VariableExisteException
             raise VariableExisteException()
-        if protegerfiltro:
-            comprobar_nombre_filtro(nombre)
+        comprobar_nombre_filtro(nombre)
         from pyrqt.listas import SL
         if tipo not in SL.TIPOSAGRUPADOR: 
             raise TypeError
