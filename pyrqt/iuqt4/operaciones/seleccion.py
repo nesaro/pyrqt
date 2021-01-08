@@ -355,11 +355,11 @@ class SelectorVariableDiscriminadorDoble(SelectorElementosEstudio):
     def _actualizar_caja_disponible(self):
         """Actualiza la caja de elementos disponibles"""
         lista = []
-        for var in self._dato.lista_tit_discreto():
+        for var in self._dato.lista_tit_discreto:
             if not var in self.seleccion:
                 lista.append(var)
         self._cajadisponible.zona1.caja.lista = lista
-        self._cajadisponible.zona2.caja.lista = self._dato.lista_tit_numerica()
+        self._cajadisponible.zona2.caja.lista = self._dato.lista_tit_numerica
         self._cajadisponible.zona1.caja.myUpdate()
         self._cajadisponible.zona2.caja.myUpdate()
 
@@ -391,12 +391,12 @@ class SelectorVariableVariableDiscriminadorDoble(SelectorElementosEstudio):
     def _actualizar_caja_disponible(self):
         """Actualiza la caja de elementos disponibles"""
         lista = []
-        for var in self._dato.lista_tit_discreto():
+        for var in self._dato.lista_tit_discreto:
             if not var in self.seleccion:
                 lista.append(var)
         self._cajadisponible.zona1.caja.lista = lista
-        self._cajadisponible.zona2.caja1.lista = self._dato.lista_tit_numerica()
-        self._cajadisponible.zona2.caja2.lista = self._dato.lista_tit_numerica()
+        self._cajadisponible.zona2.caja1.lista = self._dato.lista_tit_numerica
+        self._cajadisponible.zona2.caja2.lista = self._dato.lista_tit_numerica
         self._cajadisponible.zona1.caja.myUpdate()
         self._cajadisponible.zona2.caja1.myUpdate()
         self._cajadisponible.zona2.caja2.myUpdate()

@@ -160,8 +160,8 @@ class VPrincipal(QtGui.QMainWindow):
     
     def mostrar_undo_redo(self):
         """Determina que botones estan activados y cuales no del submenu de edición"""
-        can_undo = bool(self.__portero.puedo_undo())
-        can_redo = bool( self.__portero.puedo_redo())
+        can_undo = bool(self.__portero.puedo_undo)
+        can_redo = bool( self.__portero.puedo_redo)
         self.ui.actionDeshacer.setEnabled(can_undo)
         self.ui.actionRehacer.setEnabled(can_redo)
 
@@ -173,7 +173,7 @@ class VPrincipal(QtGui.QMainWindow):
 
     def __dproyecto_modificado(self):
         """Pregunta en caso de que haya sido modificado el proyecto si desea ser guardado"""
-        if not self.__idu.original():
+        if not self.__idu.original:
             returncode = QMessageBox.information(self,
                                                  'Atencion:',
                                                  'El proyecto actual ha sido modificado, desea guardarlo?',

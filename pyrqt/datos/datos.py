@@ -251,11 +251,13 @@ class PorteroDatos:
         else:
             raise IndexError
 
+    @property
     def puedo_undo(self):
         """Devuelve un valor lógico indicando si es posible realizar un undo"""
         return ((self.__index<self.__lista.tama) and (len(self.__lista)>1) and \
                 (self.__index<(len(self.__lista)-1)))
 
+    @property
     def puedo_redo(self):
         """Devuelve un valor lógico indicando si es posible realizar un redo"""
         return self.__index > 0
@@ -282,10 +284,12 @@ class PorteroDatos:
         self.__lista.encolar(ContenedorRegVar(), flagoriginal)
         self.__index = 0
 
+    @property
     def actual(self):
         """Devuelve el estado vigente"""
         return self.__lista[self.__index][0]
 
+    @property
     def actual_original(self):
         """Devuelve si el estado vigente es original"""
         return self.__lista[self.__index][1]

@@ -102,7 +102,7 @@ class GestorProyectos(GestorFicheros):
         self._guardar(fichero)
         if not self.__driza.match(self.fichero):
             raise FicheroTipoDesconocidoException(self.fichero)
-        _save_pkl(self.fichero, self.__portero.actual(), sobreescribir)
+        _save_pkl(self.fichero, self.__portero.actual, sobreescribir)
         self.__config.configuracion["lfichero"].insert(self.fichero)
 
     def cargar(self, fichero, tipo="Auto"):
