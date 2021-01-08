@@ -190,10 +190,12 @@ class ContenedorRegVar:
         LOG.debug("Copia de datos terminada")
         return resultado
 
+    @property
     def registros(self):
         """Devuelve la lista de registros"""
         return self.__reg
 
+    @property
     def variables(self):
         """Devuelve la lista de variables"""
         return self.__var

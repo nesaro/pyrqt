@@ -55,7 +55,7 @@ class InterfazDatos:
         """
         import types
         if isinstance(indice, int):
-            return self._portero.actual.registros()[indice]
+            return self._portero.actual.registros[indice]
         else:
             return self.col(indice)
             
@@ -73,44 +73,44 @@ class InterfazDatos:
         else: 
             #Añade los registros que no existen
             for registro in range(len(valor)-len(self._portero.actual.\
-                    registros())):
+                    registros)):
                 self.ana_reg()
 
-            for registro in range(len(self._portero.actual.registros())):
-                self._portero.actual.registros()[registro][indice] \
+            for registro in range(len(self._portero.actual.registros)):
+                self._portero.actual.registros[registro][indice] \
                         = valor[registro]
 
     def __delitem__(self, indice):
         """define el borrado con la función del, borra un registro"""
         import types
         if indice.__class__ == types.Int:
-            self._portero.actual.registros().__delitem__(indice)
+            self._portero.actual.registros.__delitem__(indice)
 
     #FUNCIONES PUBLICAS Accesoras
 
     def var(self, indice = -1):
         """Devuelve la variable indicada por el indice, por defecto la última"""
-        return self._portero.actual.variables()[indice] 
+        return self._portero.actual.variables[indice] 
 
     @property
     def n_reg(self):
         """Devuelve el número de registros almacenados"""
-        return len(self._portero.actual.registros())
+        return len(self._portero.actual.registros)
 
     @property
     def n_var(self):
         """Devuelve el número de variables almacenadas"""
-        return len(self._portero.actual.variables())
+        return len(self._portero.actual.variables)
 
     @property
     def lista_tit_discreto(self):
         """Devuelve una lista con los titulos de las variables discretas"""
-        return [x.name for x in self._portero.actual.variables() if "discreto" in x.tags]
+        return [x.name for x in self._portero.actual.variables if "discreto" in x.tags]
 
     @property
     def lista_tit_numerica(self):
         """Devuelve una lista con los titulos de las variables numericas"""
-        return [x.name for x in self._portero.actual.variables() if "numerico" in x.tags]
+        return [x.name for x in self._portero.actual.variables if "numerico" in x.tags]
 
     def lista_tit(self, tipo = None):
         """
@@ -118,14 +118,14 @@ class InterfazDatos:
         opcionalmente podemos filtrar segun un tipo
         """
         if not tipo:
-            return self._portero.actual.variables().lista_nombres()
-        return [x.name for x in self._portero.actual.variables() if x.tipo == tipo]
+            return self._portero.actual.variables.lista_nombres()
+        return [x.name for x in self._portero.actual.variables if x.tipo == tipo]
                 
     def obtener_casos(self, indice):
         """Devuelve todos los casos existentes de una determinada variable"""
         #debe ser una variable discreta, si no excepcion
         lista = []
-        for valor in self._portero.actual.registros():
+        for valor in self._portero.actual.registros:
             if valor[indice] not in lista:
                 lista.append(valor[indice])
         if None in lista:
@@ -139,7 +139,7 @@ class InterfazDatos:
         Para uso de las clases del programa
         """
         lista = []
-        for valor in self._portero.actual.registros():
+        for valor in self._portero.actual.registros:
             lista.append(valor[indice])
         return lista
 
@@ -159,14 +159,14 @@ class InterfazDatos:
         from pyrqt.datos.datos import Registro
         import types
         if dato is None:
-            registro = Registro(self._portero.actual.variables())
-            self._portero.actual.registros().insert(pos, registro)
+            registro = Registro(self._portero.actual.variables)
+            self._portero.actual.registros.insert(pos, registro)
         elif isinstance(dato, Registro):
-            self._portero.actual.registros().insert(pos, dato)
+            self._portero.actual.registros.insert(pos, dato)
         elif dato.__class__ == types.ListType:
-            registro = Registro(self._portero.actual.variables())
+            registro = Registro(self._portero.actual.variables)
             registro.establecer_valores(dato)
-            self._portero.actual.registros().insert(pos, registro)
+            self._portero.actual.registros.insert(pos, registro)
         else:
             raise TypeError
 
@@ -213,15 +213,15 @@ class InterfazDatos:
             raise TypeError
         from pyrqt.datos.agrupadores import Agrupador
         if tipo == "Ordinal" or tipo == "Entero" or tipo == "Real":
-            self._portero.actual.variables().append\
+            self._portero.actual.variables.append\
                     (Agrupador(nombre, tipo, descripcion, valorpordefecto)) 
         elif tipo == "Factor" or tipo == "Logico":
-            self._portero.actual.variables().append\
+            self._portero.actual.variables.append\
                     (Agrupador(nombre, tipo, descripcion)) 
 
     def _obtener_indice_variable(self, variable):
         """Devuelve el indice numerico de la variable pasada"""
-        return self._portero.actual.variables().obtener_indice(variable)
+        return self._portero.actual.variables.obtener_indice(variable)
 
 class InterfazDatosUsuario(InterfazDatos):
     """La interfaz de datos especializada para la interfaz de usuario
@@ -247,7 +247,7 @@ class InterfazDatosUsuario(InterfazDatos):
         if not permitirsobreescritura or not (nombre in self.lista_tit()):
             self._ana_var_privado(nombre, tipo, valorpordefecto, descripcion, vigilarfiltro)
             for i in range(self.n_reg):
-                self._portero.actual.registros()[i][nombre] = (listaresultante[i])
+                self._portero.actual.registros[i][nombre] = (listaresultante[i])
         elif permitirsobreescritura and (nombre in self.lista_tit()):
             variable = self.var(nombre)
             if variable.tipo != tipo:
@@ -258,11 +258,11 @@ class InterfazDatosUsuario(InterfazDatos):
             if solofiltrados:
                 indicefiltro = self._obtener_indice_variable("*filtro")
                 for i in range(self.n_reg):
-                    if self._portero.actual.registros()[i][indicefiltro]:
-                        self._portero.actual.registros()[i][posicion] = listaresultante[i]
+                    if self._portero.actual.registros[i][indicefiltro]:
+                        self._portero.actual.registros[i][posicion] = listaresultante[i]
             else:
                 for i in range(self.n_reg):
-                    self._portero.actual.registros()[i][posicion] = listaresultante[i]
+                    self._portero.actual.registros[i][posicion] = listaresultante[i]
 
     def establecer_original(self):
         """Establece la flag original"""
@@ -270,11 +270,11 @@ class InterfazDatosUsuario(InterfazDatos):
 
     def borrar_var(self, indice):
         """Borra una variable y su contenido asociado"""
-        for reg in self._portero.actual.registros():
+        for reg in self._portero.actual.registros:
             if indice in reg:
                 del reg[indice]
         try:
-            del self._portero.actual.variables()[indice] 
+            del self._portero.actual.variables[indice] 
         except IndexError:
             #Si no encuentra el elemento, no pasa nada
             pass
@@ -318,15 +318,15 @@ class InterfazDatosUsuario(InterfazDatos):
             #Conversion directa (Inestable)
             for elemento in self.col(indice):
                 array.append(repr(elemento))
-            self._portero.actual.variables()[indice] = variable
-            for registro in self._portero.actual.registros():
+            self._portero.actual.variables[indice] = variable
+            for registro in self._portero.actual.registros:
                 registro[indice] = variable.nuevo_item(array[indice])
         else:
             #Nos pasan la columna con los datos
             assert(len(columna) == self.n_reg)
-            self._portero.actual.variables()[indice] = variable
+            self._portero.actual.variables[indice] = variable
             i = 0
-            for registro in self._portero.actual.registros():
+            for registro in self._portero.actual.registros:
                 registro[indice] = variable.nuevo_item(columna[i])
                 i += 1
             #TODO: Continuar con el caso de la columna
@@ -338,13 +338,13 @@ class InterfazDatosUsuario(InterfazDatos):
         if not "*filtro" in self.lista_tit():
             self.ana_var("*filtro", "Logico", False, "None", False)
             i = 0
-            for registro in self._portero.actual.registros():
+            for registro in self._portero.actual.registros:
                 registro[-1] = self.var(-1).nuevo_item(listaresultante[i])
                 i += 1
         else:
             indicefiltro = self._obtener_indice_variable("*filtro")
             i = 0
-            for registro in self._portero.actual.registros():
+            for registro in self._portero.actual.registros:
                 registro[indicefiltro] = self.var(indicefiltro).nuevo_item(listaresultante[i])
                 i += 1
         #Calcular el valor para cada registro e introducirlo
@@ -362,7 +362,7 @@ class InterfazDatosUsuario(InterfazDatos):
         LOG.debug("Interpretando expresion: "+expresion)
         listavars = []
         #Copia de la lista, ya que vamos a hacer un reverse
-        listavars += self._portero.actual.variables() 
+        listavars += self._portero.actual.variables 
         #Evaluamos las variables con el nombre más grande para 
         #evitar los casos en los que una variable contenga a otra
         listavars.sort(lambda x, y: len(x.name) > len(y.name))
@@ -447,7 +447,7 @@ class InterfazDatosR(InterfazDatos):
         mifuncion = lambda f: procesa_condicion(self, f)
         listacondiciones = map(mifuncion, condiciones)
         lista = []
-        for register in self._portero.actual.registros():
+        for register in self._portero.actual.registros:
             isvalid = True
             listacampoactual = []
             for var in vars:
@@ -508,5 +508,5 @@ class InterfazDatosFicheros(InterfazDatos):
             for i in range(self.n_reg, len(milista)):
                 self.ana_reg()
             for i in range(self.n_reg):
-                self._portero.actual.registros()[i][nombre] = milista[i]
+                self._portero.actual.registros[i][nombre] = milista[i]
 
