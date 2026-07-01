@@ -1,4 +1,4 @@
-MAKE=/usr/bin/make
+MAKE=make
 PREFIX=$(DESTDIR)/usr/
 
 
@@ -6,7 +6,7 @@ PREFIX=$(DESTDIR)/usr/
 all: uic rst
 
 uic:
-	$(MAKE) -C pyrqt/iuqt4/ui
+	$(MAKE) -C pyrqt/iuqt5/ui
 	
 rst:
 	$(MAKE) -C pyrqt/ayuda
