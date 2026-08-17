@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 #
 #Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 #This file is part of pyrqt.
@@ -54,13 +53,12 @@ def cargar_config(fichero):
         from configparser import ConfigParser
     configfile = ConfigParser()
     config = Configuration.default_factory()
-    archivo = open(fichero,"r")
-    configfile.readfp(archivo)
+    with open(fichero,"r") as f:
+        configfile.read_file(f)
     config.cargar_diccionario(configfile._sections["General"])
     if config["version"] < 2:
         from .excepciones import VersionAnterior
         raise VersionAnterior(config)
-    archivo.close()
     return config
 
 
