@@ -154,7 +154,7 @@ class SelectorElementosEstudio(QWidget):
         self.resize(QtCore.QSize(294, 240).expandedTo(self.minimumSizeHint()))
         # TODO Pendiente portabilidad qt4
         # self.clearWState(Qt.WState_Polished)
-        # self.__conexiones() #todo new syntax
+        self.__conexiones()
         # Miembros !qt
 
         self.seleccion = []
@@ -174,10 +174,8 @@ class SelectorElementosEstudio(QWidget):
 
     def __conexiones(self):
         """Establece las conexiones entre elementos"""
-        from PyQt4.QtCore import SIGNAL
-
-        self.connect(self.__pushButton1, SIGNAL("clicked()"), self._add_element)
-        self.connect(self.pushButton2, SIGNAL("clicked()"), self.__borrar_elemento)
+        self.__pushButton1.clicked.connect(self._add_element)
+        self.pushButton2.clicked.connect(self.__borrar_elemento)
 
     def __borrar_elemento(self):
         """Borra el elemento seleccionado en lacaja de seleccion"""

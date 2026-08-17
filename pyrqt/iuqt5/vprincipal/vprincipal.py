@@ -211,7 +211,7 @@ class VPrincipal(QMainWindow):
             )
             if returncode == QMessageBox.Save:
                 self.__guardar()
-            elif returncode == QMessageBox.Discard:
+            elif returncode == QMessageBox.Cancel:
                 return False
         return True
 

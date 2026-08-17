@@ -63,7 +63,7 @@ class WidgetListaListBox(QListWidget, WidgetLista):
 
     def showEvent(self, ev):
         self.myUpdate()
-        QtGui.QListWidget.showEvent(self, ev)
+        super().showEvent(ev)
 
 
 class WidgetListaComboBox(QComboBox, WidgetLista):

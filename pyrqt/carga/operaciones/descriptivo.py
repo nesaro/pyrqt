@@ -1,7 +1,6 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 
-#Copyright (C) 2006-2007   Néstor Arocha Rodríguez, Inmaculada Luengo Merino
+#Copyright (C) 2006-2026   Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 #This file is part of Driza.
 #
 #Driza is free software; you can redistribute it and/or modify
