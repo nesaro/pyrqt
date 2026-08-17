@@ -106,7 +106,7 @@ class DOperaciones(QDialog):
         self.__gestoroperaciones = gestoroperaciones
         self.__init_widgets_operaciones()
         self.__init_arbol()
-        # self.__conexiones() #todo new syntax
+        self.__conexiones()
         self.__vsalida = vsalida
         self.ui.treeWidget.setRootIsDecorated(True)
         # self.ui.treeWidget.addColumn("Operaciones")
@@ -148,10 +148,9 @@ class DOperaciones(QDialog):
             self.__vsalida.hide()  # TODO averiguar como hacer para que recupere el foco sin ocultar la ventana
             self.__vsalida.show()
 
-    def mostrar(self, operacion):
+    def mostrar(self, operacion: str):
         """Muestra el dialogo con la operacion pasada"""
         self.__operacion = operacion
-        LOG.debug("Mostrando operacion:" + operacion)
         self.show()
 
     def showEvent(self, ev):
@@ -168,15 +167,9 @@ class DOperaciones(QDialog):
 
     def __conexiones(self):
         """Bloque de conexiones"""
-        from PyQt4.QtCore import SIGNAL
-
-        self.connect(
-            self.ui.treeWidget,
-            SIGNAL("itemSelectionChanged()"),
-            self.__cambiar_elemento,
-        )
-        self.connect(self.ui.pushButton2, SIGNAL("clicked()"), self.reject)
-        self.connect(self.ui.pushButton1, SIGNAL("clicked()"), self.accept)
+        self.ui.treeWidget.itemSelectionChanged.connect(self.__cambiar_elemento)
+        self.ui.pushButton2.clicked.connect(self.reject)
+        self.ui.pushButton1.clicked.connect(self.accept)
 
     def __init_arbol(self):
         """Inicializa el arbol con todas las operaciones conocidas"""
@@ -257,7 +250,7 @@ class DOperaciones(QDialog):
         """Muestra el arbol segun el contenido de gestoroperaciones"""
         # FIXME No deberia ser rellenado más de una vez
         currentitemcandidatelist = self.ui.treeWidget.findItems(
-            self.__operacion, Qt.MatchContains and Qt.MatchRecursive
+            self.__operacion, Qt.MatchContains | Qt.MatchRecursive
         )
         if currentitemcandidatelist != []:
             currentitem = currentitemcandidatelist[0]

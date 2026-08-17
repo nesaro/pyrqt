@@ -20,6 +20,7 @@
 
 """Ventana principal"""
 
+from functools import partial
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QMessageBox, QMainWindow, QToolButton, QMenu, QAction
@@ -88,7 +89,6 @@ class VPrincipal(QMainWindow):
         # self.setIcon(self.__gestortemas.iconoprograma())
         self.__diccionarioarbolmenu = {}
         self.__diccionarioacciones = {}
-        self.__colectorfunciones = []
         listalistasetiquetas = [
             operacion.etiquetas for operacion in gestoroperaciones.values()
         ]
@@ -200,22 +200,18 @@ class VPrincipal(QMainWindow):
             return
         self.__dimportartexto.show()
 
-    def __dproyecto_modificado(self):
+    def __dproyecto_modificado(self) -> bool:
         """Pregunta en caso de que haya sido modificado el proyecto si desea ser guardado"""
         if not self.__idu.original:
             returncode = QMessageBox.information(
                 self,
                 "Atencion:",
                 "El proyecto actual ha sido modificado, desea guardarlo?",
-                "Guardarlo",
-                "No guardarlo",
-                "Volver",
-                0,
-                1,
+                buttons=QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Discard,
             )
-            if returncode == 0:
+            if returncode == QMessageBox.Save:
                 self.__guardar()
-            elif returncode == 2:
+            elif returncode == QMessageBox.Discard:
                 return False
         return True
 
@@ -289,13 +285,8 @@ class VPrincipal(QMainWindow):
         self.__boton1.clicked.connect(self.abrir_proyecto)
         self.__boton2.clicked.connect(self.__guardar)
         # self.__conexionesanalizar()
-        for key, valor in self.__diccionarioacciones.items():
-            self.__colectorfunciones.append(
-                lambda k=key: self.parent.doperaciones.mostrar(k)
-            )
-            valor.toggled.connect(
-                self.__colectorfunciones[-1]
-            )  # XXX This was activated in QT4 (?)
+        for key, action in self.__diccionarioacciones.items():
+            action.triggered.connect(partial(self.parent.doperaciones.mostrar, key))
 
     def __copiar(self):
         """Funcion que copia y borra la seleccion"""
