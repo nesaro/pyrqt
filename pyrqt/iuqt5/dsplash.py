@@ -45,7 +45,7 @@ class DSplash(QDialog):
         self.__vsalida = vsalida
 
         self.ui.label.setPixmap(gestortemas.portada())
-        # self.__conexiones() # TODO new syntax
+        self.__conexiones()
         self.__inithtml()
         self.ui.textBrowser.append(self.__textohtml)
 
@@ -53,12 +53,8 @@ class DSplash(QDialog):
 
     def __conexiones(self):
         """Bloque de conexiones"""
-        from PyQt4.QtCore import SIGNAL
-
         # self.connect(self.ui.textBrowser,SIGNAL("sourceChanged(const QUrl & )"),self.__enlace)
-        self.connect(
-            self.ui.textBrowser, SIGNAL("anchorClicked(const QUrl & )"), self.__enlace
-        )
+        self.ui.textBrowser.anchorClicked.connect(self.__enlace)
 
     def __inithtml(self):
         """Devuelve el html que muestra la ventana"""
