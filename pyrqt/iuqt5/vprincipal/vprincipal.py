@@ -129,8 +129,8 @@ class VPrincipal(QMainWindow):
         if not filename:
             filtro = ""
             for fmt in SL.extensiones_fichero:
-                filtro = filtro + "%s files (*.%s);;" % (fmt, string.lower(fmt))
-            from PyQt4.QtGui import QFileDialog
+                filtro = filtro + "%s files (*.%s);;" % (fmt, fmt.lower())
+            from PyQt5.QtWidgets import QFileDialog
 
             filename = QFileDialog.getOpenFileName(
                 self, "Dialogo abrir fichero", "", filtro
