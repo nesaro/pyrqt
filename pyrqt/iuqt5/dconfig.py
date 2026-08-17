@@ -61,31 +61,26 @@ class DConfig(QDialog):
         Ante un cambio en los campos del dialogo, pregunta al usuario si guarda la configuración
         """
         if not self.__cambiado:
-            self.ui.accept(self)
-        else:
+            super().accept()
+            return
+        return_value = QMessageBox.question(
+            self,
+            "Atención: Guardar",
+            "Ha cambiado la configuración, desea guardarla?",
+            buttons=QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Discard,
+        )
+        if return_value == QMessageBox.Save:
+            # Crear una interfaz usuario configuracion #DECISION DE DISEÑO, pendiente
+            self.__guardar_config()
             self.__cambiado = False  # Volvemos a ponerlo en falso
-            codigoretorno = QMessageBox.information(
-                self,
-                "Atención: Guardar",
-                "Ha cambiado la configuración, desea guardarla?",
-                "Guardarla",
-                "Cancelar",
-                "Dejarlo estar",
-                0,
-                1,
-            )
-            if codigoretorno == 0:
-                # Crear una interfaz usuario configuracion #DECISION DE DISEÑO, pendiente
-                self.__guardar_config()
-                self.ui.accept(self)
-            elif codigoretorno == 2:
-                self.ui.reject(self)
-            else:
-                self.__cambiado = True
+            super().accept()
+        elif return_value == QMessageBox.Cancel:
+            self.__cambiado = False  # Volvemos a ponerlo en falso
+            super().reject()
 
     # FUNCIONES PRIVADAS
 
-    def __mostrar_caja(self, numero):  # El numero es el indice de la listBox
+    def __mostrar_caja(self, numero: int):  # El numero es el indice de la listBox
         """Puebla la caja donde se encuentra la seccion"""
         if numero == 1:
             self.ui.stackedWidget.setCurrentWidget(self.__wgeneral)
@@ -100,12 +95,10 @@ class DConfig(QDialog):
 
     def __conexiones(self):
         """Bloque de conexiones"""
-        # todo new syntax
-        ...
-        # self.connect(self.__wgeneralui.lineEdit1,pyqtSignal("textChanged(const QString&)"),self.__cambio)
-        # self.connect(self.__wgeneralui.checkBox1,pyqtSignal("clicked()"),self.__cambio)
-        # self.connect(self.__wgeneralui.spinBox1,pyqtSignal("valueChanged(int)"),self.__cambio)
-        # self.connect(self.__wgeneralui.spinBox2,pyqtSignal("valueChanged(int)"),self.__cambio)
+        self.__wgeneralui.lineEdit1.textChanged.connect(self.__cambio)
+        self.__wgeneralui.checkBox1.clicked.connect(self.__cambio)
+        self.__wgeneralui.spinBox1.valueChanged.connect(self.__cambio)
+        self.__wgeneralui.spinBox2.valueChanged.connect(self.__cambio)
 
     def __cambio(self):
         """Almacena si se ha producido algun cambio"""
