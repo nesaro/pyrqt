@@ -1,39 +1,43 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 
-#Copyright (C) 2006-2008  Néstor Arocha Rodríguez
+# Copyright (C) 2006-2008  Néstor Arocha Rodríguez
 
-#This file is part of pyrqt.
+# This file is part of pyrqt.
 #
-#pyrqt is free software; you can redistribute it and/or modify
-#it under the terms of the GNU General Public License as published by
-#the Free Software Foundation; either version 2 of the License, or
-#(at your option) any later version.
+# pyrqt is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
 #
-#pyrqt is distributed in the hope that it will be useful,
-#but WITHOUT ANY WARRANTY; without even the implied warranty of
-#MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#GNU General Public License for more details.
+# pyrqt is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
 #
-#You should have received a copy of the GNU General Public License
-#along with pyrqt; if not, write to the Free Software
-#Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+# You should have received a copy of the GNU General Public License
+# along with pyrqt; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-"""Temas para qt4"""
+"""Temas para qt5"""
 
-from PyQt4.QtGui import QPixmap
+from PyQt5.QtGui import QPixmap
+
 
 class GestorTemas:
     """
-    Gestiona los temas. Su utilidad real queda pendiente 
+    Gestiona los temas. Su utilidad real queda pendiente
     de futuros diseños
     """
+
     def __init__(self):
         import os
+
         self.ruta = None
-        posiblesrutas = ["pyrqt/carga/images/", \
-                "/usr/lib/python2.4/site-packages/pyrqt/carga/images/", \
-                "~/.pyrqt/images/"]
+        posiblesrutas = [
+            "pyrqt/carga/images/",
+            "/usr/lib/python2.4/site-packages/pyrqt/carga/images/",
+            "~/.pyrqt/images/",
+        ]
         for ruta in posiblesrutas:
             if os.path.exists(ruta):
                 self.ruta = ruta
@@ -69,5 +73,3 @@ class GestorTemas:
     def icono_programa(self):
         """Devuelve un QPixmap con el icono miniatura del programa"""
         return QPixmap(self.ruta + "icono-driza.png")
-
-
