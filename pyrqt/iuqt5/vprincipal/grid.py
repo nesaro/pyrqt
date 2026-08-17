@@ -30,6 +30,7 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QTableWidget,
     QAbstractItemView,
+    QTableWidgetItem,
 )
 from pyrqt.datos.variables import *  # Para poder preguntar por todos los tipos
 import logging
@@ -68,7 +69,7 @@ class Grid(QTabWidget):
         self.__idu = interfazdatos
         self.__init_t_reg()
         self.__init_t_var()
-        # self.__conexiones() # TODO new syntax
+        self.__conexiones()
         self.__agenteconversion = AgenteConversion(self.__idu)
 
     def __init_t_reg(self):
@@ -96,14 +97,8 @@ class Grid(QTabWidget):
 
     def __conexiones(self):
         """Conexiones"""
-        from PyQt4.QtCore import SIGNAL
-
-        self.connect(
-            self.table1, SIGNAL("cellChanged(int,int)"), self.__modificacion_t_reg
-        )
-        self.connect(
-            self.table2, SIGNAL("cellChanged(int,int)"), self.__modificacion_t_var
-        )
+        self.table1.cellChanged.connect(self.__modificacion_t_reg)
+        self.table2.cellChanged.connect(self.__modificacion_t_var)
 
     # FUNCIONES SHOW
 
@@ -219,7 +214,7 @@ class Grid(QTabWidget):
             self.table2.item(pos, 0)
             and str(variable.name) == self.table2.item(pos, 0).text()
         ):
-            self.table2.setItem(pos, 0, QtGui.QTableWidgetItem(str(variable.name)))
+            self.table2.setItem(pos, 0, QTableWidgetItem(str(variable.name)))
         newcombo = self.__combotableitem()
         self.table2.setCellWidget(pos, 1, newcombo)
         # self.table2.item(pos,1).setCurrentItem(variable.tipo)
@@ -228,16 +223,12 @@ class Grid(QTabWidget):
             self.table2.item(pos, 2)
             and str(variable.valorpordefecto) == self.table2.item(pos, 2).text()
         ):
-            self.table2.setItem(
-                pos, 2, QtGui.QTableWidgetItem(str(variable.valorpordefecto))
-            )
+            self.table2.setItem(pos, 2, QTableWidgetItem(str(variable.valorpordefecto)))
         if not (
             self.table2.item(pos, 3)
             and str(variable.descripcion) == self.table2.item(pos, 3).text()
         ):
-            self.table2.setItem(
-                pos, 3, QtGui.QTableWidgetItem(str(variable.descripcion))
-            )
+            self.table2.setItem(pos, 3, QTableWidgetItem(str(variable.descripcion)))
 
     def __mostrar_t_reg(self):
         """
@@ -265,9 +256,7 @@ class Grid(QTabWidget):
                 self.table1.item(pos, i)
                 and str(self.__idu[pos][i]) == self.table1.item(pos, i).text()
             ):
-                self.table1.setItem(
-                    pos, i, QtGui.QTableWidgetItem(str(self.__idu[pos][i]))
-                )
+                self.table1.setItem(pos, i, QTableWidgetItem(str(self.__idu[pos][i])))
 
     def __mostrar_columna_t_reg(self, pos):
         """Muestra una columna de la tabla de registros"""
@@ -276,15 +265,13 @@ class Grid(QTabWidget):
                 not self.table1.item(i, pos)
                 or str(self.__idu[i][pos]) != self.table1.item(i, pos).text()
             ):
-                self.table1.setItem(
-                    i, pos, QtGui.QTableWidgetItem(str(self.__idu[i][pos]))
-                )
+                self.table1.setItem(i, pos, QTableWidgetItem(str(self.__idu[i][pos])))
 
     def __mostrar_titulo_t_reg(self, pos=None):
         """Actualiza los titulos de la tabla de datos segun las variables"""
         if pos:
             self.table1.setHorizontalHeaderItem(
-                pos, QtGui.QTableWidgetItem(self.__idu.var(pos).name)
+                pos, QTableWidgetItem(self.__idu.var(pos).name)
             )
         else:
             qstringlist = []
@@ -313,17 +300,12 @@ class Grid(QTabWidget):
         """Devuelve un nuevo objeto tipo combotableitem con la lista de tipos"""
         lista = []
         from pyrqt.listas import SL
-        from PyQt4.QtCore import SIGNAL
 
         for tipo in SL.nombrevariables:
             lista.append(tipo)
         combo = QComboBox()
         combo.addItems(lista)
-        self.connect(
-            combo,
-            SIGNAL("currentIndexChanged(const QString &)"),
-            self.__modificacion_combotableitem,
-        )
+        combo.currentIndexChanged.connect(self.__modificacion_combotableitem)
         return combo  # self.table2)#,lista)
 
     def __modificacion_t_var(self, fila, columna):

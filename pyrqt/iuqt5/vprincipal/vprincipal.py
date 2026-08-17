@@ -270,43 +270,32 @@ class VPrincipal(QMainWindow):
     def conexiones(self):
         """Funcion llamada en el constructor que almacena todas las conexiones accion-funcion"""
         self.ui.actionSalir.triggered.connect(self.__salir_programa)
-        return  # todo new syntax
-        from PyQt4.QtCore import SIGNAL
-
-        self.connect(self.ui.actionNuevo_proyecto, SIGNAL("triggered()"), self.__nuevo)
-        self.connect(
-            self.ui.actionAbrir_Proyecto, SIGNAL("triggered()"), self.abrir_proyecto
-        )
-        self.connect(
-            self.ui.actionGuardar_como, SIGNAL("triggered()"), self.__guardar_como
-        )
-        self.connect(self.ui.actionGuardar, SIGNAL("triggered()"), self.__guardar)
-        self.connect(self.ui.actionImportar, SIGNAL("triggered()"), self.__importar)
-        self.connect(
-            self.ui.actionConfiguraci_n, SIGNAL("triggered()"), self.__dconfig.show
-        )
-        self.connect(self.ui.actionFiltrar, SIGNAL("triggered()"), self.__dfiltro.show)
-        self.connect(
-            self.ui.actionCrear_nuevas_variables,
-            SIGNAL("triggered()"),
-            self.parent.dcrevar.show,
-        )
-        self.connect(self.ui.actionBuscar, SIGNAL("triggered()"), self.__dbuscar.show)
-        self.connect(self.ui.actionCopiar, SIGNAL("triggered()"), self.__copiar)
-        self.connect(self.ui.actionCotar, SIGNAL("triggered()"), self.__cortar)
-        self.connect(self.ui.actionPegar, SIGNAL("triggered()"), self.__pegar)
-        self.connect(self.ui.actionDeshacer, SIGNAL("triggered()"), self.__undo)
-        self.connect(self.ui.actionRehacer, SIGNAL("triggered()"), self.__redo)
-        self.connect(self.ui.actionBorrar, SIGNAL("triggered()"), self.__borrar)
-        self.connect(self.ui.actionAcerca, SIGNAL("triggered()"), self.__dacerca_de)
-        self.connect(self.__boton1, SIGNAL("clicked()"), self.abrir_proyecto)
-        self.connect(self.__boton2, SIGNAL("clicked()"), self.__guardar)
+        self.ui.actionNuevo_proyecto.triggered.connect(self.__nuevo)
+        self.ui.actionAbrir_Proyecto.triggered.connect(self.abrir_proyecto)
+        self.ui.actionGuardar_como.triggered.connect(self.__guardar_como)
+        self.ui.actionGuardar.triggered.connect(self.__guardar)
+        self.ui.actionImportar.triggered.connect(self.__importar)
+        self.ui.actionConfiguraci_n.triggered.connect(self.__dconfig.show)
+        self.ui.actionFiltrar.triggered.connect(self.__dfiltro.show)
+        self.ui.actionCrear_nuevas_variables.triggered.connect(self.parent.dcrevar.show)
+        self.ui.actionBuscar.triggered.connect(self.__dbuscar.show)
+        self.ui.actionCopiar.triggered.connect(self.__copiar)
+        self.ui.actionCotar.triggered.connect(self.__cortar)
+        self.ui.actionPegar.triggered.connect(self.__pegar)
+        self.ui.actionDeshacer.triggered.connect(self.__undo)
+        self.ui.actionRehacer.triggered.connect(self.__redo)
+        self.ui.actionBorrar.triggered.connect(self.__borrar)
+        self.ui.actionAcerca.triggered.connect(self.__dacerca_de)
+        self.__boton1.clicked.connect(self.abrir_proyecto)
+        self.__boton2.clicked.connect(self.__guardar)
         # self.__conexionesanalizar()
         for key, valor in self.__diccionarioacciones.items():
             self.__colectorfunciones.append(
                 lambda k=key: self.parent.doperaciones.mostrar(k)
             )
-            self.connect(valor, SIGNAL("activated()"), self.__colectorfunciones[-1])
+            valor.toggled.connect(
+                self.__colectorfunciones[-1]
+            )  # XXX This was activated in QT4 (?)
 
     def __copiar(self):
         """Funcion que copia y borra la seleccion"""
