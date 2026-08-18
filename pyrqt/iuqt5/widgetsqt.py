@@ -118,18 +118,18 @@ class QGridButtonGroup(QButtonGroup):
     """
 
     def __init__(self, parent, nombre):
-        super().__init__(parent, "SeleccionMultiple")
-        self.setGeometry(QRect(110, 80, 170, 121))
-        self.setColumnLayout(0, Qt.Vertical)
-        self.layout().setSpacing(6)
-        self.layout().setMargin(11)
-        self.layout = QGridLayout(self.layout(), 2)
+        super().__init__(parent) #, "SeleccionMultiple")
+        #self.setGeometry(QRect(110, 80, 170, 121)) # broken in qt5
+        #self.setColumnLayout(0, Qt.Vertical) # broken in qt5
+        #self.layout().setSpacing(6) # broken in qt5
+        #self.layout().setMargin(11) # broken in qt5
+        #self.layout = QGridLayout(self.layout(), 2) # broken in qt5
         self.x = 0
         self.y = 0
 
     def insert(self, boton):
-        super().insert(self, boton)
-        self.layout.addWidget(boton, self.x, self.y)
+        super().addButton(boton)
+        #self.layout.addWidget(boton, self.x, self.y)
         if self.y == 0:
             self.y = 1
         else:

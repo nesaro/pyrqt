@@ -1,8 +1,7 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 
 
-# Copyright (C) 2007-2008  Néstor Arocha Rodríguez
+# Copyright (C) 2007-2026  Néstor Arocha Rodríguez
 
 # This file is part of pyrqt.
 #
@@ -20,9 +19,10 @@
 # along with pyrqt; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
+from typing import Iterable
 from pyrqt.iuqt5.widgetsqt import QGridButtonGroup
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtWidgets import QWidget, QButtonGroup, QGroupBox, QHBoxLayout
+from PyQt5.QtWidgets import QWidget, QButtonGroup, QGroupBox, QHBoxLayout, QRadioButton, QLabel, QLineEdit, QCheckBox, QVBoxLayout
 
 """Clases relacionadas con los widgets de opciones"""
 
@@ -38,7 +38,7 @@ class ContenedorElementoWidgetOpciones:
         """Transforma un diccionario con el nombre y las opciones de un widget en el propio widget"""
         if diccionario:
             if diccionario["tipo"] == "EntradaTexto":
-                if diccionario["valorpordefecto"]:
+                if diccionario.get("valorpordefecto"):
                     self.addETS(diccionario["nombre"], diccionario["valorpordefecto"])
                 else:
                     self.addETS(diccionario["nombre"])
@@ -106,14 +106,24 @@ class ContenedorElementoWidgetOpciones:
 class WOpciones(QWidget, ContenedorElementoWidgetOpciones):
     """Cualquier widget que tenga un conjunto de opciones"""
 
-    def __init__(self, interfazdatos):
-        super().__init__()  # ,None,"Widget opciones")
+    def __init__(self, interfazdatos, widget_descriptions:Iterable[dict]):
+        super(QWidget, self).__init__()  # ,None,"Widget opciones")
+        super(ContenedorElementoWidgetOpciones, self).__init__()
         # QtGui.QFrame.__init__(self)#,None,"Widget opciones")
-        ContenedorElementoWidgetOpciones.__init__(self)
         # TODO Pendiente portabilidad qt4
         # self.clearWState(Qt.WState_Polished)
         # self.setCaption("WidgetOpciones")
         self._dato = interfazdatos
+        # This part is missing: something needs to read the descriptions
+        # When the description is parsed, something needs add to a layout.
+        # Currently inheritance breaks qt because it doesn't recognise the custom classes
+        # e.g.: TypeError: addWidget(self, a0: QWidget|None, stretch: int = 0, alignment: Qt.Alignment|Qt.AlignmentFlag = Qt.Alignment()): argument 1 has unexpected type 'EWOSeleccionSimple'
+        for widget_description in widget_descriptions:
+            self.parse(widget_description)
+        layout = QVBoxLayout()
+        for subwidget in self.lista:
+            layout.addWidget(subwidget)
+        self.setLayout(layout)
 
 
 class ElementoWidgetOpciones:
@@ -132,19 +142,21 @@ class ElementoWidgetOpciones:
         pass
 
 
-class EWOSeleccionMultiple(ElementoWidgetOpciones, QGridButtonGroup):
+class EWOSeleccionMultiple(ElementoWidgetOpciones, QGroupBox):
     """Es una lista de opciones que pueden ser seleccionada simultaneamente (Solo verdadero o falso)"""
 
     def __init__(self, parent, nombre, args):
         """Recibe la lista de elementos"""
         ElementoWidgetOpciones.__init__(self)
-        QGridButtonGroup.__init__(self, parent, "SeleccionMultiple")
-        self.setTitle(nombre)
+        super(QGroupBox, self).__init__(nombre, parent)
+        layout = QVBoxLayout(parent)
+        #self.setTitle(nombre) # broken in qt5
         for elemento in args:
-            caja = QCheckBox(self)
+            caja = QCheckBox(parent)
             caja.setText(elemento)
-            self.insert(caja)
+            layout.addWidget(caja)
             self.diccionario[elemento] = caja
+        self.setLayout(layout)
 
     def opciones(self):
         dic = {}
@@ -154,23 +166,23 @@ class EWOSeleccionMultiple(ElementoWidgetOpciones, QGridButtonGroup):
         return dic
 
 
-class EWOSeleccionSimple(ElementoWidgetOpciones, QButtonGroup):  # Era qHbuttongrup
+class EWOSeleccionSimple(QButtonGroup, ElementoWidgetOpciones):  # Era qHbuttongrup
     """Es una lista en la que solo puede ser seleccionado uno de sus elementos.
     Los elementos son escogidos con un despegable"""
 
     def __init__(self, parent, nombre, args):
         """Recibe la lista de elementos"""
-        QtGui.QHButtonGroup.__init__(self, parent, "SeleccionSimple")
-        ElementoWidgetOpciones.__init__(self)
+        super(QButtonGroup, self).__init__(parent)#, "SeleccionSimple")
+        super(ElementoWidgetOpciones, self).__init__()
         self.nombre = nombre
-        self.setTitle(nombre)
+        #self.setTitle(nombre)
         self.setExclusive(True)
         for elemento in args:
-            boton = QRadioButton(self)
+            boton = QRadioButton(parent=parent) #XXX parent used to be self
             boton.setText(elemento)
-            self.insert(boton)
+            self.addButton(boton)
             self.diccionario[elemento] = boton
-        self.find(0).setOn(True)
+        #self.find(0).setOn(True)
 
     def opciones(self):
         dic = {}
@@ -195,7 +207,7 @@ class EWOListaSimple(ElementoWidgetOpciones, QGroupBox):
     def __init__(self, parent, nombre, lista):
         """el ultimo parametro es la lista de posibles valores"""
         ElementoWidgetOpciones.__init__(self)
-        self().__init__(parent, "ListaSimple")
+        super(QGroupBox, self).__init__(parent, "ListaSimple")
         self.nombre = nombre
         self.setTitle(nombre)
         self.setColumnLayout(0, Qt.Vertical)
@@ -231,9 +243,9 @@ class EWOEntradaTexto(ElementoWidgetOpciones, QHBoxLayout):
 
     def __init__(self, parent, nombre, valorpordefecto=""):
         ElementoWidgetOpciones.__init__(self)
-        super().__init__(parent, "EntradaTexto")
-        self.__etiqueta = QLabel(nombre, self)
-        self.__entrada = QLineEdit(self, "Linea")
+        super(QHBoxLayout, self).__init__(parent)#, "EntradaTexto")
+        self.__etiqueta = QLabel(nombre, parent)
+        self.__entrada = QLineEdit("Linea", parent.parent())
         self.__entrada.setText(valorpordefecto)
         self.nombre = nombre
 
@@ -257,10 +269,10 @@ class EWOGrupoWidgetOpciones(
 
     def __init__(self, parent, nombre):
         ElementoWidgetOpciones.__init__(self)
-        super().__init__(parent, "ContenedorOpcional")
+        super(QGroupBox, self).__init__(parent, "ContenedorOpcional")
         ContenedorElementoWidgetOpciones.__init__(self)
         self.nombre = nombre
-        self.checkbox = QCheckBox(self, "checkBox1")
+        self.checkbox = QCheckBox("checkBox1", parent.parent)
         self.checkbox.setText(nombre)
         self.setTitle(nombre)
         self.__conexiones()
@@ -269,7 +281,7 @@ class EWOGrupoWidgetOpciones(
         self.connect(self.checkbox, SIGNAL("toggled(bool)"), self.__cambiarestado)
 
     def parse(self, diccionario):
-        ContenedorElementoWidgetOpciones.parse(self, diccionario)
+        super().parse(diccionario)
         self.__cambiarestado()
 
     def __cambiarestado(self):
@@ -297,10 +309,10 @@ class EWOListaFactores(ElementoWidgetOpciones, QGroupBox):  # era hgroupbox
 
     def __init__(self, parent, nombre, datos):
         ElementoWidgetOpciones.__init__(self)
-        super().__init__(parent, "Lista factores")
+        super(QGroupBox, self).__init__(parent) #, "Lista factores")
         self.setTitle(nombre)
         self.nombre = nombre
-        from pyrqt.widgets.widgetsqt import WidgetListaComboBoxFact
+        from ..widgetsqt import WidgetListaComboBoxFact
 
         self.variables = WidgetListaComboBoxFact(
             self, datos
@@ -315,7 +327,7 @@ class EWOListaVariables(ElementoWidgetOpciones, QGroupBox):  # Era QHgroupBox
 
     def __init__(self, parent, nombre, datos):
         ElementoWidgetOpciones.__init__(self)
-        super().__init__(parent, "Texto")
+        super(QGroupBox, self).__init__(parent, "Texto")
         self.setTitle(nombre)
         self.nombre = nombre
         from pyrqt.widgets.widgetsqt import WidgetListaComboBoxVars
@@ -330,9 +342,8 @@ class EWOListaVariables(ElementoWidgetOpciones, QGroupBox):  # Era QHgroupBox
 
 class EWOEtiqueta(ElementoWidgetOpciones, QGroupBox):  # Era  QHgroupBox
     """Muestra la etiqueta texto, y tiene el nombre nombre"""
-
     def __init__(self, parent, nombre, texto):
         ElementoWidgetOpciones.__init__(self)
-        super().__init__(parent, "Texto")
+        super(QGroupBox, self).__init__(parent, "Texto")
         self.setTitle(nombre)
         self.label = QLabel(texto, self)

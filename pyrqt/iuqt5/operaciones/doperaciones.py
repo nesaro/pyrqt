@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
-
-# Copyright (C) 2008  Néstor Arocha Rodríguez
-# This file is part of Driza.
+# Copyright (C) 2008-2026  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
+# This file is part of pyrqt.
 #
 # Driza is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -233,10 +232,11 @@ class DOperaciones(QDialog):
     def __render_widget(self, nombre, diccionariowidget):
         """Renderiza un widget a partir de una descripcion en dicccionario"""
         from pyrqt.listas import SL
+        print(nombre, diccionariowidget)
 
         if diccionariowidget["tipo"] not in SL.TIPOSWIDGETOPERACIONESQT5:
             raise NameError
-        from pyrqt.iuqt5.operaciones.woperaciones import WidgetOperacionSelectorOpcion
+        from .woperaciones import WidgetOperacionSelectorOpcion
 
         widget = WidgetOperacionSelectorOpcion(
             nombre,

@@ -64,9 +64,9 @@ class WidgetOperacionSelectorOpcion(WidgetOperacion):
     y un solo widget de opciones"""
 
     def __init__(
-        self, name, objetowidgetselector, opcioneswidgetopciones, interfazdatos
+        self, name, objetowidgetselector, opcioneswidgetopciones:dict, interfazdatos
     ):
-        WidgetOperacion.__init__(self, name)
+        super().__init__(name)
         #
         #        #Condiciones a probar
         #        from wopciones import WOpciones
@@ -75,10 +75,10 @@ class WidgetOperacionSelectorOpcion(WidgetOperacion):
         #        assert(isinstance(widgetopciones,WOpciones))
         #
         # Inicializacion de widgets
-        from pyrqt.iuqt5.operaciones.wopciones import WOpciones
+        from .wopciones import WOpciones
 
         self._wseleccion = objetowidgetselector(interfazdatos)
-        self._wopciones = WOpciones(opcioneswidgetopciones)
+        self._wopciones = WOpciones(interfazdatos, opcioneswidgetopciones)
 
         zonastacksuperior = QStackedWidget(self)
         zonastacksuperior.setMinimumSize(QtCore.QSize(200, 200))
