@@ -47,7 +47,7 @@ definicionresultado = [
 
 
 def funcionprincipal(dato, variable, opciones):
-    from rpy import r  #pylint: disable=import-error
+    from rpy2.robjects import r  #pylint: disable=import-error
     import statistics
     diccionario={"Descriptivo":{"Media":None,"Varianza":None,u"Desviación":None,"Mediana":None,
                                 "Moda":None,"Rango":None,u"Máximo":None,u"Mínimo":None,"Percentil":None,
