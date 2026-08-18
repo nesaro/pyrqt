@@ -1,4 +1,7 @@
-This is QT GUI for R. It is based on the code I used for my university disertation back in 2006, named driza
+# PYRQT
+
+This is a QT GUI for R. It is based on the code I used for my university
+disertation back in 2006, formerly named *driza* 
 
 ## REQUIREMENTS
 
@@ -6,14 +9,14 @@ This is QT GUI for R. It is based on the code I used for my university disertati
 * Qt > 4.0
 * rpy
 
+## INSTALLATION
 
-## INSTALL
+pyrqt has two dependencies: QT and RPY. Both of them have dependencies that cannot be installed via python packaging.
 
- * You can use driza standalone in its own working directory. 
- * ui files requires compilation using pyuic utility (included in PyQT package).
- * "make" will call pyuic to compile all forms.
- * "make install" will install driza on linux systems
+The recommended way to install these dependencies is to use nix-shell. It will automatically install both python and non python dependencies and work out of the box.
+
+Before running the program, QT requires compiling `.ui` files. The `pyuic` utility (included in PyQT package) will do this. Calling `make` will call pyuic to compile all forms.
 
 ## USAGE
 
-driza-qt launches main program
+*pyrqt-bin* launches main program
