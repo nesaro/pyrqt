@@ -117,7 +117,7 @@ class DOperaciones(QDialog):
         """Acepta el dialogo. Coge la operacion con la que esta trabajando
         el usuario e inicia el procedimiento de calculo"""
         from pyrqt.excepciones import OpcionesIncorrectaException
-        import rpy
+        import rpy2
 
         nombre = str(self.ui.treeWidget.currentItem().text(0))
         widget = self.__widgets["operaciones"][nombre]
@@ -137,9 +137,9 @@ class DOperaciones(QDialog):
                 "Hay elementos de la salida sin definir(o mal definidos) en la operación"
             )
             LOG.exception("Excepción Generada por un módulo de operaciones")
-        except rpy.RException:
-            QErrorMessage(self).showMessage("R devolvio un error")
-            log.exception("Excepción de RPY")
+        #except rpy.RException:
+        #    QErrorMessage(self).showMessage("R devolvio un error")
+        #    log.exception("Excepción de RPY")
         except AssertionError:
             QErrorMessage(self).showMessage("Error desconocido")
         else:
