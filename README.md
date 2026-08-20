@@ -6,7 +6,7 @@ disertation back in 2006, formerly named *driza*
 ## REQUIREMENTS
 
 * Python >= 3.4
-* Qt > 4.0
+* Qt > 5.0
 * rpy
 
 ## INSTALLATION
