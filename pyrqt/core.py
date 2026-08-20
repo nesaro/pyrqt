@@ -1,5 +1,4 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
 ###################################
 #
 #  DRIZA
@@ -7,7 +6,7 @@
 ###################################
 
 
-#Copyright (C) 2006-2007  Néstor Arocha Rodríguez
+#Copyright (C) 2006-2007  Néstor Arocha Rodríguez, Inmaculada Luengo Merino
 #This file is part of Driza.
 #
 #Driza is free software; you can redistribute it and/or modify
@@ -27,7 +26,6 @@
 """
 Driza Core Class
 """
-from __future__ import absolute_import
 from .datos import datos
 from .datos import interfaces
 from .datos import funciones
@@ -62,11 +60,11 @@ class DrizaCore:
         logging.info('Cargado modulo de proyectos')
         gestoroperaciones = operaciones.GestorOperaciones(idr, self.__gestorconfig)
         logging.info('Cargado modulo de operaciones')
-        from .iuqt4.interfaz import InterfazQt4
-        self.__iu = InterfazQt4(self.__gestorconfig, portero, idu, idf, \
+        from .iuqt5.interfaz import InterfazQt5
+        self.__iu = InterfazQt5(self.__gestorconfig, portero, idu, idf, \
                 gestorproyectos, gestoroperaciones, gestorpaquetes, \
                 options, esnuevo)
-        logging.info('Cargado modulo de Interfaz de usuario qt4')
+        LOG.info('Cargado modulo de Interfaz de usuario qt4')
 
     #FUNCIONES PUBLICAS
 

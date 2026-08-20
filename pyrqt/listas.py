@@ -66,6 +66,26 @@ class StaticList:
             }
 
     @property
+    def TIPOSWIDGETOPERACIONESQT5(self):
+        from pyrqt.iuqt5.operaciones import seleccion
+        return {
+            "Variable":{
+                "seleccion":seleccion.SelectorVariable},
+            "VariableVariable":{
+                "seleccion":seleccion.SelectorVariableVariable},
+            "VariableCaso":{
+                "seleccion":seleccion.SelectorDiscriminadorSimple},
+            "VariableCasoCaso":{
+                "seleccion":seleccion.SelectorDiscriminadorDoble},
+            "VariableVariableCaso":{
+                "seleccion":seleccion.SelectorVariableDiscriminadorSimple},
+            "VariableCasoCasoVariableVariable":{
+                "seleccion":seleccion.SelectorVariableVariableDiscriminadorDoble},
+            "DiscriminadorCasoCasoVariable":{
+                "seleccion":seleccion.SelectorVariableDiscriminadorDoble}
+            }
+
+    @property
     def TIPOSAGRUPADOR(self):
         from pyrqt.datos import variables
         return {
