@@ -17,6 +17,10 @@ The recommended way to install these dependencies is to use nix-shell. It will a
 
 Before running the program, QT requires compiling `.ui` files. The `pyuic` utility (included in PyQT package) will do this. Calling `make` will call pyuic to compile all forms.
 
+## TRANSLATIONS
+
+Most of the code and interface is written in Spanish. However, there is a translation file `driza_es_ES.qm` with some entries. To create the ts file, run `make create_translations`. To build the qm file, run `make translations`
+
 ## USAGE
 
 *pyrqt-bin* launches main program
