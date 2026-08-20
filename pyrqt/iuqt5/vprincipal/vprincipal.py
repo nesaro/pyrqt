@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # Copyright (C) 2006-2026  Néstor Arocha Rodríguez
 
 # This file is part of pyrqt.
@@ -374,8 +372,8 @@ class VPrincipal(QMainWindow):
         """Abre un diálogo pidiendo el nombre de archivo y guarda en dicho archivo"""
         filtro = ""
         for fmt in SL.extensiones_fichero:
-            filtro = filtro + "%s files (*.%s);;" % (fmt, string.lower(fmt))
-        from PyQt4.QtGui import QFileDialog
+            filtro = filtro + "%s files (*.%s);;" % (fmt, fmt.lower())
+        from PyQt5.QtWidgets import QFileDialog
 
         fn = QFileDialog.getSaveFileName(self, "Dialogo guardarFichero", "", filtro)
         filename = str(fn)
