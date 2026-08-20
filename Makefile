@@ -17,6 +17,9 @@ translations:
 create_translations:
 	pylupdate5 pyrqt/iuqt5/ui/*.ui -ts driza_es_ES.ts
 
+resources:
+	pyrcc5 resources.qrc -o resources.py
+
 .DEFAULT:
 	python setup.py $@
 
