@@ -1,2 +1,6 @@
 *.pyc
-pyrqt/iuqt4/ui/*.py
+__pycache__
+/pyrqt/iuqt3/ui/
+/pyrqt/iuqt4/ui/
+/pyrqt/iuqt5/ui/
+/pyrqt/ayuda/vprincipal.html
