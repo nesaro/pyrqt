@@ -10,7 +10,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>Ventana Splash</string>
+   <string>Splash Window</string>
   </property>
   <layout class="QVBoxLayout" >
    <item>

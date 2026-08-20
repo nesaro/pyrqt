@@ -12,6 +12,9 @@ rst:
 	$(MAKE) -C pyrqt/ayuda
 
 translations:
+	lrelease driza_es_ES.ts
+
+create_translations:
 	pylupdate5 pyrqt/iuqt5/ui/*.ui -ts driza_es_ES.ts
 
 .DEFAULT:
